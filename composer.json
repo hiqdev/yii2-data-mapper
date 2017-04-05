@@ -1,0 +1,70 @@
+{
+    "name": "hiqdev/hiapi-core",
+    "type": "yii2-extension",
+    "description": "HiAPI - template for Yii2 based API",
+    "keywords": [
+        "yii2",
+        "hiapi",
+        "core",
+        "api"
+    ],
+    "homepage": "https://github.com/hiqdev/hiapi-core",
+    "license": "BSD-3-Clause",
+    "support": {
+        "email": "support@hiqdev.com",
+        "source": "https://github.com/hiqdev/hiapi-core",
+        "issues": "https://github.com/hiqdev/hiapi-core/issues",
+        "wiki": "https://github.com/hiqdev/hiapi-core/wiki",
+        "forum": "http://forum.hiqdev.com/"
+    },
+    "authors": [
+        {
+            "name": "Andrii Vasyliev",
+            "role": "Project lead",
+            "email": "sol@hiqdev.com",
+            "homepage": "http://hipanel.com/"
+        },
+        {
+            "name": "Dmitry Naumenko",
+            "role": "Lead backend developer",
+            "email": "d.naumenko.a@gmail.com",
+            "homepage": "http://silverfire.me/"
+        },
+        {
+            "name": "Andrey Klochok",
+            "role": "Lead frontend developer",
+            "email": "andreyklochok@gmail.com",
+            "homepage": "http://hiqdev.com/"
+        },
+        {
+            "name": "Yuriy Myronchuk",
+            "role": "QA Lead",
+            "email": "bladeroot@gmail.com",
+            "homepage": "http://hiqdev.com/"
+        }
+    ],
+    "require": {
+        "hiqdev/hidev-webapp": "<2.0 || dev-master"
+    },
+    "require-dev": {
+        "hiqdev/hidev-php": "<2.0 || dev-master",
+        "hiqdev/hidev-hiqdev": "<2.0 || dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "hiapi\\": "src"
+        }
+    },
+    "extra": {
+        "config-plugin": {
+            "hiapi": "src/config/hiapi.php"
+        }
+    },
+    "minimum-stability": "dev",
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ]
+}
