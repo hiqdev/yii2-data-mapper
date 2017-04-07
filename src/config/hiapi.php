@@ -11,6 +11,12 @@
 return array_filter([
     'id' => 'hiapi',
     'name' => 'HiApi',
+    'aliases' => [
+        '@bower' => '@vendor/bower-asset',
+        '@npm' => '@vendor/npm-asset',
+        '@vendor/bower' => '@vendor/bower-asset',
+        '@vendor/npm' => '@vendor/npm-asset',
+    ],
     'basePath' => dirname(__DIR__),
     'viewPath' => '@hiapi/views',
     'vendorPath' => '@root/vendor',
@@ -20,6 +26,7 @@ return array_filter([
         'log' => 'log',
         'debug' => empty($params['debug.enabled']) ? null : 'debug',
     ]),
+    'catchAll' => ['hiapi/catch'],
     'components' => [
         'request' => [
             'enableCsrfCookie' => false,
@@ -40,7 +47,6 @@ return array_filter([
         ],
         'urlManager' => [
             'class' => \yii\web\UrlManager::class,
-            'catchAll' => ['hiapi/catch'],
         ],
     ],
     'modules' => array_filter([
