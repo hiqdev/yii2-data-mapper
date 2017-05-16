@@ -45,6 +45,7 @@
     ],
     "require": {
         "league/tactician": "^1.0",
+        "vlucas/phpdotenv": "^2.4",
         "hiqdev/hidev-webapp": "<2.0 || dev-master"
     },
     "require-dev": {
