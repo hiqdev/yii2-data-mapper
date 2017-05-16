@@ -10,7 +10,7 @@
 
 return array_filter([
     'id' => 'hiapi',
-    'name' => 'HiApi',
+    'name' => 'HiAPI',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm' => '@vendor/npm-asset',

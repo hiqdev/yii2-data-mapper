@@ -58,8 +58,9 @@
     },
     "extra": {
         "config-plugin": {
+            "common": "src/config/common.php",
             "hidev": "src/config/hidev.php",
-            "hiapi": "src/config/hiapi.php"
+            "web": "src/config/web.php"
         }
     },
     "minimum-stability": "dev",
