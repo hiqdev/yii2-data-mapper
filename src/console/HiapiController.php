@@ -20,7 +20,7 @@ class HiapiController extends \yii\console\Controller
 
     public function createCommand($request)
     {
-        var_dump($request);
+        var_dump($request->getParams());
 
         return 'hello';
     }
