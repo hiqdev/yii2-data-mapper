@@ -58,9 +58,17 @@
     },
     "extra": {
         "config-plugin": {
+            "defines": "src/config/defines.php",
+            "params": "src/config/params.php",
             "common": "src/config/common.php",
-            "hidev": "src/config/hidev.php",
-            "web": "src/config/web.php"
+            "console": [
+                "$common",
+                "src/config/console.php"
+            ],
+            "web": [
+                "$common",
+                "src/config/web.php"
+            ]
         }
     },
     "minimum-stability": "dev",
