@@ -1,11 +1,9 @@
 <?php
 
 return [
-    'components' => [
-        'config' => [
-            'hiapi' => [
-                'class' => 'hiapi\console\HiapiController',
-            ],
+    'controllerMap' => [
+        'hiapi' => [
+            'class' => \hiapi\console\HiapiController::class,
         ],
     ],
 ];
