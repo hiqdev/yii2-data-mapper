@@ -1,15 +1,15 @@
-# HiAPI Core
+# HiAPI
 
-**HiAPI - template for Yii2 based API**
+**HiAPI Yii2 base project for building API**
 
-[![Latest Stable Version](https://poser.pugx.org/hiqdev/hiapi-core/v/stable)](https://packagist.org/packages/hiqdev/hiapi-core)
-[![Total Downloads](https://poser.pugx.org/hiqdev/hiapi-core/downloads)](https://packagist.org/packages/hiqdev/hiapi-core)
-[![Build Status](https://img.shields.io/travis/hiqdev/hiapi-core.svg)](https://travis-ci.org/hiqdev/hiapi-core)
-[![Scrutinizer Code Coverage](https://img.shields.io/scrutinizer/coverage/g/hiqdev/hiapi-core.svg)](https://scrutinizer-ci.com/g/hiqdev/hiapi-core/)
-[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/hiqdev/hiapi-core.svg)](https://scrutinizer-ci.com/g/hiqdev/hiapi-core/)
-[![Dependency Status](https://www.versioneye.com/php/hiqdev:hiapi-core/dev-master/badge.svg)](https://www.versioneye.com/php/hiqdev:hiapi-core/dev-master)
+[![Latest Stable Version](https://poser.pugx.org/hiqdev/hiapi/v/stable)](https://packagist.org/packages/hiqdev/hiapi)
+[![Total Downloads](https://poser.pugx.org/hiqdev/hiapi/downloads)](https://packagist.org/packages/hiqdev/hiapi)
+[![Build Status](https://img.shields.io/travis/hiqdev/hiapi.svg)](https://travis-ci.org/hiqdev/hiapi)
+[![Scrutinizer Code Coverage](https://img.shields.io/scrutinizer/coverage/g/hiqdev/hiapi.svg)](https://scrutinizer-ci.com/g/hiqdev/hiapi/)
+[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/hiqdev/hiapi.svg)](https://scrutinizer-ci.com/g/hiqdev/hiapi/)
+[![Dependency Status](https://www.versioneye.com/php/hiqdev:hiapi/dev-master/badge.svg)](https://www.versioneye.com/php/hiqdev:hiapi/dev-master)
 
-HiAPI is a template for creating Yii2 based API.
+HiAPI is a base project for building Yii2 based API.
 
 ## Installation
 
@@ -18,13 +18,13 @@ The preferred way to install this yii2-extension is through [composer](http://ge
 Either run
 
 ```sh
-php composer.phar require "hiqdev/hiapi-core"
+php composer.phar require "hiqdev/hiapi"
 ```
 
 or add
 
 ```json
-"hiqdev/hiapi-core": "*"
+"hiqdev/hiapi": "*"
 ```
 
 to the require section of your composer.json.

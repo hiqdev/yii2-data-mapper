@@ -1,20 +1,20 @@
 {
-    "name": "hiqdev/hiapi-core",
+    "name": "hiqdev/hiapi",
     "type": "yii2-extension",
-    "description": "HiAPI - template for Yii2 based API",
+    "description": "HiAPI Yii2 base project for building API",
     "keywords": [
         "yii2",
         "hiapi",
         "core",
         "api"
     ],
-    "homepage": "https://github.com/hiqdev/hiapi-core",
+    "homepage": "https://github.com/hiqdev/hiapi",
     "license": "BSD-3-Clause",
     "support": {
         "email": "support@hiqdev.com",
-        "source": "https://github.com/hiqdev/hiapi-core",
-        "issues": "https://github.com/hiqdev/hiapi-core/issues",
-        "wiki": "https://github.com/hiqdev/hiapi-core/wiki",
+        "source": "https://github.com/hiqdev/hiapi",
+        "issues": "https://github.com/hiqdev/hiapi/issues",
+        "wiki": "https://github.com/hiqdev/hiapi/wiki",
         "forum": "http://forum.hiqdev.com/"
     },
     "authors": [

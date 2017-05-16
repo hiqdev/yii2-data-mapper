@@ -1,9 +1,8 @@
 package:
     type:           yii2-extension
-    name:           hiapi-core
-    title:          HiAPI - template for Yii2 based API
-    headline:       HiAPI Core
+    name:           hiapi
+    title:          HiAPI Yii2 base project for building API
+    headline:       HiAPI
     keywords:       yii2, hiapi, core, api
-    namespace:      hiapi
     description:    |
-        HiAPI is a template for creating Yii2 based API.
+        HiAPI is a base project for building Yii2 based API.
