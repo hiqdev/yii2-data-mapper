@@ -1,9 +1,9 @@
 <?php
 /**
- * HiAPI - template for Yii2 based API
+ * HiAPI Yii2 base project for building API
  *
- * @link      https://github.com/hiqdev/hiapi-core
- * @package   hiapi-core
+ * @link      https://github.com/hiqdev/hiapi
+ * @package   hiapi
  * @license   BSD-3-Clause
  * @copyright Copyright (c) 2017, HiQDev (http://hiqdev.com/)
  */

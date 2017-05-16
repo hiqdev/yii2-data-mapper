@@ -1,11 +1,11 @@
 <?php
 /**
- * HiSite Yii2 base project.
+ * HiAPI Yii2 base project for building API
  *
- * @link      https://github.com/hiqdev/hisite
- * @package   hisite
+ * @link      https://github.com/hiqdev/hiapi
+ * @package   hiapi
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2016-2017, HiQDev (http://hiqdev.com/)
+ * @copyright Copyright (c) 2017, HiQDev (http://hiqdev.com/)
  */
 
 return [
