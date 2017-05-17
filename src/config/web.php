@@ -26,7 +26,6 @@ return array_filter([
         'log' => 'log',
         'debug' => empty($params['debug.enabled']) ? null : 'debug',
     ]),
-    'catchAll' => ['hiapi/handle'],
     'components' => [
         'request' => [
             'enableCsrfCookie' => false,
@@ -47,6 +46,9 @@ return array_filter([
         ],
         'urlManager' => [
             'class' => \yii\web\UrlManager::class,
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'enableStrictParsing' => false,
         ],
     ],
     'modules' => array_filter([
