@@ -5,7 +5,7 @@ namespace hiapi\components;
 use League\Tactician\Handler\CommandHandlerMiddleware;
 use League\Tactician\CommandBus as Worker;
 
-class CommandBus extends \uii\base\Component
+class CommandBus extends \yii\base\Component
 {
     public $extractor;
     public $locator;
@@ -38,7 +38,8 @@ class CommandBus extends \uii\base\Component
 
     public function registerHandler($middleware)
     {
-        foreach ($this->middlewares as $middleware)
+        foreach ($this->middlewares as $middleware) {
+        }
     }
 
 
@@ -50,7 +51,7 @@ class CommandBus extends \uii\base\Component
     public function getTactician()
     {
         if ($this->bus === null) {
-            $this->bus = $this->buildBus();
+            $this->bus = $this->buildTactician();
         }
 
         return $this->bus;

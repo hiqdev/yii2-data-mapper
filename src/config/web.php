@@ -26,7 +26,7 @@ return array_filter([
         'log' => 'log',
         'debug' => empty($params['debug.enabled']) ? null : 'debug',
     ]),
-    'catchAll' => ['hiapi/catch'],
+    'catchAll' => ['hiapi/handle'],
     'components' => [
         'request' => [
             'enableCsrfCookie' => false,
