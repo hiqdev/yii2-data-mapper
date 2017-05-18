@@ -8,24 +8,70 @@ use Yii;
 
 class CommandBus extends \yii\base\Component
 {
-    public $extractor;
     public $locator;
+    public $extractor;
     public $inflector;
     public $middlewares = [];
 
+    protected $handler;
     protected $worker;
 
-    protected function buildTactician()
+    public function handle($command)
     {
-        $handler = Yii::createObject(CommandHandlerMiddleware::class, [
+        return $this->getWorker()->handle($command);
+    }
+
+    public function getWorker()
+    {
+        if ($this->worker === null) {
+            $this->worker = $this->buildWorker();
+        }
+
+        return $this->worker;
+    }
+
+    protected function buildWorker()
+    {
+        return new Worker($this->getMiddlewares());
+    }
+
+    public function getMiddlewares()
+    {
+        $this->middlewares = $this->prepareMiddlewares($this->middlewares);
+        if (!$this->holdsHandler($this->middlewares)) {
+            $this->middlewares[] = $this->getHandler();
+        }
+
+        return $this->middlewares;
+    }
+
+    public function prepareMiddlewares($middlewares)
+    {
+        foreach ($middlewares as &$middleware) {
+            if (!is_object($middleware)) {
+                $middleware = Yii::createObject($middleware);
+            }
+        }
+
+        return $middlewares;
+    }
+
+    public function getHandler()
+    {
+        if ($this->handler === null) {
+            $this->handler = $this->buildHandler();
+        }
+
+        return $this->handler;
+    }
+
+    public function buildHandler()
+    {
+        return Yii::createObject(CommandHandlerMiddleware::class, [
             $this->getExtractor(),
             $this->getLocator(),
             $this->getInflector(),
         ]);
-
-        $this->registerHandler($handler);
-
-        return new Worker($this->middlewares);
     }
 
     public function getExtractor()
@@ -55,29 +101,14 @@ class CommandBus extends \yii\base\Component
         return $this->inflector;
     }
 
-    public function registerHandler($handler)
+    public function holdsHandler($middlewares)
     {
-        foreach ($this->middlewares as $middleware) {
+        foreach ($middlewares as $middleware) {
             if ($middleware instanceof CommandHandlerMiddleware) {
-                return;
+                return true;
             }
         }
 
-        $this->middlewares[] = $handler;
-    }
-
-
-    public function handle($command)
-    {
-        return $this->getWorker()->handle($command);
-    }
-
-    public function getWorker()
-    {
-        if ($this->worker === null) {
-            $this->worker = $this->buildTactician();
-        }
-
-        return $this->worker;
+        return false;
     }
 }

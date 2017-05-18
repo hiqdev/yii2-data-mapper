@@ -24,4 +24,20 @@ class Command extends \yii\base\Model
 
         return static::$handler;
     }
+
+    public function loadFromRequest($request)
+    {
+        $this->load($this->getRequestData($request), '');
+        $this->validate();
+
+        return $this->hasErrors() ? $this->getErrors() : null;
+    }
+
+    public function getRequestData($request)
+    {
+        $get = $request->get();
+        $post = $request->post();
+
+        return array_merge($get, $post);
+    }
 }
