@@ -19,8 +19,6 @@ class CommandAction extends \yii\base\Action
 
     public function run()
     {
-        var_dump($this->getCommand());
-        die;
         return Yii::$app->get('commandBus')->handle($this->getCommand());
     }
 

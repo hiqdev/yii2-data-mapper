@@ -10,6 +10,18 @@
 
 namespace hiapi\commands;
 
+use Yii;
+
 class Command extends \yii\base\Model
 {
+    protected static $handler;
+
+    public static function getHandler()
+    {
+        if (!is_object(static::$handler)) {
+            static::$handler = Yii::createObject(static::$handler);
+        }
+
+        return static::$handler;
+    }
 }
