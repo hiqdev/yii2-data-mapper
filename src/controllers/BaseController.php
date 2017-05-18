@@ -15,6 +15,15 @@ use yii\helpers\Inflector;
 
 abstract class BaseController extends \yii\web\Controller
 {
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => \hiapi\filters\ContentNegotiator::class,
+            ],
+        ];
+    }
+
     protected $_actions;
 
     public function actions()

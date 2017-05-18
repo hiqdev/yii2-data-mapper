@@ -1,6 +1,6 @@
 <?php
 
-namespace hiapi\components;
+namespace hiapi\bus;
 
 use League\Tactician\Handler\Locator\HandlerLocator;
 

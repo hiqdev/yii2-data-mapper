@@ -11,7 +11,6 @@
 namespace hiapi\controllers;
 
 use Yii;
-use yii\helpers\Inflector;
 
 class CommandAction extends \yii\base\Action
 {

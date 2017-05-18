@@ -12,9 +12,24 @@ return [
     'components' => [
         'commandBus' => [
             'class' => \hiapi\components\CommandBus::class,
-            'locator' => \hiapi\components\InCommandLocator::class,
+            'locator' => \hiapi\bus\InCommandLocator::class,
             'extractor' => \League\Tactician\Handler\CommandNameExtractor\ClassNameExtractor::class,
             'inflector' => \League\Tactician\Handler\MethodNameInflector\HandleInflector::class,
+            'middlewares' => [
+                'load' => \hiapi\bus\LoadMiddleware::class,
+            ],
+        ],
+    ],
+    'container' => [
+        'definitions' => [
+            \hiapi\filters\ContentNegotiator::class => [
+                'class' => \yii\filters\ContentNegotiator::class,
+                'formats' => [
+                    'application/json' => \yii\web\Response::FORMAT_JSON,
+                 // XXX disabled because browsers accept XML
+                 // 'application/xml'  => \yii\web\Response::FORMAT_XML,
+                ],
+            ],
         ],
     ],
 ];
