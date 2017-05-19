@@ -12,7 +12,7 @@ namespace hiapi\commands;
 
 use Yii;
 
-class Command extends \yii\base\Model
+abstract class BaseCommand extends \yii\base\Model
 {
     protected static $handler;
 
