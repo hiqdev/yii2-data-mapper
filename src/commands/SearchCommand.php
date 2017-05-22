@@ -4,7 +4,6 @@ namespace hiapi\commands;
 
 class SearchCommand extends BaseCommand
 {
-
     public $select;
     public $where;
 

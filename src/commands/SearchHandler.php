@@ -2,7 +2,7 @@
 
 namespace hiapi\commands;
 
-class QueryHandler
+class SearchHandler
 {
 
 }

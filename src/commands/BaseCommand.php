@@ -25,6 +25,11 @@ abstract class BaseCommand extends \yii\base\Model
         return static::$handler;
     }
 
+    public static function setHandler($value)
+    {
+        static::$handler = $value;
+    }
+
     public function loadFromRequest($request)
     {
         $this->load($this->getRequestData($request), '');
