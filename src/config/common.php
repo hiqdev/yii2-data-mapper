@@ -19,6 +19,16 @@ return [
                 'load' => \hiapi\bus\LoadMiddleware::class,
             ],
         ],
+        'entityManager' => [
+            'class' => \hiapi\components\EntityManager::class,
+        ],
+        'db' => [
+            'class'     => \yii\db\Connection::class,
+            'charset'   => 'utf8',
+            'dsn'       => 'pgsql:dbname=' . $params['db.name'],
+            'username'  => $params['db.user'],
+            'password'  => $params['db.password'],
+        ],
     ],
     'container' => [
         'definitions' => [
@@ -26,8 +36,8 @@ return [
                 'class' => \yii\filters\ContentNegotiator::class,
                 'formats' => [
                     'application/json' => \yii\web\Response::FORMAT_JSON,
-                 // XXX disabled because browsers accept XML
-                 // 'application/xml'  => \yii\web\Response::FORMAT_XML,
+                    // XXX disabled because browsers accept XML
+                    // 'application/xml'  => \yii\web\Response::FORMAT_XML,
                 ],
             ],
         ],

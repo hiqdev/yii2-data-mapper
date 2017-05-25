@@ -20,4 +20,8 @@ return [
     'mailer.enabled'        => YII_ENV === 'prod' ? true : null,
 
     'cookieValidationKey'   => null,
+
+    'db.name'               => 'hiapi',
+    'db.user'               => 'hiapi',
+    'db.password'           => '*',
 ];

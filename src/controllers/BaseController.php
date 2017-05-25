@@ -104,4 +104,11 @@ abstract class BaseController extends \yii\web\Controller
 
         return implode('\\', $nss);
     }
+
+    protected $entityClass;
+
+    public function getEntityClass()
+    {
+        return $this->entityClass;
+    }
 }

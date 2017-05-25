@@ -14,7 +14,15 @@ use Yii;
 
 abstract class BaseCommand extends \yii\base\Model
 {
+    protected $entityClass;
+
     protected static $handler;
+
+    public function __construct($entityClass, $config = [])
+    {
+        $this->entityClass = $entityClass;
+        parent::__construct($config);
+    }
 
     public static function getHandler()
     {
@@ -44,5 +52,31 @@ abstract class BaseCommand extends \yii\base\Model
         $post = $request->post();
 
         return array_merge($get, $post);
+    }
+
+    public function getEntityClass()
+    {
+        return $this->entityClass;
+    }
+
+    public function getRecordClass()
+    {
+        return $this->getRepository()->getRecordClass();
+    }
+
+    protected $_repository;
+
+    public function getRepository()
+    {
+        if ($this->_repository === null) {
+            $this->_repository = $this->findRepository();
+        }
+
+        return $this->_repository;
+    }
+
+    public function findRepository()
+    {
+        return Yii::$app->entityManager->getRepository($this->entityClass);
     }
 }

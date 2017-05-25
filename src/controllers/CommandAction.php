@@ -24,7 +24,7 @@ class CommandAction extends \yii\base\Action
     public function getCommand()
     {
         if (!is_object($this->_command)) {
-            $this->_command = Yii::createObject($this->_command);
+            $this->_command = Yii::createObject($this->_command, [$this->controller->getEntityClass()]);
         }
 
         return $this->_command;
