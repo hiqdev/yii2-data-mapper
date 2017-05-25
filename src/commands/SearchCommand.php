@@ -2,8 +2,6 @@
 
 namespace hiapi\commands;
 
-use hiapi\repositories\ActiveQuery;
-
 class SearchCommand extends BaseCommand
 {
     protected static $handler = SearchHandler::class;
@@ -21,7 +19,14 @@ class SearchCommand extends BaseCommand
         ];
     }
 
-    public function getQuery()
+    public function getAttributes()
+    {
+        $this->fixAttributes();
+
+        return parent::getAttributes();
+    }
+
+    public function fixAttributes()
     {
         if (is_string($this->select)) {
             $this->select = explode(',', $this->select);
@@ -30,7 +35,5 @@ class SearchCommand extends BaseCommand
         if (!$this->limit) {
             $this->limit = 25;
         }
-
-        return new ActiveQuery($this->getRecordClass(), $this->getAttributes());
     }
 }
