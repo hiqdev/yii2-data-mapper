@@ -13,6 +13,6 @@ class SearchHandler
 
     public function getQuery(SearchCommand $command)
     {
-        return new ActiveQuery($command->getRecordClass(), $command->getAttributes());
+        return new ActiveQuery($command->getRecordClass(), $command->getQueryOptions());
     }
 }

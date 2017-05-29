@@ -15,7 +15,13 @@ class ActiveQuery extends \yii\db\ActiveQuery
 
     public function all($db = null)
     {
-        return parent::all($db ?: $this->getDb());
+        $records = parent::all($db ?: $this->getDb());
+        $entities = [];
+        foreach ($records as $record) {
+            $entities[$record->getPrimaryKey()] = $record->getEntity();
+        }
+
+        return $entities;
     }
 
     public function one($db = null)
@@ -27,4 +33,34 @@ class ActiveQuery extends \yii\db\ActiveQuery
     {
         return Yii::$app->getDb();
     }
+
+/*
+    public function prepare($builder)
+    {
+        $this->prepareSelect();
+
+        return parent::prepare($builder);
+    }
+
+    public function prepareSelect()
+    {
+        $cons = $this->conversions();
+        $res = [];
+        foreach ($this->select as $field) {
+            if (isset($cons[$field])) {
+                $field = $cons[$field];
+            }
+            $res[] = $field;
+        }
+
+        $this->select = $res;
+    }
+
+    public function conversions()
+    {
+        $class = $this->modelClass;
+
+        return $class::conversions();
+    }
+*/
 }

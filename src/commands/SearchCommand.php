@@ -19,21 +19,11 @@ class SearchCommand extends BaseCommand
         ];
     }
 
-    public function getAttributes()
+    public function getQueryOptions()
     {
-        $this->fixAttributes();
-
-        return parent::getAttributes();
-    }
-
-    public function fixAttributes()
-    {
-        if (is_string($this->select)) {
-            $this->select = explode(',', $this->select);
-        }
-
-        if (!$this->limit) {
-            $this->limit = 25;
-        }
+        return [
+            'where' => $this->where,
+            'limit' => $this->limit ?: 25,
+        ];
     }
 }
