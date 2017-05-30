@@ -11,10 +11,7 @@
 return [
     'components' => [
         'commandBus' => [
-            'class' => \hiapi\components\CommandBus::class,
-            'locator' => \hiapi\bus\InCommandLocator::class,
-            'extractor' => \League\Tactician\Handler\CommandNameExtractor\ClassNameExtractor::class,
-            'inflector' => \League\Tactician\Handler\MethodNameInflector\HandleInflector::class,
+            'class' => \hiapi\components\CommandBusInterface::class,
             'middlewares' => [
                 'load' => \hiapi\bus\LoadMiddleware::class,
             ],
@@ -32,14 +29,23 @@ return [
     ],
     'container' => [
         'definitions' => [
+            \hiapi\components\CommandBusInterface::class => function ($container, $params, $config) {
+                $params[0] = new \League\Tactician\Handler\CommandHandlerMiddleware(
+                    $container->get(League\Tactician\Handler\CommandNameExtractor\ClassNameExtractor::class),
+                    $container->get(hiapi\bus\InCommandLocator::class),
+                    $container->get(League\Tactician\Handler\MethodNameInflector\HandleInflector::class)
+                );
+
+                return new \hiapi\components\TacticianCommandBus($params[0], $config);
+            },
             \hiapi\filters\ContentNegotiator::class => [
                 'class' => \yii\filters\ContentNegotiator::class,
                 'formats' => [
                     'application/json' => \yii\web\Response::FORMAT_JSON,
                     // XXX disabled because browsers accept XML
-                    // 'application/xml'  => \yii\web\Response::FORMAT_XML,
+//                     'application/xml'  => \yii\web\Response::FORMAT_XML,
                 ],
-            ],
+            ]
         ],
     ],
 ];
