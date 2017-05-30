@@ -3,16 +3,29 @@
 namespace hiapi\commands;
 
 use hiapi\repositories\ActiveQuery;
+use hiapi\repositories\BaseRepository;
+use Yii;
 
 class SearchHandler
 {
     public function handle(SearchCommand $command)
     {
-        return $command->getRepository()->find($this->getQuery($command))->all();
+        return $this->getRepository($command)->find($this->buildQuery($command))->all();
     }
 
-    public function getQuery(SearchCommand $command)
+    protected function buildQuery(SearchCommand $command)
     {
-        return new ActiveQuery($command->getRecordClass(), $command->getQueryOptions());
+        $recordClass = $this->getRepository($command)->getRecordClass();
+
+        return new ActiveQuery($recordClass, $command->getQueryOptions());
+    }
+
+    /**
+     * @param SearchCommand $command
+     * @return BaseRepository
+     */
+    protected function getRepository(SearchCommand $command)
+    {
+        return Yii::$app->entityManager->getRepository($command->getEntityClass());
     }
 }

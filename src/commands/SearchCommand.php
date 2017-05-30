@@ -4,8 +4,6 @@ namespace hiapi\commands;
 
 class SearchCommand extends BaseCommand
 {
-    protected static $handler = SearchHandler::class;
-
     public $select;
     public $where;
     public $limit;

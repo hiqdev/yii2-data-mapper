@@ -4,8 +4,6 @@ namespace hiapi\commands;
 
 class PingCommand extends BaseCommand
 {
-    protected static $handler = PingHandler::class;
-
     protected $answer = 'pong';
 
     public $name;

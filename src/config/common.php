@@ -32,7 +32,7 @@ return [
             \hiapi\components\CommandBusInterface::class => function ($container, $params, $config) {
                 $params[0] = new \League\Tactician\Handler\CommandHandlerMiddleware(
                     $container->get(League\Tactician\Handler\CommandNameExtractor\ClassNameExtractor::class),
-                    $container->get(hiapi\bus\InCommandLocator::class),
+                    $container->get(hiapi\bus\NearbyHandlerLocator::class),
                     $container->get(League\Tactician\Handler\MethodNameInflector\HandleInflector::class)
                 );
 
