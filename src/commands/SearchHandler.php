@@ -17,7 +17,7 @@ class SearchHandler
     {
         $recordClass = $this->getRepository($command)->getRecordClass();
 
-        return new ActiveQuery($recordClass, $command->getQueryOptions());
+        return new ActiveQuery($recordClass, $this->getQueryOptions($command));
     }
 
     /**
@@ -27,5 +27,13 @@ class SearchHandler
     protected function getRepository(SearchCommand $command)
     {
         return Yii::$app->entityManager->getRepository($command->getEntityClass());
+    }
+
+    protected function getQueryOptions(SearchCommand $command)
+    {
+        return [
+            'where' => $command->where,
+            'limit' => $command->limit ?: 25,
+        ];
     }
 }

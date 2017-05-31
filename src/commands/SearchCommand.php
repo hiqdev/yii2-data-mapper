@@ -16,12 +16,4 @@ class SearchCommand extends BaseCommand
             ['limit', 'number', 'max' => 100],
         ];
     }
-
-    public function getQueryOptions()
-    {
-        return [
-            'where' => $this->where,
-            'limit' => $this->limit ?: 25,
-        ];
-    }
 }
