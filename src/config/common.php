@@ -20,7 +20,7 @@ return [
             'class' => \hiapi\components\EntityManager::class,
         ],
         'db' => [
-            'class'     => \yii\db\Connection::class,
+            'class'     => \hiapi\components\Connection::class,
             'charset'   => 'utf8',
             'dsn'       => 'pgsql:dbname=' . $params['db.name'],
             'username'  => $params['db.user'],
@@ -29,6 +29,9 @@ return [
     ],
     'container' => [
         'definitions' => [
+            \hiapi\components\ConnectionInterface::class => function () {
+                return Yii::$app->get('db');
+            },
             \hiapi\components\CommandBusInterface::class => function ($container, $params, $config) {
                 $params[0] = new \League\Tactician\Handler\CommandHandlerMiddleware(
                     $container->get(League\Tactician\Handler\CommandNameExtractor\ClassNameExtractor::class),
