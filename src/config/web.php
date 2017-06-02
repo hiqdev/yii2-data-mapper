@@ -29,6 +29,7 @@ return array_filter([
     'components' => [
         'request' => [
             'enableCsrfCookie' => false,
+            'enableCsrfValidation' => false,
         ],
         'mailer' => [
             'viewPath' => '@hiapi/views/mail',
