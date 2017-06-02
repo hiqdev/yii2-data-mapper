@@ -28,12 +28,4 @@ class SearchHandler
     {
         return Yii::$app->entityManager->getRepository($command->getEntityClass());
     }
-
-    protected function getQueryOptions(SearchCommand $command)
-    {
-        return [
-            'where' => $command->where,
-            'limit' => $command->limit ?: 25,
-        ];
-    }
 }

@@ -1,18 +1,18 @@
 <?php
 
+use yii\db\Query;
 
 namespace hiapi\query;
 
 class QueryMutator
 {
     /**
-     * @var \yii\db\Query
+     * @var Query
      */
     protected $query;
 
     /**
-     * QueryMutator constructor.
-     * @param \yii\db\Query $query
+     * @param Query $query
      */
     public function __construct($query)
     {
