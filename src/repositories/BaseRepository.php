@@ -15,6 +15,9 @@ use Yii;
 
 abstract class BaseRepository extends \yii\base\Component
 {
+    /**
+     * @var ConnectionInterface
+     */
     protected $db;
 
     protected $factory;
@@ -28,7 +31,6 @@ abstract class BaseRepository extends \yii\base\Component
         return $query;
     }
 
-    protected $_recordClass;
 
     public function setRecordClass($value)
     {
