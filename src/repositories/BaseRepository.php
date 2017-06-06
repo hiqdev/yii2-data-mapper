@@ -22,6 +22,9 @@ abstract class BaseRepository extends \yii\base\Component
 
     protected $factory;
 
+    /**
+     * @var string
+     */
     public $queryClass;
 
     public function find(ActiveQuery $query)
@@ -30,7 +33,6 @@ abstract class BaseRepository extends \yii\base\Component
 
         return $query;
     }
-
 
     public function setRecordClass($value)
     {
@@ -122,5 +124,10 @@ abstract class BaseRepository extends \yii\base\Component
         $arg = reset($method->getParameters());
 
         return $arg->getClass()->getName();
+    }
+
+    public function createEntity($entityClass, $row)
+    {
+        return Yii::$app->entityManager->getRepository($entityClass)->create($row);
     }
 }
