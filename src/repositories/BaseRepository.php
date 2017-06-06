@@ -130,4 +130,17 @@ abstract class BaseRepository extends \yii\base\Component
     {
         return Yii::$app->entityManager->getRepository($entityClass)->create($row);
     }
+
+    protected function splitDbRawData(array $row)
+    {
+        foreach ($row as $key => $value) {
+            $parts = explode('-', $key, 2);
+            if (count($parts)>1) {
+                $row[$parts[0]][$parts[1]] = $value;
+                unset($row[$key]);
+            }
+        }
+
+        return $row;
+    }
 }
