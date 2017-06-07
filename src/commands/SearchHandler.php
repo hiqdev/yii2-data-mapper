@@ -15,7 +15,7 @@ class SearchHandler
 
     protected function buildSpecification(SearchCommand $command)
     {
-        return (new Specification())
+        return Yii::createObject(Specification::class)
             ->where($command->where)
             ->limit($command->limit ?: 25);
     }

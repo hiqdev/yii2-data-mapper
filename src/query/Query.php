@@ -4,16 +4,23 @@ namespace hiapi\query;
 
 class Query extends \yii\db\Query
 {
-    public function apply(Specification $specification)
+    /**
+     * @var FieldFactoryInterface
+     */
+    protected $fieldFactory;
+
+    public function __construct(FieldFactoryInterface $filterFactory, array $config = [])
     {
-        if ($specification->where) {
-            $this->andWhere($specification->where);
-        }
+        parent::__construct($config);
 
-        if ($specification->limit) {
-            $this->limit($specification->limit);
-        }
+        $this->fieldFactory = $filterFactory;
+    }
 
-        return $this;
+    /**
+     * @return Field[]
+     */
+    public function getFields()
+    {
+        return [];
     }
 }

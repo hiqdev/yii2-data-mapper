@@ -75,7 +75,7 @@ abstract class BaseRepository extends \yii\base\Component
 
     protected function buildSelectQuery(Specification $specification)
     {
-        return $this->buildQuery()->initSelect()->apply($specification);
+        return $specification->applyTo($this->buildQuery()->initSelect());
     }
 
     protected function buildQuery()

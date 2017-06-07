@@ -48,7 +48,8 @@ return [
                     // XXX disabled because browsers accept XML
 //                     'application/xml'  => \yii\web\Response::FORMAT_XML,
                 ],
-            ]
+            ],
+            \hiapi\query\FieldFactoryInterface::class => \hiapi\query\FieldFactory::class,
         ],
     ],
 ];
