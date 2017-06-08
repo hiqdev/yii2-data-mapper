@@ -9,4 +9,6 @@ interface FieldFactoryInterface
      * @return Field[]
      */
     public function createByModelAttributes($model, $map);
+
+    public function getHierarchySeparator(): string;
 }

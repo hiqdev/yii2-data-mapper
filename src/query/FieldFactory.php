@@ -11,18 +11,29 @@ class FieldFactory implements FieldFactoryInterface
      * @param $map
      * @return Field[]
      */
-    public function createByModelAttributes($model, $map)
+    public function createByModelAttributes($model, $map, $parentRelations = [])
     {
         $result = [];
 
-        foreach ($map as $attributeName => $sql) {
-            $attribute = $model->hasAttribute($attributeName)
-                ? $model->getAttribute($attributeName)
-                : $model->getRelatedAttribute($attributeName);
-
-            $result[] = new Field($attributeName, $sql, $attribute);
+        foreach ($map as $attributeName => $definition) {
+            if (!is_array($definition)) {
+                $name = implode(array_merge($parentRelations, [$attributeName]), $this->getHierarchySeparator());
+                $result[] = new Field($name, $definition, $model->getAttribute($attributeName));
+            } else {
+                $relationClass = $model->getRelation($attributeName);
+                $result = array_merge($result, $this->createByModelAttributes(
+                    new $relationClass,
+                    $definition,
+                    array_merge($parentRelations, [$attributeName])
+                ));
+            }
         }
 
         return $result;
+    }
+
+    public function getHierarchySeparator(): string
+    {
+        return '-';
     }
 }

@@ -10,6 +10,7 @@
 
 namespace hiapi\repositories;
 
+use hiapi\components\ConnectionInterface;
 use hiapi\query\Specification;
 use Yii;
 
@@ -59,7 +60,9 @@ abstract class BaseRepository extends \yii\base\Component
     {
         $query = $this->buildSelectQuery($specification);
         $rows = $query->createCommand($this->db)->queryAll();
-        /// todo $this->addWithes();
+        $rows = array_map(function ($row) use ($query) {
+            return $query->restoreHierarchy($row);
+        }, $rows);
 
         return $this->createMultiple($rows);
     }
@@ -69,6 +72,7 @@ abstract class BaseRepository extends \yii\base\Component
         $specification->limit(1);
         $query = $this->buildSelectQuery($specification);
         $row = $query->createCommand($this->db)->queryOne();
+        $row = $query->restoreHierarchy($row);
 
         return $this->create($row);
     }
@@ -108,9 +112,10 @@ abstract class BaseRepository extends \yii\base\Component
         $class = $this->getEntityCreationDtoClass();
         $dto = new $class();
         $props = array_keys(get_object_vars($dto));
+
         foreach ($props as $name) {
             if (isset($row[$name])) {
-                $dto->{$name} = $row[$name];
+                $dto->$name = $row[$name];
             }
         }
 
@@ -129,18 +134,5 @@ abstract class BaseRepository extends \yii\base\Component
     public function createEntity($entityClass, $row)
     {
         return Yii::$app->entityManager->getRepository($entityClass)->create($row);
-    }
-
-    protected function splitDbRawData(array $row)
-    {
-        foreach ($row as $key => $value) {
-            $parts = explode('-', $key, 2);
-            if (count($parts)>1) {
-                $row[$parts[0]][$parts[1]] = $value;
-                unset($row[$key]);
-            }
-        }
-
-        return $row;
     }
 }
