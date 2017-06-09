@@ -2,6 +2,8 @@
 
 namespace hiapi\query;
 
+use yii\base\InvalidConfigException;
+
 abstract class Query extends \yii\db\Query
 {
     /**
@@ -19,6 +21,10 @@ abstract class Query extends \yii\db\Query
         parent::__construct($config);
 
         $this->fieldFactory = $filterFactory;
+
+        if (!isset($this->modelClass)) {
+            throw new InvalidConfigException('Property "modelClass" must be set');
+        }
     }
 
     /**
@@ -46,12 +52,18 @@ abstract class Query extends \yii\db\Query
 
     public function restoreHierarchy($row)
     {
+        $separator = $this->fieldFactory->getHierarchySeparator();
+
         foreach ($row as $key => $value) {
-            $parts = explode($this->fieldFactory->getHierarchySeparator(), $key, 2);
-            if (count($parts) > 1) {
-                $row[$parts[0]][$parts[1]] = $value;
-                unset($row[$key]);
+            if (strpos($key, $separator) === false) {
+                continue;
             }
+
+            $parts = explode($separator, $key);
+            while (!empty($parts)) {
+                $value = [array_pop($parts) => $value];
+            }
+            $row = array_merge_recursive($row, $value);
         }
 
         return $row;
