@@ -32,7 +32,7 @@ class FieldFactory implements FieldFactoryInterface
         return $result;
     }
 
-    public function getHierarchySeparator(): string
+    public function getHierarchySeparator()
     {
         return '-';
     }
