@@ -43,7 +43,12 @@ abstract class Query extends \yii\db\Query
     {
         foreach ($fields as $field) {
             if ($field->canBeSelected()) {
-                $this->addSelect($field->getSql() . ' as ' . $field->getName());
+                $statement = $field->getSql();
+                if (is_object($statement)) {
+                    $this->addSelect($statement);
+                } else {
+                    $this->addSelect($statement . ' as ' . $field->getName());
+                }
             }
         }
 

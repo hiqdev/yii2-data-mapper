@@ -8,7 +8,7 @@ use yii\base\InvalidConfigException;
 use yii\validators\InlineValidator;
 use yii\validators\Validator;
 
-class FieldValidatorFactory
+class AttributeValidatorFactory
 {
     /**
      * @var array
@@ -26,7 +26,7 @@ class FieldValidatorFactory
 
     /**
      * @param Field $field
-     * @return Validator
+     * @return AttributeValidator
      */
     public function createFor(Field $field, $operator)
     {
@@ -47,7 +47,7 @@ class FieldValidatorFactory
     /**
      * @param string $type
      * @param array $params
-     * @return Validator
+     * @return AttributeValidator
      */
     public function createByType($type, $params = [])
     {
@@ -69,6 +69,8 @@ class FieldValidatorFactory
             }
         }
 
-        return Yii::createObject($params);
+        $validator = Yii::createObject($params);
+
+        return new AttributeValidator($validator);
     }
 }

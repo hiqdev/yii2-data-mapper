@@ -2,9 +2,9 @@
 
 namespace hiapi\query;
 
-use hiapi\validators\FieldValidationException;
+use hiapi\validators\AttributeValidationException;
 use hiapi\validators\FieldValidator;
-use hiapi\validators\FieldValidatorFactory;
+use hiapi\validators\AttributeValidatorFactory;
 use yii\base\InvalidParamException;
 use yii\db\QueryTrait;
 
@@ -15,11 +15,11 @@ class Specification
     public $requestedRelations = [];
 
     /**
-     * @var FieldValidatorFactory
+     * @var AttributeValidatorFactory
      */
     private $fieldValidatorFactory;
 
-    function __construct(FieldValidatorFactory $fieldValidatorFactory)
+    function __construct(AttributeValidatorFactory $fieldValidatorFactory)
     {
         $this->fieldValidatorFactory = $fieldValidatorFactory;
     }
@@ -48,7 +48,7 @@ class Specification
 
     /**
      * @param Query $query
-     * @throws FieldValidationException
+     * @throws AttributeValidationException
      */
     public function applyWhereTo($query)
     {
@@ -61,11 +61,11 @@ class Specification
                 }
 
                 if ($field->nameEquals($key)) {
-                    if (!$this->fieldValidatorFactory->createFor($field, 'eq')->validate($condition)) {
-                        throw new FieldValidationException('Value ' . $condition . ' is not valid');
-                    }
+                    $validator = $this->fieldValidatorFactory->createFor($field, 'eq');
+                    $value = $validator->normalize($condition);
+                    $validator->validate($value);
 
-                    $conditions[$field->getSql()] = $condition;
+                    $conditions[$field->getName()] = $value;
                 }
             }
         }

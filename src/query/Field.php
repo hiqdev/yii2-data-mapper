@@ -2,7 +2,7 @@
 
 namespace hiapi\query;
 
-use hiapi\query\types\AbstractAttribute;
+use hiapi\query\attributes\AbstractAttribute;
 
 class Field
 {

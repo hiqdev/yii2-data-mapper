@@ -1,9 +1,11 @@
 <?php
 
-namespace hiapi\query\types;
+namespace hiapi\query\attributes;
 
 abstract class AbstractAttribute implements AttributeInterface
 {
+    abstract protected function getOperatorRules();
+
     public function getRuleForOperator($operator)
     {
         $rules = $this->getOperatorRules();

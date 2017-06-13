@@ -1,8 +1,8 @@
 <?php
 
-namespace hiapi\query\types;
+namespace hiapi\query\attributes;
 
-class UnsupportedOperatorException extends \hiapi\validators\FieldValidationException
+class UnsupportedOperatorException extends \hiapi\validators\AttributeValidationException
 {
     public static function forOperator($operator)
     {

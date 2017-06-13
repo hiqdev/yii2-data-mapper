@@ -1,10 +1,8 @@
 <?php
 
-namespace hiapi\query\types;
+namespace hiapi\query\attributes;
 
 interface AttributeInterface
 {
-    public function getOperatorRules();
-
     public function getRuleForOperator($operator);
 }

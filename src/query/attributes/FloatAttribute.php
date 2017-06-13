@@ -1,6 +1,6 @@
 <?php
 
-namespace hiapi\query\types;
+namespace hiapi\query\attributes;
 
 /**
  * Class FloatAttribute
