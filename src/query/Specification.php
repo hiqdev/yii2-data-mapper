@@ -65,7 +65,7 @@ class Specification
                     $value = $validator->normalize($condition);
                     $validator->validate($value);
 
-                    $conditions[$field->getName()] = $value;
+                    $conditions[$field->getSql()] = $value;
                 }
             }
         }
