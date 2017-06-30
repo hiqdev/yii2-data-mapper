@@ -74,6 +74,16 @@ abstract class Query extends \yii\db\Query
         return $row;
     }
 
+    public function initSelect()
+    {
+        return $this->initFrom()->selectByFields($this->getFields());
+    }
+
+    /**
+     * @return $this
+     */
+    abstract protected function initFrom();
+
     /**
      * @return mixed
      */
