@@ -4,7 +4,7 @@ namespace hiapi\query;
 
 use hiapi\query\attributes\AbstractAttribute;
 
-class Field
+class Field implements FieldInterface
 {
     /**
      * @var string
@@ -21,7 +21,7 @@ class Field
      */
     protected $attribute;
 
-    public function __construct($name, $sql, $attribute)
+    public function __construct($name, $sql, AbstractAttribute $attribute)
     {
         $this->name = $name;
         $this->sql = $sql;
@@ -33,9 +33,9 @@ class Field
         return true;
     }
 
-    public function nameEquals($value)
+    public function isApplicable($key)
     {
-        return strcasecmp($this->name, $value) === 0;
+        return strcasecmp($this->name, $key) === 0;
     }
 
     /**
@@ -60,5 +60,19 @@ class Field
     public function getAttribute()
     {
         return $this->attribute;
+    }
+
+    public function buildCondition($value)
+    {
+
+        if (is_array($value)) {
+            throw new InvalidParamException('Condition ' . json_encode($value) . ' is not supported yet.');
+        }
+
+        $validator = $this->getAttribute()->getValidatorFor('eq');
+        $value = $validator->normalize($value);
+        $validator->validate($value);
+
+        return [$this->getSql() => $value];
     }
 }

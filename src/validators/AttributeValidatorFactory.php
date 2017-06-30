@@ -24,17 +24,6 @@ class AttributeValidatorFactory
         }
     }
 
-    /**
-     * @param Field $field
-     * @return AttributeValidator
-     */
-    public function createFor(Field $field, $operator)
-    {
-        $rule = $field->getAttribute()->getRuleForOperator($operator);
-
-        return $this->createByDefinition($rule);
-    }
-
     public function createByDefinition($definition)
     {
         if (is_string($definition)) {

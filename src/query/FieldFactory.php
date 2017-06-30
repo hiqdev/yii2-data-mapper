@@ -9,27 +9,35 @@ class FieldFactory implements FieldFactoryInterface
     /**
      * @param ModelInterface $model
      * @param $map
+     * @param string[] parent attribute names
      * @return Field[]
      */
-    public function createByModelAttributes($model, $map, $parentRelations = [])
+    public function createByModelAttributes($model, $map, array $parents = [])
     {
         $result = [];
 
         foreach ($map as $attributeName => $definition) {
             if (!is_array($definition)) {
-                $name = implode(array_merge($parentRelations, [$attributeName]), $this->getHierarchySeparator());
-                $result[] = new Field($name, $definition, $model->getAttribute($attributeName));
+                $result[] = is_object($definition) ? $definition : $this->buildField($model, $attributeName, $definition, $parents);
             } else {
                 $relationClass = $model->getRelation($attributeName);
                 $result = array_merge($result, $this->createByModelAttributes(
                     new $relationClass,
                     $definition,
-                    array_merge($parentRelations, [$attributeName])
+                    array_merge($parents, [$attributeName])
                 ));
             }
         }
 
         return $result;
+    }
+
+    protected function buildField($model, $attributeName, $sql, array $parents)
+    {
+        array_push($parents, $attributeName);
+        $name = implode($this->getHierarchySeparator(), $parents);
+
+        return new Field($name, $sql, $model->getAttribute($attributeName));
     }
 
     public function getHierarchySeparator()
