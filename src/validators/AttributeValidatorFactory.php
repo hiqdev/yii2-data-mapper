@@ -1,10 +1,16 @@
 <?php
+/**
+ * HiAPI Yii2 base project for building API
+ *
+ * @link      https://github.com/hiqdev/hiapi
+ * @package   hiapi
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2017, HiQDev (http://hiqdev.com/)
+ */
 
 namespace hiapi\validators;
 
-use hiapi\query\Field;
 use Yii;
-use yii\base\InvalidConfigException;
 use yii\validators\InlineValidator;
 use yii\validators\Validator;
 
@@ -14,10 +20,9 @@ class AttributeValidatorFactory
      * @var array
      */
     protected $aliases = [
-
     ];
 
-    function __construct($aliases = null)
+    public function __construct($aliases = null)
     {
         if (is_array($aliases)) {
             $this->aliases = $aliases;

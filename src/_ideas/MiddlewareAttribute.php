@@ -1,9 +1,17 @@
 <?php
+/**
+ * HiAPI Yii2 base project for building API
+ *
+ * @link      https://github.com/hiqdev/hiapi
+ * @package   hiapi
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2017, HiQDev (http://hiqdev.com/)
+ */
 
 namespace hiapi\query\attributes;
 
 /**
- * Class MiddlewareAttribute
+ * Class MiddlewareAttribute.
  *
  * Usage:
  *
@@ -23,7 +31,7 @@ class MiddlewareAttribute implements AttributeInterface
      */
     private $middlewareAttribtues;
 
-    public function __construct(... $attributes)
+    public function __construct(...$attributes)
     {
         $this->middlewareAttribtues = $attributes;
     }

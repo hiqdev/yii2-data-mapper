@@ -1,4 +1,12 @@
 <?php
+/**
+ * HiAPI Yii2 base project for building API
+ *
+ * @link      https://github.com/hiqdev/hiapi
+ * @package   hiapi
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2017, HiQDev (http://hiqdev.com/)
+ */
 
 namespace hiapi\query;
 
@@ -64,7 +72,6 @@ class Field implements FieldInterface
 
     public function buildCondition($value)
     {
-
         if (is_array($value)) {
             throw new InvalidParamException('Condition ' . json_encode($value) . ' is not supported yet.');
         }
