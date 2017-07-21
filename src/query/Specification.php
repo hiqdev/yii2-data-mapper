@@ -10,11 +10,10 @@
 
 namespace hiapi\query;
 
-use yii\db\QueryTrait;
-
 class Specification
 {
-    use QueryTrait;
+    use \yii\db\QueryTrait;
+    use \yii\db\ActiveQueryTrait;
 
     public $requestedRelations = [];
 
