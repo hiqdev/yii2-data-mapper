@@ -69,6 +69,13 @@ abstract class BaseRepository extends \yii\base\Component
 
     public function findOne(Specification $specification)
     {
+        $rows = $this->findAll($specification->limit(1));
+
+        return reset($rows);
+    }
+
+    public function old_findOne(Specification $specification)
+    {
         $specification->limit(1);
         $query = $this->buildSelectQuery($specification);
         $row = $query->createCommand($this->db)->queryOne();
