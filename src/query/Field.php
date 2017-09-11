@@ -11,6 +11,7 @@
 namespace hiapi\query;
 
 use hiapi\query\attributes\AbstractAttribute;
+use yii\base\InvalidParamException;
 
 class Field implements FieldInterface
 {
