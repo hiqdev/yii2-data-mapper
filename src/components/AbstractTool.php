@@ -37,6 +37,11 @@ abstract class AbstractTool extends \yii\base\Component
         }
     }
 
+    public function getBase()
+    {
+        return $this->base;
+    }
+
     public function getDi()
     {
         return $this->base->di;
