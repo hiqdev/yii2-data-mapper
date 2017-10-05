@@ -44,6 +44,7 @@
         }
     ],
     "require": {
+        "hiqdev/yii2-autobus": "<2.0 || dev-master",
         "vlucas/phpdotenv": "^2.4",
         "hiqdev/hidev-webapp": "<2.0 || dev-master"
     },
