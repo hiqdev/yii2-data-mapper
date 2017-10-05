@@ -10,12 +10,6 @@
 
 return [
     'components' => [
-        'commandBus' => [
-            'class' => \hiapi\components\CommandBusInterface::class,
-            'middlewares' => [
-                'load' => \hiapi\bus\LoadMiddleware::class,
-            ],
-        ],
         'entityManager' => [
             'class' => \hiapi\components\EntityManager::class,
         ],
@@ -31,15 +25,6 @@ return [
         'definitions' => [
             \hiapi\components\ConnectionInterface::class => function () {
                 return Yii::$app->get('db');
-            },
-            \hiapi\components\CommandBusInterface::class => function ($container, $params, $config) {
-                $params[0] = new \League\Tactician\Handler\CommandHandlerMiddleware(
-                    $container->get(League\Tactician\Handler\CommandNameExtractor\ClassNameExtractor::class),
-                    $container->get(hiapi\bus\NearbyHandlerLocator::class),
-                    $container->get(League\Tactician\Handler\MethodNameInflector\HandleInflector::class)
-                );
-
-                return new \hiapi\components\TacticianCommandBus($params[0], $config);
             },
             \hiapi\filters\ContentNegotiator::class => [
                 'class' => \yii\filters\ContentNegotiator::class,
