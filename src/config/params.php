@@ -9,6 +9,8 @@
  */
 
 return [
+    'HOSTS'                 => null,
+
     'app.id'                => 'hisite',
     'app.name'              => 'HiSite',
     'app.language'          => null,
