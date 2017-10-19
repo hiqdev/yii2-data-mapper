@@ -62,6 +62,7 @@
             "defines": "src/config/defines.php",
             "params": "src/config/params.php",
             "common": "src/config/common.php",
+            "tests": "$common",
             "console": [
                 "$common",
                 "src/config/console.php"
