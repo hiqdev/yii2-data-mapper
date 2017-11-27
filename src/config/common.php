@@ -23,9 +23,6 @@ return [
     ],
     'container' => [
         'definitions' => [
-            \hiapi\components\ConnectionInterface::class => function () {
-                return Yii::$app->get('db');
-            },
             \hiapi\filters\ContentNegotiator::class => [
                 'class' => \yii\filters\ContentNegotiator::class,
                 'formats' => [
@@ -35,6 +32,14 @@ return [
                 ],
             ],
             \hiapi\query\FieldFactoryInterface::class => \hiapi\query\FieldFactory::class,
+        ],
+        'singletons' => [
+            \hiapi\components\ConnectionInterface::class => function () {
+                return Yii::$app->get('db');
+            },
+            \hiapi\components\EntityManagerInterface::class => function () {
+                return Yii::$app->get('entityManager');
+            },
         ],
     ],
 ];
