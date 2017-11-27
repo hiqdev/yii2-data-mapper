@@ -10,6 +10,22 @@
 
 namespace hiapi\components;
 
+use hiapi\db\ExpressionInterface;
+use yii\db\Expression;
+use yii\db\Query;
+
 class Connection extends \yii\db\Connection implements ConnectionInterface
 {
+    public function createSelect(ExpressionInterface $exp)
+    {
+        return (new Query)->select($this->buildExpression($exp));
+    }
+
+    public function buildExpression($exp)
+    {
+        $params = [];
+        $string = $exp->buildUsing($this->getQueryBuilder(), $params);
+
+        return new Expression($string, $params);
+    }
 }
