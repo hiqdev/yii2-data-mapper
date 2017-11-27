@@ -11,6 +11,7 @@
 namespace hiapi\repositories;
 
 use hiapi\components\ConnectionInterface;
+use hiapi\components\EntityManagerInterface;
 use hiapi\query\Specification;
 use Yii;
 
@@ -20,6 +21,11 @@ abstract class BaseRepository extends \yii\base\Component
      * @var ConnectionInterface
      */
     protected $db;
+
+    /**
+     * @var EntityManagerInterface
+     */
+    protected $em;
 
     protected $factory;
 
