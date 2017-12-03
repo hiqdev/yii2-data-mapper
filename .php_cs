@@ -1,10 +1,10 @@
 <?php
 
 $header = <<<EOF
-HiAPI Yii2 base project for building API
+Data Mapper for Yii2
 
-@link      https://github.com/hiqdev/hiapi
-@package   hiapi
+@link      https://github.com/hiqdev/yii2-data-mapper
+@package   yii2-data-mapper
 @license   BSD-3-Clause
 @copyright Copyright (c) 2017, HiQDev (http://hiqdev.com/)
 EOF;
@@ -21,8 +21,7 @@ return PhpCsFixer\Config::create()
             'commentType'   => 'PHPDoc',
         ],
         'binary_operator_spaces'                     =>  [
-            'align_double_arrow' => null,
-            'align_equals'       => null,
+            'default' => null,
         ],
         'concat_space'                               =>  ['spacing' => 'one'],
         'array_syntax'                               =>  ['syntax' => 'short'],
@@ -42,6 +41,8 @@ return PhpCsFixer\Config::create()
         'strict_comparison'                          =>  true,
         'strict_param'                               =>  true,
         'no_multiline_whitespace_before_semicolons'  =>  true,
+        'semicolon_after_instruction'                =>  false,
+        'yoda_style'                                 =>  false,
     ))
     ->setFinder(
         PhpCsFixer\Finder::create()

@@ -1,11 +1,18 @@
 <?php
+/**
+ * Data Mapper for Yii2
+ *
+ * @link      https://github.com/hiqdev/yii2-data-mapper
+ * @package   yii2-data-mapper
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2017, HiQDev (http://hiqdev.com/)
+ */
 
 namespace hiapi\db;
 
 use yii\db\Expression;
 use yii\db\Query;
 use yii\db\QueryBuilder;
-use yii\db\QueryInterface;
 
 /**
  * CallExpression represents a SQL function call expression.
@@ -22,7 +29,7 @@ class CallExpression implements ExpressionInterface
     protected $name;
 
     /**
-     * @var array array of function arguments.
+     * @var array array of function arguments
      */
     protected $args;
 
@@ -36,7 +43,7 @@ class CallExpression implements ExpressionInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function buildUsing(QueryBuilder $queryBuilder, &$params = [])
     {
@@ -49,7 +56,7 @@ class CallExpression implements ExpressionInterface
         $placeholders = [];
         foreach ($args as $item) {
             if ($item instanceof Query) {
-                list ($sql, $params) = $queryBuilder->build($item, $params);
+                list($sql, $params) = $queryBuilder->build($item, $params);
                 $placeholders[] = $sql;
                 continue;
             }

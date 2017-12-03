@@ -1,4 +1,12 @@
 <?php
+/**
+ * Data Mapper for Yii2
+ *
+ * @link      https://github.com/hiqdev/yii2-data-mapper
+ * @package   yii2-data-mapper
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2017, HiQDev (http://hiqdev.com/)
+ */
 
 namespace hiapi\db;
 
@@ -52,7 +60,7 @@ class ArrayExpression implements ExpressionInterface
     }
 
     /**
-     * @return string the typecast expression based on [[type]].
+     * @return string the typecast expression based on [[type]]
      */
     protected function getTypecast()
     {
@@ -69,14 +77,15 @@ class ArrayExpression implements ExpressionInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function buildUsing(QueryBuilder $queryBuilder, &$params = [])
     {
         $value = $this->values;
 
         if ($value instanceof Query) {
-            list ($sql, $params) = $queryBuilder->build($value, $params);
+            list($sql, $params) = $queryBuilder->build($value, $params);
+
             return $this->buildSubqueryArray($sql);
         }
 
@@ -91,7 +100,7 @@ class ArrayExpression implements ExpressionInterface
                 continue;
             }
             if ($item instanceof Query) {
-                list ($sql, $params) = $queryBuilder->build($item, $params);
+                list($sql, $params) = $queryBuilder->build($item, $params);
                 $placeholders[] = $this->buildSubqueryArray($sql);
                 continue;
             }
@@ -117,8 +126,8 @@ class ArrayExpression implements ExpressionInterface
 
     /**
      * Build an array expression from a subquery SQL.
-     * @param string $sql the subquery SQL.
-     * @return string the subquery array expression.
+     * @param string $sql the subquery SQL
+     * @return string the subquery array expression
      */
     protected function buildSubqueryArray($sql)
     {

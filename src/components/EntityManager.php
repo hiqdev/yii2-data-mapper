@@ -1,9 +1,9 @@
 <?php
 /**
- * HiAPI Yii2 base project for building API
+ * Data Mapper for Yii2
  *
- * @link      https://github.com/hiqdev/hiapi
- * @package   hiapi
+ * @link      https://github.com/hiqdev/yii2-data-mapper
+ * @package   yii2-data-mapper
  * @license   BSD-3-Clause
  * @copyright Copyright (c) 2017, HiQDev (http://hiqdev.com/)
  */
@@ -87,8 +87,8 @@ class EntityManager extends \yii\base\Component implements EntityManagerInterfac
 
     /**
      * XXX TODO think of the whole process:
-     * alternative: find and populate whole entity
-     * @param object $entity 
+     * alternative: find and populate whole entity.
+     * @param object $entity
      * @return string|int
      */
     public function findId($entity)

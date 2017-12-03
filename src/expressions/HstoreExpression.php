@@ -1,11 +1,17 @@
 <?php
+/**
+ * Data Mapper for Yii2
+ *
+ * @link      https://github.com/hiqdev/yii2-data-mapper
+ * @package   yii2-data-mapper
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2017, HiQDev (http://hiqdev.com/)
+ */
 
 namespace hiapi\db;
 
 use yii\db\Expression;
-use yii\db\Query;
 use yii\db\QueryBuilder;
-use yii\db\QueryInterface;
 
 /**
  * CallExpression represents a SQL function call expression.
@@ -38,7 +44,7 @@ class HstoreExpression implements ExpressionInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function buildUsing(QueryBuilder $queryBuilder, &$params = [])
     {

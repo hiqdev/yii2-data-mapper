@@ -1,9 +1,9 @@
 <?php
 /**
- * HiAPI Yii2 base project for building API
+ * Data Mapper for Yii2
  *
- * @link      https://github.com/hiqdev/hiapi
- * @package   hiapi
+ * @link      https://github.com/hiqdev/yii2-data-mapper
+ * @package   yii2-data-mapper
  * @license   BSD-3-Clause
  * @copyright Copyright (c) 2017, HiQDev (http://hiqdev.com/)
  */
@@ -18,7 +18,7 @@ class Connection extends \yii\db\Connection implements ConnectionInterface
 {
     public function createSelect(ExpressionInterface $exp)
     {
-        return (new Query)->select($this->buildExpression($exp));
+        return (new Query())->select($this->buildExpression($exp));
     }
 
     public function buildExpression($exp)
