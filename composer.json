@@ -1,20 +1,20 @@
 {
-    "name": "hiqdev/hiapi",
+    "name": "hiqdev/yii2-data-mapper",
     "type": "yii2-extension",
-    "description": "HiAPI Yii2 base project for building API",
+    "description": "Data Mapper for Yii2",
     "keywords": [
         "yii2",
-        "hiapi",
-        "core",
-        "api"
+        "data mapper",
+        "orm",
+        "database"
     ],
-    "homepage": "https://github.com/hiqdev/hiapi",
+    "homepage": "https://github.com/hiqdev/yii2-data-mapper",
     "license": "BSD-3-Clause",
     "support": {
         "email": "support@hiqdev.com",
-        "source": "https://github.com/hiqdev/hiapi",
-        "issues": "https://github.com/hiqdev/hiapi/issues",
-        "wiki": "https://github.com/hiqdev/hiapi/wiki",
+        "source": "https://github.com/hiqdev/yii2-data-mapper",
+        "issues": "https://github.com/hiqdev/yii2-data-mapper/issues",
+        "wiki": "https://github.com/hiqdev/yii2-data-mapper/wiki",
         "forum": "http://forum.hiqdev.com/"
     },
     "authors": [
@@ -44,9 +44,7 @@
         }
     ],
     "require": {
-        "hiqdev/yii2-autobus": "<2.0 || dev-master",
-        "vlucas/phpdotenv": "^2.4",
-        "hiqdev/hidev-webapp": "<2.0 || dev-master"
+        "yiisoft/yii2": "~2.0.13"
     },
     "require-dev": {
         "hiqdev/hidev-php": "<2.0 || dev-master",
@@ -54,23 +52,14 @@
     },
     "autoload": {
         "psr-4": {
-            "hiapi\\": "src"
+            "hiqdev\\yii2\\DataMapper\\": "src"
         }
     },
     "extra": {
         "config-plugin": {
-            "defines": "src/config/defines.php",
             "params": "src/config/params.php",
             "common": "src/config/common.php",
-            "tests": "$common",
-            "console": [
-                "$common",
-                "src/config/console.php"
-            ],
-            "web": [
-                "$common",
-                "src/config/web.php"
-            ]
+            "tests": "$common"
         }
     },
     "minimum-stability": "dev",

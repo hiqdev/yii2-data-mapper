@@ -1,8 +1,10 @@
 package:
     type:           yii2-extension
-    name:           hiapi
-    title:          HiAPI Yii2 base project for building API
-    headline:       HiAPI
-    keywords:       yii2, hiapi, core, api
+    name:           yii2-data-mapper
+    title:          Data Mapper for Yii2
+    headline:       Yii2 Data Mapper
+    keywords:       yii2, data mapper, orm, database
     description:    |
-        HiAPI is a base project for building Yii2 based API.
+        [Data Mapper] based on Yii2 data base abstraction.
+
+        [Data Mapper]: https://en.wikipedia.org/wiki/Data_mapper_pattern

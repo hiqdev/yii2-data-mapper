@@ -18,10 +18,6 @@
 Thumbs.db
 nbproject
 
-# WebApp directories
-/runtime/*
-/web/assets/*
-
 # composer internals
 /composer.lock
 /vendor

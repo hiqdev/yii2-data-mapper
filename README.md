@@ -1,15 +1,17 @@
-# HiAPI
+# Yii2 Data Mapper
 
-**HiAPI Yii2 base project for building API**
+**Data Mapper for Yii2**
 
-[![Latest Stable Version](https://poser.pugx.org/hiqdev/hiapi/v/stable)](https://packagist.org/packages/hiqdev/hiapi)
-[![Total Downloads](https://poser.pugx.org/hiqdev/hiapi/downloads)](https://packagist.org/packages/hiqdev/hiapi)
-[![Build Status](https://img.shields.io/travis/hiqdev/hiapi.svg)](https://travis-ci.org/hiqdev/hiapi)
-[![Scrutinizer Code Coverage](https://img.shields.io/scrutinizer/coverage/g/hiqdev/hiapi.svg)](https://scrutinizer-ci.com/g/hiqdev/hiapi/)
-[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/hiqdev/hiapi.svg)](https://scrutinizer-ci.com/g/hiqdev/hiapi/)
-[![Dependency Status](https://www.versioneye.com/php/hiqdev:hiapi/dev-master/badge.svg)](https://www.versioneye.com/php/hiqdev:hiapi/dev-master)
+[![Latest Stable Version](https://poser.pugx.org/hiqdev/yii2-data-mapper/v/stable)](https://packagist.org/packages/hiqdev/yii2-data-mapper)
+[![Total Downloads](https://poser.pugx.org/hiqdev/yii2-data-mapper/downloads)](https://packagist.org/packages/hiqdev/yii2-data-mapper)
+[![Build Status](https://img.shields.io/travis/hiqdev/yii2-data-mapper.svg)](https://travis-ci.org/hiqdev/yii2-data-mapper)
+[![Scrutinizer Code Coverage](https://img.shields.io/scrutinizer/coverage/g/hiqdev/yii2-data-mapper.svg)](https://scrutinizer-ci.com/g/hiqdev/yii2-data-mapper/)
+[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/hiqdev/yii2-data-mapper.svg)](https://scrutinizer-ci.com/g/hiqdev/yii2-data-mapper/)
+[![Dependency Status](https://www.versioneye.com/php/hiqdev:yii2-data-mapper/dev-master/badge.svg)](https://www.versioneye.com/php/hiqdev:yii2-data-mapper/dev-master)
 
-HiAPI is a base project for building Yii2 based API.
+[Data Mapper] based on Yii2 data base abstraction.
+
+[Data Mapper]: https://en.wikipedia.org/wiki/Data_mapper_pattern
 
 ## Installation
 
@@ -18,13 +20,13 @@ The preferred way to install this yii2-extension is through [composer](http://ge
 Either run
 
 ```sh
-php composer.phar require "hiqdev/hiapi"
+php composer.phar require "hiqdev/yii2-data-mapper"
 ```
 
 or add
 
 ```json
-"hiqdev/hiapi": "*"
+"hiqdev/yii2-data-mapper": "*"
 ```
 
 to the require section of your composer.json.

@@ -11,10 +11,10 @@
 return [
     'components' => [
         'entityManager' => [
-            'class' => \hiapi\components\EntityManager::class,
+            'class' => \hiqdev\yii2\DataMapper\components\EntityManager::class,
         ],
         'db' => [
-            'class'     => \hiapi\components\Connection::class,
+            'class'     => \hiqdev\yii2\DataMapper\components\Connection::class,
             'charset'   => 'utf8',
             'dsn'       => 'pgsql:dbname=' . $params['db.name'],
             'username'  => $params['db.user'],
@@ -23,21 +23,13 @@ return [
     ],
     'container' => [
         'definitions' => [
-            \hiapi\filters\ContentNegotiator::class => [
-                'class' => \yii\filters\ContentNegotiator::class,
-                'formats' => [
-                    'application/json' => \yii\web\Response::FORMAT_JSON,
-                    // XXX disabled because browsers accept XML
-//                     'application/xml'  => \yii\web\Response::FORMAT_XML,
-                ],
-            ],
-            \hiapi\query\FieldFactoryInterface::class => \hiapi\query\FieldFactory::class,
+            \hiqdev\yii2\DataMapper\query\FieldFactoryInterface::class => \hiqdev\yii2\DataMapper\query\FieldFactory::class,
         ],
         'singletons' => [
-            \hiapi\components\ConnectionInterface::class => function () {
+            \hiqdev\yii2\DataMapper\components\ConnectionInterface::class => function () {
                 return Yii::$app->get('db');
             },
-            \hiapi\components\EntityManagerInterface::class => function () {
+            \hiqdev\yii2\DataMapper\components\EntityManagerInterface::class => function () {
                 return Yii::$app->get('entityManager');
             },
         ],

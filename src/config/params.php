@@ -9,21 +9,4 @@
  */
 
 return [
-    'HOSTS'                 => null,
-
-    'app.id'                => 'hisite',
-    'app.name'              => 'HiSite',
-    'app.language'          => null,
-
-    'debug.enabled'         => null,
-    'debug.allowedIps'      => [],
-    'debug.historySize'     => 100,
-
-    'mailer.enabled'        => YII_ENV === 'prod' ? true : null,
-
-    'cookieValidationKey'   => null,
-
-    'db.name'               => 'hiapi',
-    'db.user'               => 'hiapi',
-    'db.password'           => '*',
 ];
