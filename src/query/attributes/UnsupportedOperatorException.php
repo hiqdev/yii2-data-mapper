@@ -10,7 +10,7 @@
 
 namespace hiqdev\yii\DataMapper\query\attributes;
 
-class UnsupportedOperatorException extends \hiapi\validators\AttributeValidationException
+class UnsupportedOperatorException extends \hiqdev\yii\DataMapper\validators\AttributeValidationException
 {
     public static function forOperator($operator)
     {

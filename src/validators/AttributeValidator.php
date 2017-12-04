@@ -10,7 +10,7 @@
 
 namespace hiqdev\yii\DataMapper\validators;
 
-class AttributeValidator implements \hiapi\validators\NormalizerInterface
+class AttributeValidator implements \hiqdev\yii\DataMapper\validators\NormalizerInterface
 {
     /**
      * @var \yii\validators\Validator
@@ -27,13 +27,13 @@ class AttributeValidator implements \hiapi\validators\NormalizerInterface
         $result = $this->realValidator->validate($value);
 
         if ($result !== true) {
-            throw \hiapi\validators\AttributeValidationException::forValue($value, $result);
+            throw \hiqdev\yii\DataMapper\validators\AttributeValidationException::forValue($value, $result);
         }
     }
 
     public function normalize($value)
     {
-        if ($this->realValidator instanceof \hiapi\validators\NormalizerInterface) {
+        if ($this->realValidator instanceof \hiqdev\yii\DataMapper\validators\NormalizerInterface) {
             $value = $this->realValidator->normalize($value);
         }
 

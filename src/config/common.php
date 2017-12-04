@@ -11,10 +11,10 @@
 return [
     'components' => [
         'entityManager' => [
-            'class' => \hiqdev\yii2\DataMapper\components\EntityManager::class,
+            'class' => \hiqdev\yii\DataMapper\components\EntityManager::class,
         ],
         'db' => [
-            'class'     => \hiqdev\yii2\DataMapper\components\Connection::class,
+            'class'     => \hiqdev\yii\DataMapper\components\Connection::class,
             'charset'   => 'utf8',
             'dsn'       => 'pgsql:dbname=' . $params['db.name'],
             'username'  => $params['db.user'],
@@ -23,13 +23,13 @@ return [
     ],
     'container' => [
         'definitions' => [
-            \hiqdev\yii2\DataMapper\query\FieldFactoryInterface::class => \hiqdev\yii2\DataMapper\query\FieldFactory::class,
+            \hiqdev\yii\DataMapper\query\FieldFactoryInterface::class => \hiqdev\yii\DataMapper\query\FieldFactory::class,
         ],
         'singletons' => [
-            \hiqdev\yii2\DataMapper\components\ConnectionInterface::class => function () {
+            \hiqdev\yii\DataMapper\components\ConnectionInterface::class => function () {
                 return Yii::$app->get('db');
             },
-            \hiqdev\yii2\DataMapper\components\EntityManagerInterface::class => function () {
+            \hiqdev\yii\DataMapper\components\EntityManagerInterface::class => function () {
                 return Yii::$app->get('entityManager');
             },
         ],
