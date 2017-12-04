@@ -11,6 +11,8 @@
 
 [Data Mapper] based on Yii2 data base abstraction.
 
+Deliberately simple (no implicit behavior) library aimed to separate data persistence logics from data own logics.
+
 [Data Mapper]: https://en.wikipedia.org/wiki/Data_mapper_pattern
 
 ## Installation
