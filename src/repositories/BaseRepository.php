@@ -8,11 +8,11 @@
  * @copyright Copyright (c) 2017, HiQDev (http://hiqdev.com/)
  */
 
-namespace hiapi\repositories;
+namespace hiqdev\yii\DataMapper\repositories;
 
-use hiapi\components\ConnectionInterface;
-use hiapi\components\EntityManagerInterface;
-use hiapi\query\Specification;
+use hiqdev\yii\DataMapper\components\ConnectionInterface;
+use hiqdev\yii\DataMapper\components\EntityManagerInterface;
+use hiqdev\yii\DataMapper\query\Specification;
 use Yii;
 
 abstract class BaseRepository extends \yii\base\Component

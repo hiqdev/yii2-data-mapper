@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2017, HiQDev (http://hiqdev.com/)
  */
 
-namespace hiapi\validators;
+namespace hiqdev\yii\DataMapper\validators;
 
 use yii\base\Exception;
 

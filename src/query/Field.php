@@ -8,9 +8,9 @@
  * @copyright Copyright (c) 2017, HiQDev (http://hiqdev.com/)
  */
 
-namespace hiapi\query;
+namespace hiqdev\yii\DataMapper\query;
 
-use hiapi\query\attributes\AbstractAttribute;
+use hiqdev\yii\DataMapper\query\attributes\AbstractAttribute;
 use yii\base\InvalidParamException;
 
 class Field implements FieldInterface

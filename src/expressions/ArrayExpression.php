@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2017, HiQDev (http://hiqdev.com/)
  */
 
-namespace hiapi\db;
+namespace hiqdev\yii\DataMapper\expressions;
 
 use yii\db\Expression;
 use yii\db\Query;

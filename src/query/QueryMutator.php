@@ -10,7 +10,7 @@
 
 use yii\db\Query;
 
-namespace hiapi\query;
+namespace hiqdev\yii\DataMapper\query;
 
 class QueryMutator
 {

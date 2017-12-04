@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2017, HiQDev (http://hiqdev.com/)
  */
 
-namespace hiapi\components;
+namespace hiqdev\yii\DataMapper\components;
 
 interface EntityManagerInterface
 {

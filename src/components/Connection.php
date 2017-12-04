@@ -8,9 +8,9 @@
  * @copyright Copyright (c) 2017, HiQDev (http://hiqdev.com/)
  */
 
-namespace hiapi\components;
+namespace hiqdev\yii\DataMapper\components;
 
-use hiapi\db\ExpressionInterface;
+use hiqdev\yii\DataMapper\expressions\ExpressionInterface;
 use yii\db\Expression;
 use yii\db\Query;
 

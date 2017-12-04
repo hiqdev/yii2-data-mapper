@@ -8,9 +8,9 @@
  * @copyright Copyright (c) 2017, HiQDev (http://hiqdev.com/)
  */
 
-namespace hiapi\query\attributes;
+namespace hiqdev\yii\DataMapper\query\attributes;
 
-use hiapi\validators\AttributeValidatorFactory;
+use hiqdev\yii\DataMapper\validators\AttributeValidatorFactory;
 
 abstract class AbstractAttribute implements AttributeInterface
 {

@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2017, HiQDev (http://hiqdev.com/)
  */
 
-namespace hiapi\repositories;
+namespace hiqdev\yii\DataMapper\repositories;
 
 use Yii;
 
