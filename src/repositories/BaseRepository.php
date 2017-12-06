@@ -96,14 +96,16 @@ abstract class BaseRepository extends \yii\base\Component
                 /// XXX hardcoded for price
                 /// TODO generalize
                 $ids = $this->getIds($rows);
-                $spec = Yii::createObject(Specification::class)
-                    //->where(['in', 'plan-id', $ids]);
-                    ->where(['plan-id' => reset($ids)]);
-                $rels = $this->getRepository($class)->queryAll($spec);
-                foreach ($rels as &$rel) {
-                    foreach ($rows as &$row) {
-                        if ($row['id'] === $rel['plan']['id']) {
-                            $row['prices'][] = $rel;
+                if ($ids) {
+                    $spec = Yii::createObject(Specification::class)
+                        //->where(['in', 'plan-id', $ids]);
+                        ->where(['plan-id' => reset($ids)]);
+                    $rels = $this->getRepository($class)->queryAll($spec);
+                    foreach ($rels as &$rel) {
+                        foreach ($rows as &$row) {
+                            if ($row['id'] === $rel['plan']['id']) {
+                                $row['prices'][] = $rel;
+                            }
                         }
                     }
                 }
