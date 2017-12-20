@@ -160,6 +160,10 @@ abstract class BaseRepository extends \yii\base\Component
         return $entities;
     }
 
+    /**
+     * @param array $row
+     * @return object
+     */
     protected function create(array $row)
     {
         return $this->factory->create($this->createDto($row));
