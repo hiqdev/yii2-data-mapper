@@ -74,10 +74,11 @@ class Field implements FieldInterface
     public function buildCondition($value)
     {
         if (is_array($value)) {
-            throw new InvalidParamException('Condition ' . json_encode($value) . ' is not supported yet.');
+            $validator = $this->getAttribute()->getValidatorFor('in');
+        } else {
+            $validator = $this->getAttribute()->getValidatorFor('eq');
         }
 
-        $validator = $this->getAttribute()->getValidatorFor('eq');
         $value = $validator->normalize($value);
         $validator->validate($value);
 

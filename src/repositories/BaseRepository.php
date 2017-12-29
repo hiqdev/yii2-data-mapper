@@ -10,10 +10,13 @@
 
 namespace hiqdev\yii\DataMapper\repositories;
 
+use hiqdev\billing\hiapi\models\AbstractModel;
+use hiqdev\billing\hiapi\models\ModelInterface;
 use hiqdev\yii\DataMapper\components\ConnectionInterface;
 use hiqdev\yii\DataMapper\components\EntityManagerInterface;
 use hiqdev\yii\DataMapper\query\Specification;
 use Yii;
+use yii\base\InvalidConfigException;
 
 abstract class BaseRepository extends \yii\base\Component
 {
@@ -90,39 +93,20 @@ abstract class BaseRepository extends \yii\base\Component
     /// TODO rename
     public function findAllRelations(Specification $specification, array $rows)
     {
-        //debug_print_backtrace();
-        if (is_array($specification->with)) {
-            foreach ($specification->with as $class) {
-                /// XXX hardcoded for price
-                /// TODO generalize
-                $ids = $this->getIds($rows);
-                if ($ids) {
-                    $spec = Yii::createObject(Specification::class)
-                        //->where(['in', 'plan-id', $ids]);
-                        ->where(['plan-id' => reset($ids)]);
-                    $rels = $this->getRepository($class)->queryAll($spec);
-                    foreach ($rels as &$rel) {
-                        foreach ($rows as &$row) {
-                            if ($row['id'] === $rel['plan']['id']) {
-                                $row['prices'][] = $rel;
-                            }
-                        }
-                    }
-                }
-            }
+        if (!is_array($specification->with)) {
+            return $rows;
+        }
+
+        foreach ($specification->with as $relationName) {
+            $this->joinRelation($relationName, $rows);
         }
 
         return $rows;
     }
-
-    protected function getIds($rows)
+    
+    protected function joinRelation($relationName, &$rows)
     {
-        $ids = [];
-        foreach ($rows as $row) {
-            $ids[$row['id']] = $row['id'];
-        }
-
-        return $ids;
+        call_user_func_array([$this, 'join' . $relationName], [&$rows]);
     }
 
     public function old_findOne(Specification $specification)
@@ -193,13 +177,21 @@ abstract class BaseRepository extends \yii\base\Component
         return $arg->getClass()->getName();
     }
 
-    public function createEntity($entityClass, $row)
+    /**
+     * @return ModelInterface|AbstractModel
+     */
+    public function createEntity($entityClass, array $row = [])
     {
         return $this->getRepository($entityClass)->create($row);
     }
 
+    /**
+     * @param $entityClass
+     * @return BaseRepository
+     */
     public function getRepository($entityClass)
     {
         return Yii::$app->entityManager->getRepository($entityClass);
     }
+
 }

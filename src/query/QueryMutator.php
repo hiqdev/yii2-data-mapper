@@ -8,9 +8,9 @@
  * @copyright Copyright (c) 2017, HiQDev (http://hiqdev.com/)
  */
 
-use yii\db\Query;
-
 namespace hiqdev\yii\DataMapper\query;
+
+use yii\db\Query;
 
 class QueryMutator
 {

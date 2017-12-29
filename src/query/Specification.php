@@ -23,7 +23,7 @@ class Specification
     }
 
     /**
-     * @param Query $query
+     * @para \yii\db\Query $query
      * @return Query
      */
     public function applyTo($query)
