@@ -16,7 +16,9 @@ return [
         'db' => [
             'class'     => \hiqdev\yii\DataMapper\components\Connection::class,
             'charset'   => 'utf8',
-            'dsn'       => 'pgsql:dbname=' . $params['db.name'],
+            'dsn'       => 'pgsql:dbname=' . $params['db.name']
+                            . (!empty($params['db.host']) ? (';host=' . $params['db.host']) : '')
+                            . (!empty($params['db.port']) ? (';port=' . $params['db.port']) : ''),
             'username'  => $params['db.user'],
             'password'  => $params['db.password'],
         ],

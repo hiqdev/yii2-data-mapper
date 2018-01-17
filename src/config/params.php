@@ -9,4 +9,8 @@
  */
 
 return [
+    'db.host' => '',
+    'db.port' => '',
+    'db.user' => '',
+    'db.password' => '',
 ];

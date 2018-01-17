@@ -11,6 +11,7 @@
 namespace hiqdev\yii\DataMapper\query;
 
 use hiqdev\billing\hiapi\models\ModelInterface;
+use yii\base\Model;
 
 class FieldFactory implements FieldFactoryInterface
 {
@@ -25,15 +26,20 @@ class FieldFactory implements FieldFactoryInterface
         $result = [];
 
         foreach ($map as $attributeName => $definition) {
-            if (!is_array($definition)) {
-                $result[] = is_object($definition) ? $definition : $this->buildField($model, $attributeName, $definition, $parents);
-            } else {
+            if (is_array($definition)) {
                 $relationClass = $model->getRelation($attributeName);
                 $result = array_merge($result, $this->createByModelAttributes(
                     new $relationClass(),
                     $definition,
                     array_merge($parents, [$attributeName])
                 ));
+                continue;
+            }
+
+            if ($definition instanceof FieldInterface) {
+                $result[] = $definition;
+            } else {
+                $result[] = $this->buildField($model, $attributeName, $definition, $parents);
             }
         }
 
