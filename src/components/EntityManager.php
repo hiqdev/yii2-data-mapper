@@ -10,12 +10,13 @@
 
 namespace hiqdev\yii\DataMapper\components;
 
+use hiqdev\yii\DataMapper\repositories\BaseRepository;
 use Yii;
 
 class EntityManager extends \yii\base\Component implements EntityManagerInterface
 {
     /**
-     * @var array
+     * @var BaseRepository[]
      */
     public $repositories = [];
 
@@ -45,7 +46,7 @@ class EntityManager extends \yii\base\Component implements EntityManagerInterfac
     /**
      * Get entity repository by entity or class.
      * @param object|string $entityClass entity or class
-     * @return RepositoryInterface
+     * @return BaseRepository
      */
     public function getRepository($entityClass)
     {
