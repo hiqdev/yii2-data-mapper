@@ -75,6 +75,17 @@ class EntityManager extends \yii\base\Component implements EntityManagerInterfac
     }
 
     /**
+     * Save given entities into it's repository.
+     * @param array $entities
+     */
+    public function saveAll(array $entities)
+    {
+        foreach ($entities as $entity) {
+            $this->save($entity);
+        }
+    }
+
+    /**
      * Create entity of given class with given data.
      * @param string $entityClass
      * @param array $data
