@@ -10,7 +10,7 @@
 
 namespace hiqdev\yii\DataMapper\query;
 
-use hiqdev\billing\hiapi\models\ModelInterface;
+use hiqdev\yii\DataMapper\models\ModelInterface;
 use yii\base\Model;
 
 class FieldFactory implements FieldFactoryInterface

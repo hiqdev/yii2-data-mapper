@@ -44,8 +44,10 @@ class Specification
      */
     public function applyWhereTo($query)
     {
+        $fields = $query->getFields();
+
         foreach ($this->where as $key => $value) {
-            foreach ($query->getFields() as $field) {
+            foreach ($fields as $field) {
                 if ($field->isApplicable($key)) {
                     $query->andWhere($field->buildCondition($value));
                 }

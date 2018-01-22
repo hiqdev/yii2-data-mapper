@@ -10,10 +10,11 @@
 
 namespace hiqdev\yii\DataMapper\repositories;
 
-use hiqdev\billing\hiapi\models\AbstractModel;
-use hiqdev\billing\hiapi\models\ModelInterface;
+use hiqdev\yii\DataMapper\models\AbstractModel;
+use hiqdev\yii\DataMapper\models\ModelInterface;
 use hiqdev\yii\DataMapper\components\ConnectionInterface;
 use hiqdev\yii\DataMapper\components\EntityManagerInterface;
+use hiqdev\yii\DataMapper\query\Query;
 use hiqdev\yii\DataMapper\query\Specification;
 use Yii;
 use yii\base\InvalidConfigException;
@@ -124,7 +125,10 @@ abstract class BaseRepository extends \yii\base\Component
         return $specification->applyTo($this->buildQuery()->initSelect());
     }
 
-    protected function buildQuery()
+    /**
+     * @return Query
+     */
+    protected function buildQuery(): Query
     {
         return Yii::createObject($this->getQueryClass());
     }
@@ -178,7 +182,7 @@ abstract class BaseRepository extends \yii\base\Component
     }
 
     /**
-     * @return ModelInterface|AbstractModel
+     * @return ModelInterface|\hiqdev\yii\DataMapper\models\AbstractModel
      */
     public function createEntity($entityClass, array $row = [])
     {

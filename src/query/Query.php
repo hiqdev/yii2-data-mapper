@@ -10,7 +10,10 @@
 
 namespace hiqdev\yii\DataMapper\query;
 
+use hiqdev\yii\DataMapper\models\AbstractModel;
+use hiqdev\yii\DataMapper\query\join\Join;
 use yii\base\InvalidConfigException;
+use yii\base\Model;
 
 abstract class Query extends \yii\db\Query
 {
@@ -50,17 +53,53 @@ abstract class Query extends \yii\db\Query
     protected function selectByFields($fields)
     {
         foreach ($fields as $field) {
-            if ($field->canBeSelected()) {
-                $statement = $field->getSql();
-                if (is_object($statement)) {
-                    $this->addSelect($statement);
-                } else {
-                    $this->addSelect($statement . ' as ' . $field->getName());
-                }
+            if (!$field->canBeSelected()) {
+                continue;
+            }
+
+            $statement = $field->getSql();
+            if (is_object($statement)) {
+                $this->addSelect($statement);
+            } else {
+                $this->addSelect($statement . ' as ' . $field->getName());
+            }
+
+            if ($field instanceof JoinedField) { // TODO: Join only if selected or filtered
+                $this->registerJoin($field->getJoin());
             }
         }
 
         return $this;
+    }
+
+    /**
+     * Registered joins array. Key - join name, value - bool true if registered
+     * @var bool[]
+     */
+    private $_registeredJoins = [];
+
+    public function registerJoin($name): void
+    {
+        if (isset($this->_registeredJoins[$name])) {
+            return;
+        }
+
+        $join = $this->getJoinByName($name);
+
+        foreach ($join->getDependencies() as $dependencyName) {
+            $this->registerJoin($dependencyName);
+        }
+
+        $table = $join->getTable();
+        $cond = $join->getCondition();
+
+        if ($join instanceof LeftJoin) {
+            $this->leftJoin($table, $cond);
+        } else {
+            $this->leftJoin($table, $cond);
+        }
+
+        $this->_registeredJoins[$name] = true;
     }
 
     public function restoreHierarchy($row)
@@ -84,7 +123,42 @@ abstract class Query extends \yii\db\Query
 
     public function initSelect()
     {
-        return $this->initFrom()->selectByFields($this->getFields());
+        return $this
+            ->initFrom()
+            ->selectByFields($this->getFields());
+    }
+
+    /**
+     * @var AbstractModel
+     */
+    private $model;
+
+    /**
+     * @return AbstractModel
+     */
+    protected function getModel(): AbstractModel
+    {
+        if ($this->model === null) {
+            $this->model = new $this->modelClass();
+        }
+
+        return $this->model;
+    }
+
+    /**
+     * // TODO: move up in hierarchy
+     * @param string $name
+     * @return Join
+     */
+    protected function getJoinByName($name): Join
+    {
+        $joins = $this->joins();
+
+        if (!isset($joins[$name])) {
+            throw new InvalidConfigException('Join named "' . $name . '" does not exist.');
+        }
+
+        return $joins[$name];
     }
 
     /**
@@ -96,4 +170,12 @@ abstract class Query extends \yii\db\Query
      * @return mixed
      */
     abstract protected function attributesMap();
+
+    /**
+     * @return Join[]
+     */
+    public function joins()
+    {
+        return [];
+    }
 }
