@@ -27,11 +27,11 @@ abstract class Query extends \yii\db\Query
      */
     protected $modelClass;
 
-    public function __construct(FieldFactoryInterface $filterFactory, array $config = [])
+    public function __construct(FieldFactoryInterface $fieldFactory, array $config = [])
     {
         parent::__construct($config);
 
-        $this->fieldFactory = $filterFactory;
+        $this->fieldFactory = $fieldFactory;
 
         if (!isset($this->modelClass)) {
             throw new InvalidConfigException('Property "modelClass" must be set');
