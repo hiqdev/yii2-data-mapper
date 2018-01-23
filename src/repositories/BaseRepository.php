@@ -69,7 +69,6 @@ abstract class BaseRepository extends \yii\base\Component
     public function findAll(Specification $specification)
     {
         $rows = $this->queryAll($specification);
-        $rows = $this->findAllRelations($specification, $rows);
 
         return $this->createMultiple($rows);
     }
@@ -78,10 +77,11 @@ abstract class BaseRepository extends \yii\base\Component
     {
         $query = $this->buildSelectQuery($specification);
         $rows = $query->createCommand($this->db)->queryAll();
-
-        return array_map(function ($row) use ($query) {
+        $rows = array_map(function ($row) use ($query) {
             return $query->restoreHierarchy($row);
         }, $rows);
+
+        return $this->findAllRelations($specification, $rows);
     }
 
     public function findOne(Specification $specification)
