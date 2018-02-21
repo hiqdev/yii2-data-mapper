@@ -10,8 +10,14 @@
 
 namespace hiqdev\yii\DataMapper\components;
 
+use hiqdev\yii\DataMapper\repositories\BaseRepository;
+
 interface EntityManagerInterface
 {
+    /**
+     * @param string $entityClass
+     * @return BaseRepository
+     */
     public function getRepository($entityClass);
 
     public function save($entity);

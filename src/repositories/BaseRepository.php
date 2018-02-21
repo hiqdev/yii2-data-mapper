@@ -10,14 +10,13 @@
 
 namespace hiqdev\yii\DataMapper\repositories;
 
-use hiqdev\yii\DataMapper\models\AbstractModel;
 use hiqdev\yii\DataMapper\models\ModelInterface;
 use hiqdev\yii\DataMapper\components\ConnectionInterface;
 use hiqdev\yii\DataMapper\components\EntityManagerInterface;
 use hiqdev\yii\DataMapper\query\Query;
 use hiqdev\yii\DataMapper\query\Specification;
 use Yii;
-use yii\base\InvalidConfigException;
+use Zend\Hydrator\HydratorInterface;
 
 abstract class BaseRepository extends \yii\base\Component
 {
@@ -31,12 +30,23 @@ abstract class BaseRepository extends \yii\base\Component
      */
     protected $em;
 
+    /**
+     * @var HydratorInterface
+     */
     protected $factory;
 
     /**
      * @var string
      */
     public $queryClass;
+
+    public function __construct(ConnectionInterface $db, EntityManagerInterface $em, array $config = [])
+    {
+        $this->db = $db;
+        $this->em = $em;
+
+        parent::__construct($config);
+    }
 
     public function find(ActiveQuery $query)
     {
@@ -154,22 +164,7 @@ abstract class BaseRepository extends \yii\base\Component
      */
     public function create(array $row)
     {
-        return $this->factory->create($this->createDto($row));
-    }
-
-    protected function createDto(array $row)
-    {
-        $class = $this->getEntityCreationDtoClass();
-        $dto = new $class();
-        $props = array_keys(get_object_vars($dto));
-
-        foreach ($props as $name) {
-            if (isset($row[$name])) {
-                $dto->$name = $row[$name];
-            }
-        }
-
-        return $dto;
+        return $this->factory->hydrate($row);
     }
 
     protected function getEntityCreationDtoClass()

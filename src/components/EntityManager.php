@@ -12,6 +12,7 @@ namespace hiqdev\yii\DataMapper\components;
 
 use hiqdev\yii\DataMapper\repositories\BaseRepository;
 use Yii;
+use yii\di\Container;
 
 class EntityManager extends \yii\base\Component implements EntityManagerInterface
 {
@@ -24,12 +25,18 @@ class EntityManager extends \yii\base\Component implements EntityManagerInterfac
      * @var ConnectionInterface
      */
     public $db;
+    /**
+     * @var Container
+     */
+    private $di;
 
     public function __construct(
         ConnectionInterface $db,
+        Container $di,
         array $config = []
     ) {
         $this->db = $db;
+        $this->di = $di;
 
         parent::__construct($config);
     }
@@ -59,7 +66,7 @@ class EntityManager extends \yii\base\Component implements EntityManagerInterfac
         }
 
         if (!is_object($this->repositories[$entityClass])) {
-            $this->repositories[$entityClass] = Yii::createObject($this->repositories[$entityClass]);
+            $this->repositories[$entityClass] = $this->di->get($this->repositories[$entityClass]);
         }
 
         return $this->repositories[$entityClass];
