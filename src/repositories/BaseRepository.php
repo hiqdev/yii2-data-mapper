@@ -10,18 +10,18 @@
 
 namespace hiqdev\yii\DataMapper\repositories;
 
-use hiqdev\yii\DataMapper\models\ModelInterface;
 use hiqdev\yii\DataMapper\components\ConnectionInterface;
 use hiqdev\yii\DataMapper\components\EntityManagerInterface;
 use hiqdev\yii\DataMapper\query\Query;
 use hiqdev\yii\DataMapper\query\Specification;
 use Yii;
+use yii\db\Connection;
 use Zend\Hydrator\HydratorInterface;
 
 abstract class BaseRepository extends \yii\base\Component
 {
     /**
-     * @var ConnectionInterface
+     * @var ConnectionInterface|Connection
      */
     protected $db;
 
@@ -80,7 +80,7 @@ abstract class BaseRepository extends \yii\base\Component
     {
         $rows = $this->queryAll($specification);
 
-        return $this->createMultiple($rows);
+        return $this->hydrateMultipleNew($rows);
     }
 
     public function queryAll(Specification $specification)
@@ -127,7 +127,7 @@ abstract class BaseRepository extends \yii\base\Component
         $row = $query->createCommand($this->db)->queryOne();
         $row = $query->restoreHierarchy($row);
 
-        return $this->create($row);
+        return $this->hydrateNew($row);
     }
 
     protected function buildSelectQuery(Specification $specification)
@@ -148,11 +148,11 @@ abstract class BaseRepository extends \yii\base\Component
         return $this->queryClass;
     }
 
-    protected function createMultiple($rows)
+    protected function hydrateMultipleNew($rows)
     {
         $entities = [];
         foreach ($rows as $row) {
-            $entities[] = $this->create($row);
+            $entities[] = $this->hydrateNew($row);
         }
 
         return $entities;
@@ -162,26 +162,18 @@ abstract class BaseRepository extends \yii\base\Component
      * @param array $row
      * @return object
      */
-    public function create(array $row)
+    public function hydrateNew(array $row)
     {
-        return $this->factory->hydrate($row);
+        return $this->factory->hydrateNewObject($row);
     }
 
     protected function getEntityCreationDtoClass()
     {
         $class = new \ReflectionClass($this->factory);
-        $method = $class->getMethod('create');
+        $method = $class->getMethod('hydrate');
         $arg = reset($method->getParameters());
 
         return $arg->getClass()->getName();
-    }
-
-    /**
-     * @return ModelInterface|\hiqdev\yii\DataMapper\models\AbstractModel
-     */
-    public function createEntity($entityClass, array $row = [])
-    {
-        return $this->getRepository($entityClass)->create($row);
     }
 
     /**
@@ -190,7 +182,7 @@ abstract class BaseRepository extends \yii\base\Component
      */
     public function getRepository($entityClass)
     {
-        return Yii::$app->entityManager->getRepository($entityClass);
+        return $this->em->getRepository($entityClass);
     }
 
 }

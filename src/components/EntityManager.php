@@ -101,7 +101,7 @@ class EntityManager extends \yii\base\Component implements EntityManagerInterfac
      */
     public function create($entityClass, array $data)
     {
-        return $this->getRepository($entityClass)->create($data);
+        return $this->getRepository($entityClass)->hydrateNew($data);
     }
 
     /**

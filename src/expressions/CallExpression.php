@@ -10,74 +10,54 @@
 
 namespace hiqdev\yii\DataMapper\expressions;
 
-use yii\db\Expression;
-use yii\db\Query;
-use yii\db\QueryBuilder;
+use yii\db\ExpressionInterface;
 
 /**
  * CallExpression represents a SQL function call expression.
  *
  * @author Andrii Vasyliev <sol@hiqdev.com>
+ * @author Dmytro Naumenko <d.naumenko.a@gmail.com>
  */
 class CallExpression implements ExpressionInterface
 {
-    const PARAM_PREFIX = ':cxp';
-
     /**
-     * @var string function name
+     * @var array|string
      */
-    protected $name;
-
+    private $procedureName;
     /**
      * @var array array of function arguments
      */
-    protected $args;
+    private $arguments;
+
+    /**
+     * @return array|string
+     */
+    public function getProcedureName(): string
+    {
+        return $this->procedureName;
+    }
+
+    /**
+     * @return array
+     */
+    public function getArguments(): array
+    {
+        return $this->arguments;
+    }
 
     /**
      * CallExpression constructor.
+     *
+     * @param string $procedureName
+     * @param array $arguments
      */
-    public function __construct($name, $args = [])
+    public function __construct($procedureName, $arguments = [])
     {
-        $this->name = $name;
-        $this->args = $args;
-    }
+        $this->procedureName = $procedureName;
 
-    /**
-     * {@inheritdoc}
-     */
-    public function buildUsing(QueryBuilder $queryBuilder, &$params = [])
-    {
-        $args = $this->args;
-
-        if (!is_array($args) && !$args instanceof \Traversable) {
-            $args = [$args];
+        if (!is_array($arguments) && !$arguments instanceof \Traversable) {
+            $arguments = [$arguments];
         }
-
-        $placeholders = [];
-        foreach ($args as $item) {
-            if ($item instanceof Query) {
-                list($sql, $params) = $queryBuilder->build($item, $params);
-                $placeholders[] = $sql;
-                continue;
-            }
-            if ($item instanceof ExpressionInterface) {
-                $placeholders[] = $item->buildUsing($queryBuilder, $params);
-                continue;
-            }
-            if ($item === null) {
-                $placeholders[] = 'NULL';
-                continue;
-            }
-
-            $placeholders[] = $placeholder = static::PARAM_PREFIX . count($params);
-            $params[$placeholder] = $item;
-        }
-
-        return $this->buildCallString($this->name, implode(', ', $placeholders));
-    }
-
-    protected function buildCallString($name, $args)
-    {
-        return "$name($args)";
+        $this->arguments = $arguments;
     }
 }

@@ -8,12 +8,21 @@ trait HydratorAwareFactoryTrait
      * @param array $data
      * @return object
      */
-    public function hydrate(array $data)
+    public function hydrateNewObject(array $data)
     {
-        $instance = $this->createEmptyInstance();
-        $this->hydrator->hydrate($data, $instance);
+        return $this->hydrate($data, $this->createEmptyInstance());
+    }
 
-        return $instance;
+    /**
+     * @param array $data
+     * @param object $object
+     * @return object
+     */
+    public function hydrate(array $data, $object)
+    {
+        $this->hydrator->hydrate($data, $object);
+
+        return $object;
     }
 
     /**

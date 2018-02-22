@@ -4,6 +4,7 @@ namespace hiqdev\yii\DataMapper\hydrator;
 
 use yii\base\InvalidConfigException;
 use yii\di\Container;
+use Zend\Hydrator\ExtractionInterface;
 use Zend\Hydrator\HydrationInterface;
 use Zend\Hydrator\HydratorInterface;
 
@@ -24,7 +25,13 @@ class ConfigurableAggregateHydrator implements HydratorInterface
         $this->hydrators = $hydrators;
     }
 
-    protected function getHydrator($object): HydratorInterface
+    /**
+     * @param $object
+     * @return HydrationInterface|ExtractionInterface
+     * @throws InvalidConfigException
+     * @throws \yii\di\NotInstantiableException
+     */
+    protected function getHydrator($object)
     {
         $className = get_class($object);
 

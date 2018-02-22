@@ -10,22 +10,19 @@
 
 namespace hiqdev\yii\DataMapper\expressions;
 
-use yii\db\Expression;
-use yii\db\QueryBuilder;
+use yii\db\ExpressionInterface;
 
 /**
- * CallExpression represents a SQL function call expression.
+ * Class HstoreExpression
  *
- * @author Andrii Vasyliev <sol@hiqdev.com>
+ * @author Dmytro Naumenko <d.naumenko.a@gmail.com>
  */
 class HstoreExpression implements ExpressionInterface
 {
-    const PARAM_PREFIX = ':hxp';
-
     /**
      * @var array hash
      */
-    protected $hash;
+    private $hash = [];
 
     /**
      * CallExpression constructor.
@@ -35,27 +32,11 @@ class HstoreExpression implements ExpressionInterface
         $this->hash = $hash;
     }
 
-    public function buildExpression(QueryBuilder $builder)
-    {
-        $params = [];
-        $string = $this->buildUsing($builder, $params);
-
-        return new Expression($string, $params);
-    }
-
     /**
-     * {@inheritdoc}
+     * @return array
      */
-    public function buildUsing(QueryBuilder $queryBuilder, &$params = [])
+    public function getHash()
     {
-        $array = [];
-        foreach ($this->hash as $key => $value) {
-            $array[] = $key;
-            $array[] = $value;
-        }
-        $arrayExp = new ArrayExpression($array, 'text');
-        $callExp = new CallExpression('hstore', [$arrayExp]);
-
-        return $callExp->buildUsing($queryBuilder, $params);
+        return $this->hash;
     }
 }

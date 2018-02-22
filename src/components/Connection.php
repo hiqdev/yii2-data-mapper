@@ -14,6 +14,7 @@ use hiqdev\yii\DataMapper\expressions\ExpressionInterface;
 use yii\db\Expression;
 use yii\db\Query;
 
+// TODO: @sol, drop it
 class Connection extends \yii\db\Connection implements ConnectionInterface
 {
     public function createSelect(ExpressionInterface $exp)
