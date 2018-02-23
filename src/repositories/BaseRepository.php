@@ -94,6 +94,10 @@ abstract class BaseRepository extends \yii\base\Component
         return $this->findAllRelations($specification, $rows);
     }
 
+    /**
+     * @param Specification $specification
+     * @return object|false
+     */
     public function findOne(Specification $specification)
     {
         $rows = $this->findAll($specification->limit(1));
