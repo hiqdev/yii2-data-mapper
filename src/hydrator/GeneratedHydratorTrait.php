@@ -35,13 +35,13 @@ trait GeneratedHydratorTrait
     }
 
     /**
-     * @param Object $object
+     * @param string $className
      * @return object
      * @throws \ReflectionException
      */
-    private function createEmptyInstance($object)
+    private function createEmptyInstance(string $className)
     {
-        $reflection = new \ReflectionClass(get_class($object));
+        $reflection = new \ReflectionClass($className);
         return $reflection->newInstanceWithoutConstructor();
     }
 }
