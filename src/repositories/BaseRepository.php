@@ -18,7 +18,7 @@ use Yii;
 use yii\db\Connection;
 use Zend\Hydrator\HydratorInterface;
 
-abstract class BaseRepository extends \yii\base\Component
+abstract class BaseRepository extends \yii\base\Component implements GenericRepositoryInterface
 {
     /**
      * @var ConnectionInterface|Connection
@@ -103,6 +103,21 @@ abstract class BaseRepository extends \yii\base\Component
         $rows = $this->findAll($specification->limit(1));
 
         return reset($rows);
+    }
+
+    /**
+     * @param Specification $specification
+     * @return false|object
+     * @throws EntityNotFoundException when entity was not found
+     */
+    public function findOneOrFail(Specification $specification)
+    {
+        $result = $this->findOne($specification);
+        if ($result === false) {
+            throw new EntityNotFoundException();
+        }
+
+        return $result;
     }
 
     /// TODO rename
