@@ -11,6 +11,7 @@
 namespace hiqdev\yii\DataMapper\query;
 
 use hiqdev\yii\DataMapper\query\attributes\AbstractAttribute;
+use hiqdev\yii\DataMapper\validators\AttributeValidationException;
 use yii\base\InvalidParamException;
 
 class Field implements FieldInterface
@@ -71,7 +72,12 @@ class Field implements FieldInterface
         return $this->attribute;
     }
 
-    public function buildCondition($value)
+    /**
+     * @param mixed $value
+     * @return mixed normalized $value
+     * @throws AttributeValidationException when value is not valid
+     */
+    protected function ensureConditionValueIsValid($value)
     {
         if (is_array($value)) {
             $validator = $this->getAttribute()->getValidatorFor('in');
@@ -80,8 +86,18 @@ class Field implements FieldInterface
         }
 
         $value = $validator->normalize($value);
-        $validator->validate($value);
+        $validator->ensureIsValid($value);
 
-        return [$this->getSql() => $value];
+        return $value;
+    }
+
+    /**
+     * @param $value
+     * @return array
+     * @throws AttributeValidationException when value is not valid
+     */
+    public function buildCondition($value)
+    {
+        return [$this->getSql() => $this->ensureConditionValueIsValid($value)];
     }
 }
