@@ -46,6 +46,13 @@ class FieldFactory implements FieldFactoryInterface
         return $result;
     }
 
+    /**
+     * @param ModelInterface $model
+     * @param string $attributeName
+     * @param string $sql
+     * @param array $parents
+     * @return Field
+     */
     protected function buildField($model, $attributeName, $sql, array $parents)
     {
         array_push($parents, $attributeName);

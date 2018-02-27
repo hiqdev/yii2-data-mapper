@@ -19,7 +19,7 @@ abstract class AbstractAttribute implements AttributeInterface
      */
     private $validatorFactory;
 
-    public function __construct(AttributeValidatorFactory $validatorFactory)
+    public function __construct(AttributeValidatorFactory $validatorFactory) // TODO: simplify. Now it is too complex to create the object
     {
         $this->validatorFactory = $validatorFactory;
     }

@@ -11,6 +11,7 @@
 namespace hiqdev\yii\DataMapper\query;
 
 use hiqdev\yii\DataMapper\models\AbstractModel;
+use hiqdev\yii\DataMapper\models\ModelInterface;
 use hiqdev\yii\DataMapper\query\join\Join;
 use yii\base\InvalidConfigException;
 use yii\base\Model;
@@ -43,7 +44,7 @@ abstract class Query extends \yii\db\Query
      */
     public function getFields()
     {
-        return $this->fieldFactory->createByModelAttributes(new $this->modelClass(), $this->attributesMap());
+        return $this->fieldFactory->createByModelAttributes($this->getModel(), $this->attributesMap());
     }
 
     /**
@@ -129,14 +130,14 @@ abstract class Query extends \yii\db\Query
     }
 
     /**
-     * @var AbstractModel
+     * @var ModelInterface|AbstractModel
      */
     private $model;
 
     /**
-     * @return AbstractModel
+     * @return ModelInterface|AbstractModel
      */
-    protected function getModel(): AbstractModel
+    protected function getModel(): ModelInterface
     {
         if ($this->model === null) {
             $this->model = new $this->modelClass();

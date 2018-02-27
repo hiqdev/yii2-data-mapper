@@ -10,6 +10,8 @@
 
 namespace hiqdev\yii\DataMapper\query;
 
+use yii\db\conditions\ConditionInterface;
+
 interface FieldInterface
 {
     public function canBeSelected();
@@ -17,7 +19,7 @@ interface FieldInterface
     public function isApplicable($key);
 
     /**
-     * @return array
+     * @return array|ConditionInterface
      */
     public function buildCondition($value);
 }
