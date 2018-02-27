@@ -22,11 +22,22 @@ class AttributeValidator implements \hiqdev\yii\DataMapper\validators\Normalizer
         $this->realValidator = $realValidator;
     }
 
+    /**
+     * @param mixed $value
+     * @return bool whether value is valid
+     */
     public function validate($value)
     {
-        $result = $this->realValidator->validate($value);
+        return $this->realValidator->validate($value);
+    }
 
-        if ($result !== true) {
+    /**
+     * @param mixed $value
+     * @throws AttributeValidationException when value is not valid
+     */
+    public function ensureIsValid($value)
+    {
+        if ($this->realValidator->validate($value, $result) !== true) {
             throw \hiqdev\yii\DataMapper\validators\AttributeValidationException::forValue($value, $result);
         }
     }
