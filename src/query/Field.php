@@ -56,6 +56,10 @@ class Field implements FieldInterface
      */
     private function parseFilterKey($key)
     {
+        if ($this->name === $key) {
+            return ['eq', $key];
+        }
+
         /*
          * Extracts underscore suffix from the key.
          *
