@@ -21,5 +21,5 @@ interface FieldInterface
     /**
      * @return array|ConditionInterface
      */
-    public function buildCondition($value);
+    public function buildCondition($key, $value);
 }

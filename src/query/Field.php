@@ -45,7 +45,35 @@ class Field implements FieldInterface
 
     public function isApplicable($key)
     {
-        return strcasecmp($this->name, $key) === 0;
+        [, $attribute] = $this->parseFilterKey($key);
+
+        return $attribute === $this->name;
+    }
+
+    /**
+     * @param string $key the search key for operator and attribute name extraction
+     * @return array of two items: the comparison operator and the attribute name
+     */
+    private function parseFilterKey($key)
+    {
+        /*
+         * Extracts underscore suffix from the key.
+         *
+         * Examples:
+         * client_id -> 0 - client_id, 1 - client, 2 - _id, 3 - id
+         * server_owner_like -> 0 - server_owner_like, 1 - server_owner, 2 - _like, 3 - like
+         */
+        preg_match('/^(.*?)(_((?:.(?!_))+))?$/', $key, $matches);
+
+        $operator = 'eq';
+
+        // If the suffix is in the list of acceptable suffix filer conditions
+        if ($matches[3] && in_array($matches[3], $this->attribute->getSupportedOperators(), true)) {
+            $operator = $matches[3];
+            $key = $matches[1];
+        }
+
+        return [$operator, $key];
     }
 
     /**
@@ -73,16 +101,17 @@ class Field implements FieldInterface
     }
 
     /**
+     * @param string $operator
      * @param mixed $value
      * @return mixed normalized $value
      * @throws AttributeValidationException when value is not valid
      */
-    protected function ensureConditionValueIsValid($value)
+    protected function ensureConditionValueIsValid($operator, $value)
     {
         if (is_array($value)) {
             $validator = $this->getAttribute()->getValidatorFor('in');
         } else {
-            $validator = $this->getAttribute()->getValidatorFor('eq');
+            $validator = $this->getAttribute()->getValidatorFor($operator);
         }
 
         $value = $validator->normalize($value);
@@ -92,12 +121,25 @@ class Field implements FieldInterface
     }
 
     /**
+     * // TODO: create ConditionBuilder?
+     * @param $key
      * @param $value
      * @return array
      * @throws AttributeValidationException when value is not valid
      */
-    public function buildCondition($value)
+    public function buildCondition($key, $value)
     {
-        return [$this->getSql() => $this->ensureConditionValueIsValid($value)];
+        [$operator, $attribute] = $this->parseFilterKey($key);
+
+        if (is_array($value)) {
+            return [$this->getSql() => $this->ensureConditionValueIsValid($operator, $value)];
+        }
+
+        $operatorMap = [
+            'eq' => '=',
+            'ne' => '!=',
+        ];
+
+        return [$operatorMap[$operator] ?? $operator, $this->getSql(), $this->ensureConditionValueIsValid($operator, $value)];
     }
 }

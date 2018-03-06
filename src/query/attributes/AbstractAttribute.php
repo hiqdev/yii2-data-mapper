@@ -43,4 +43,12 @@ abstract class AbstractAttribute implements AttributeInterface
 
         return $this->validatorFactory->createByDefinition($rule);
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function getSupportedOperators(): array
+    {
+        return array_keys($this->getOperatorRules());
+    }
 }

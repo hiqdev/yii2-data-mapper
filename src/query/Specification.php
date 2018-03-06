@@ -49,7 +49,7 @@ class Specification
         foreach ($this->where as $key => $value) {
             foreach ($fields as $field) {
                 if ($field->isApplicable($key)) {
-                    $query->andWhere($field->buildCondition($value));
+                    $query->andWhere($field->buildCondition($key, $value));
                 }
             }
         }

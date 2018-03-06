@@ -13,4 +13,9 @@ namespace hiqdev\yii\DataMapper\query\attributes;
 interface AttributeInterface
 {
     public function getRuleForOperator($operator);
+
+    /**
+     * @return string[]
+     */
+    public function getSupportedOperators(): array;
 }
