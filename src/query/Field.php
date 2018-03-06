@@ -108,11 +108,7 @@ class Field implements FieldInterface
      */
     protected function ensureConditionValueIsValid($operator, $value)
     {
-        if (is_array($value)) {
-            $validator = $this->getAttribute()->getValidatorFor('in');
-        } else {
-            $validator = $this->getAttribute()->getValidatorFor($operator);
-        }
+        $validator = $this->getAttribute()->getValidatorFor($operator);
 
         $value = $validator->normalize($value);
         $validator->ensureIsValid($value);
@@ -132,7 +128,7 @@ class Field implements FieldInterface
         [$operator, $attribute] = $this->parseFilterKey($key);
 
         if (is_array($value)) {
-            return [$this->getSql() => $this->ensureConditionValueIsValid($operator, $value)];
+            return [$this->getSql() => $this->ensureConditionValueIsValid('in', $value)];
         }
 
         $operatorMap = [
