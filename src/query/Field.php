@@ -72,7 +72,7 @@ class Field implements FieldInterface
         $operator = 'eq';
 
         // If the suffix is in the list of acceptable suffix filer conditions
-        if ($matches[3] && in_array($matches[3], $this->attribute->getSupportedOperators(), true)) {
+        if (isset($matches[3]) && in_array($matches[3], $this->attribute->getSupportedOperators(), true)) {
             $operator = $matches[3];
             $key = $matches[1];
         }
