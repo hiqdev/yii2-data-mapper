@@ -60,7 +60,7 @@
         "config-plugin": {
             "params": "src/config/params.php",
             "common": "src/config/common.php",
-            "tests": "$common"
+            "tests": "src/config/common.php"
         }
     },
     "minimum-stability": "dev",
