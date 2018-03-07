@@ -13,7 +13,7 @@ class ConfigurableAggregateHydrator implements HydratorInterface
     /**
      * @var HydrationInterface[]
      */
-    private $hydrators = [];
+    public $hydrators = []; // TODO: make private after composer-config-plugin merging fix
     /**
      * @var Container
      */
