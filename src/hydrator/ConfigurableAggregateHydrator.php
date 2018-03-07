@@ -26,15 +26,13 @@ class ConfigurableAggregateHydrator implements HydratorInterface
     }
 
     /**
-     * @param $object
+     * @param string $className
      * @return HydrationInterface|ExtractionInterface
      * @throws InvalidConfigException
      * @throws \yii\di\NotInstantiableException
      */
-    protected function getHydrator($object)
+    protected function getHydrator($className)
     {
-        $className = get_class($object);
-
         if (!isset($this->hydrators[$className])) {
             throw new InvalidConfigException('Hydrator for "' . $className . '" is not configured'); // todo: more specific exception
         }
@@ -54,7 +52,7 @@ class ConfigurableAggregateHydrator implements HydratorInterface
      */
     public function hydrate(array $data, $object)
     {
-        return $this->getHydrator($object)->hydrate($data, $object);
+        return $this->getHydrator(get_class($object))->hydrate($data, $object);
     }
 
     /**
@@ -65,6 +63,6 @@ class ConfigurableAggregateHydrator implements HydratorInterface
      */
     public function extract($object)
     {
-        return $this->getHydrator($object)->extract($object);
+        return $this->getHydrator(get_class($object))->extract($object);
     }
 }
