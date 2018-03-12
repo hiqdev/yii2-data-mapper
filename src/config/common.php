@@ -21,6 +21,12 @@ return [
                             . (!empty($params['db.port']) ? (';port=' . $params['db.port']) : ''),
             'username'  => $params['db.user'],
             'password'  => $params['db.password'],
+            'queryBuilder' => [
+                'expressionBuilders' => [
+                    \hiqdev\yii\DataMapper\expressions\CallExpression::class => \hiqdev\yii\DataMapper\expressions\CallExpressionBuilder::class,
+                    \hiqdev\yii\DataMapper\expressions\HstoreExpression::class => \hiqdev\yii\DataMapper\expressions\HstoreExpressionBuilder::class,
+                ],
+            ],
         ],
     ],
     'container' => [
