@@ -35,9 +35,21 @@ return [
             \hiqdev\yii\DataMapper\components\ConnectionInterface::class => function () {
                 return Yii::$app->get('db');
             },
-            \hiqdev\yii\DataMapper\components\EntityManagerInterface::class => function () {
-                return Yii::$app->get('entityManager');
+            \hiqdev\yii\DataMapper\components\EntityManagerInterface::class => [
+                '__class' => \hiqdev\yii\DataMapper\components\EntityManager::class,
+                'repositories' => [
+                ],
+            ],
+        /// Hydrator
+            /// XXX realy need container->get ???
+            \Zend\Hydrator\HydratorInterface::class => function ($container) {
+                return $container->get(\hiqdev\yii\DataMapper\hydrator\ConfigurableAggregateHydrator::class);
             },
+            \hiqdev\yii\DataMapper\hydrator\ConfigurableAggregateHydrator::class => [
+                'hydrators' => [
+                     //\transmedia\signage\api\models\File::class => \transmedia\signage\api\models\FileHydrator::class,
+                 ],
+            ],
         ],
     ],
 ];
