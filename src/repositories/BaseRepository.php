@@ -76,6 +76,10 @@ abstract class BaseRepository extends \yii\base\Component implements GenericRepo
         return implode('\\', $parts);
     }
 
+    /**
+     * @param Specification $specification
+     * @return object[]
+     */
     public function findAll(Specification $specification)
     {
         $rows = $this->queryAll($specification);
