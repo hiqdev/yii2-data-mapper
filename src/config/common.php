@@ -30,10 +30,8 @@ return [
         ],
     ],
     'container' => [
-        'definitions' => [
-            \hiqdev\yii\DataMapper\query\FieldFactoryInterface::class => \hiqdev\yii\DataMapper\query\FieldFactory::class,
-        ],
         'singletons' => [
+            \hiqdev\yii\DataMapper\query\FieldFactoryInterface::class => \hiqdev\yii\DataMapper\query\FieldFactory::class,
             \hiqdev\yii\DataMapper\components\ConnectionInterface::class => function () {
                 return Yii::$app->get('db');
             },
