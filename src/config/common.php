@@ -47,7 +47,6 @@ return [
             },
             \hiqdev\yii\DataMapper\hydrator\ConfigurableAggregateHydrator::class => [
                 'hydrators' => [
-                     //\transmedia\signage\api\models\File::class => \transmedia\signage\api\models\FileHydrator::class,
                  ],
             ],
         ],
