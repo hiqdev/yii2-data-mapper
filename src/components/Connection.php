@@ -10,23 +10,11 @@
 
 namespace hiqdev\yii\DataMapper\components;
 
-use hiqdev\yii\DataMapper\expressions\ExpressionInterface;
-use yii\db\Expression;
-use yii\db\Query;
-
-// TODO: @sol, drop it
+/**
+ * Class Connection
+ *
+ * @author Andrii Vasyliev <sol@hiqdev.com>
+ */
 class Connection extends \yii\db\Connection implements ConnectionInterface
 {
-    public function createSelect(ExpressionInterface $exp)
-    {
-        return (new Query())->select($this->buildExpression($exp));
-    }
-
-    public function buildExpression($exp)
-    {
-        $params = [];
-        $string = $exp->buildUsing($this->getQueryBuilder(), $params);
-
-        return new Expression($string, $params);
-    }
 }
