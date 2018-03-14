@@ -22,32 +22,17 @@ class EntityManager extends \yii\base\Component implements EntityManagerInterfac
     public $repositories = [];
 
     /**
-     * @var ConnectionInterface
-     */
-    public $db;
-    /**
      * @var Container
      */
     private $di;
 
     public function __construct(
-        ConnectionInterface $db,
         Container $di,
         array $config = []
     ) {
-        $this->db = $db;
         $this->di = $di;
 
         parent::__construct($config);
-    }
-
-    /**
-     * Get database connection.
-     * @return ConnectionInterface
-     */
-    public function getConnection()
-    {
-        return $this->db;
     }
 
     /**
