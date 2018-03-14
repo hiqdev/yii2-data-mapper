@@ -26,12 +26,15 @@ trait HydratorAwareFactoryTrait
     }
 
     /**
+     * @param string $className
      * @return object
      * @throws \ReflectionException
      */
-    private function createEmptyInstance()
+    private function createEmptyInstance(?string $className = null)
     {
-        $reflection = new \ReflectionClass($this->getEntityClassName());
+        $className = $className ?? $this->getEntityClassName();
+
+        $reflection = new \ReflectionClass($className);
         return $reflection->newInstanceWithoutConstructor();
     }
 }

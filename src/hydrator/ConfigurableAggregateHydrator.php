@@ -8,6 +8,11 @@ use Zend\Hydrator\ExtractionInterface;
 use Zend\Hydrator\HydrationInterface;
 use Zend\Hydrator\HydratorInterface;
 
+/**
+ * Class ConfigurableAggregateHydrator
+ *
+ * @author Dmytro Naumenko <d.naumenko.a@gmail.com>
+ */
 class ConfigurableAggregateHydrator implements HydratorInterface
 {
     /**
