@@ -143,16 +143,6 @@ abstract class BaseRepository extends \yii\base\Component implements GenericRepo
         call_user_func_array([$this, 'join' . $relationName], [&$rows]);
     }
 
-    public function old_findOne(Specification $specification)
-    {
-        $specification->limit(1);
-        $query = $this->buildSelectQuery($specification);
-        $row = $query->createCommand($this->db)->queryOne();
-        $row = $query->restoreHierarchy($row);
-
-        return $this->hydrateNew($row);
-    }
-
     protected function buildSelectQuery(Specification $specification)
     {
         return $specification->applyTo($this->buildQuery()->initSelect());
