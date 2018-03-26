@@ -2,8 +2,6 @@
 
 namespace hiqdev\yii\DataMapper\models\relations;
 
-use hiqdev\php\billing\EntityInterface;
-use yii\base\InvalidParamException;
 use yii\helpers\ArrayHelper;
 
 class Bucket
@@ -58,20 +56,31 @@ class Bucket
     }
 
     /**
-     * @param EntityInterface[] $entities
-     * @param string $key the attribute name in $entity that represent this relation
-     * @param string $entityKey
+     * Fills current bucket with $entities.
+     * Each entity will be placed in bucket as follows:
+     *
+     *
+     *
+     * @param array $entities
+     * @param string $key the attribute name in $entity that represents this relation with [[items]]
+     * @param string|null $entityIdKey the attribute name that is a primary key of the $entity and will be used for one-to-many relation
+     * Optional. In case `null`, identifiers will be sequential.
      * @return $this
      */
-    public function fill($entities, $key, $entityIdKey)
+    public function fill($entities, $key, $entityIdKey = null)
     {
         foreach ($entities as $entity) {
             $itemKey = ArrayHelper::getValue($entity, $key);
             if (!isset($this->items[$itemKey])) {
-                throw new InvalidParamException('This should not happen. Result was not requested in bucket.');
+                throw new \RuntimeException('This should not happen. Result was not requested in bucket.');
             }
-            $entityKey = ArrayHelper::getValue($entity, $entityIdKey);
-            $this->items[$itemKey][$entityKey] = $entity;
+
+            if ($entityIdKey !== null) {
+                $entityKey = ArrayHelper::getValue($entity, $entityIdKey);
+                $this->items[$itemKey][$entityKey] = $entity;
+            } else {
+                $this->items[$itemKey][] = $entity;
+            }
         }
 
         return $this;
@@ -83,6 +92,17 @@ class Bucket
             $keyName = $this->sourceKey;
             $key = $row[$keyName];
             $row[$relationName] = $this->items[$key];
+        }
+
+        return $this;
+    }
+
+    public function pourOneToOne(&$rows, $relationName)
+    {
+        foreach ($rows as &$row) {
+            $keyName = $this->sourceKey;
+            $key = $row[$keyName];
+            $row[$relationName] = reset($this->items[$key]);
         }
 
         return $this;
