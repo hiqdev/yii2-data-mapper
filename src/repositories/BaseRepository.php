@@ -15,6 +15,8 @@ use hiqdev\yii\DataMapper\components\EntityManagerInterface;
 use hiqdev\yii\DataMapper\query\Query;
 use hiqdev\yii\DataMapper\query\Specification;
 use Yii;
+use yii\base\InvalidConfigException;
+use yii\base\UnknownMethodException;
 use yii\db\Connection;
 use Zend\Hydrator\HydratorInterface;
 
@@ -140,7 +142,11 @@ abstract class BaseRepository extends \yii\base\Component implements GenericRepo
     
     protected function joinRelation($relationName, &$rows)
     {
-        call_user_func_array([$this, 'join' . $relationName], [&$rows]);
+        try {
+            call_user_func_array([$this, 'join' . $relationName], [&$rows]);
+        } catch (UnknownMethodException $e) {
+            throw new InvalidConfigException('Do not know how to join relation "' . $relationName . '"');
+        }
     }
 
     protected function buildSelectQuery(Specification $specification)
