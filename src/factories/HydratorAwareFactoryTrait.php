@@ -2,6 +2,11 @@
 
 namespace hiqdev\yii\DataMapper\factories;
 
+/**
+ * Trait HydratorAwareFactoryTrait
+ *
+ * @author Dmytro Naumenko <d.naumenko.a@gmail.com>
+ */
 trait HydratorAwareFactoryTrait
 {
     /**
