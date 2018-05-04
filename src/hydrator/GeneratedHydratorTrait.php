@@ -28,7 +28,6 @@ trait GeneratedHydratorTrait
         return $this->generatedHydrator;
     }
 
-
     public function hydrate(array $data, $object)
     {
         return $this->getGeneratedHydrator($object)->hydrate($data, $object);
@@ -39,10 +38,10 @@ trait GeneratedHydratorTrait
      * @return object
      * @throws \ReflectionException
      */
-    private function createEmptyInstance(string $className)
+    public function createEmptyInstance(string $className, array $data = [])
     {
         $reflection = new \ReflectionClass($className);
+
         return $reflection->newInstanceWithoutConstructor();
     }
 }
-
