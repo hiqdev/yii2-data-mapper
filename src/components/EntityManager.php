@@ -13,6 +13,7 @@ namespace hiqdev\yii\DataMapper\components;
 use hiqdev\yii\DataMapper\repositories\BaseRepository;
 use Yii;
 use yii\di\Container;
+use Zend\Hydrator\HydratorInterface;
 
 class EntityManager extends \yii\base\Component implements EntityManagerInterface
 {
@@ -22,17 +23,57 @@ class EntityManager extends \yii\base\Component implements EntityManagerInterfac
     public $repositories = [];
 
     /**
+     * @var array map: repository => class
+     */
+    protected $entities;
+
+    /**
+     * @var HydratorInterface
+     */
+    protected $hydrator;
+
+    /**
      * @var Container
      */
-    private $di;
+    protected $di;
 
     public function __construct(
         Container $di,
+        HydratorInterface $hydrator,
         array $config = []
     ) {
         $this->di = $di;
+        $this->hydrator = $hydrator;
 
         parent::__construct($config);
+    }
+
+    public function getHydrator()
+    {
+        return $this->hydrator;
+    }
+
+    public function getEntityClass($repo)
+    {
+        $repoClass = is_object($repo) ? get_class($repo) : $repo;
+        $entities = $this->getEntities();
+        if (empty($entities[$repoClass])) {
+            throw new \Exception('no entity for ' . $repoClass);
+        }
+
+        return $entities[$repoClass];
+    }
+
+    protected function getEntities()
+    {
+        if ($this->entities === null) {
+            foreach ($this->repositories as $entityClass => $repo) {
+                $repoClass = is_object($repo) ? get_class($repo) : $repo;
+                $this->entities[$repoClass] = $entityClass;
+            }
+        }
+
+        return $this->entities;
     }
 
     /**
