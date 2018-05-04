@@ -5,7 +5,7 @@
  * @link      https://github.com/hiqdev/yii2-data-mapper
  * @package   yii2-data-mapper
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2017, HiQDev (http://hiqdev.com/)
+ * @copyright Copyright (c) 2017-2018, HiQDev (http://hiqdev.com/)
  */
 
 namespace hiqdev\yii\DataMapper\query;
@@ -14,7 +14,6 @@ use hiqdev\yii\DataMapper\models\AbstractModel;
 use hiqdev\yii\DataMapper\models\ModelInterface;
 use hiqdev\yii\DataMapper\query\join\Join;
 use yii\base\InvalidConfigException;
-use yii\base\Model;
 
 abstract class Query extends \yii\db\Query
 {
@@ -74,7 +73,7 @@ abstract class Query extends \yii\db\Query
     }
 
     /**
-     * Registered joins array. Key - join name, value - bool true if registered
+     * Registered joins array. Key - join name, value - bool true if registered.
      * @var bool[]
      */
     private $_registeredJoins = [];
@@ -147,7 +146,7 @@ abstract class Query extends \yii\db\Query
     }
 
     /**
-     * // TODO: move up in hierarchy
+     * // TODO: move up in hierarchy.
      * @param string $name
      * @return Join
      */

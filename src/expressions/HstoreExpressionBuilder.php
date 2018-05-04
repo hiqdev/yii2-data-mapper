@@ -1,4 +1,12 @@
 <?php
+/**
+ * Data Mapper for Yii2
+ *
+ * @link      https://github.com/hiqdev/yii2-data-mapper
+ * @package   yii2-data-mapper
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2017-2018, HiQDev (http://hiqdev.com/)
+ */
 
 namespace hiqdev\yii\DataMapper\expressions;
 
@@ -8,7 +16,7 @@ use yii\db\ExpressionBuilderTrait;
 use yii\db\ExpressionInterface;
 
 /**
- * Class HstoreExpressionBuilder
+ * Class HstoreExpressionBuilder.
  *
  * @author Dmytro Naumenko <d.naumenko.a@gmail.com>
  */
@@ -18,7 +26,7 @@ class HstoreExpressionBuilder implements ExpressionBuilderInterface
 
     /**
      * {@inheritdoc}
-     * @param HstoreExpression|ExpressionInterface $expression the expression to be built.
+     * @param HstoreExpression|ExpressionInterface $expression the expression to be built
      */
     public function build(ExpressionInterface $expression, array &$params = [])
     {

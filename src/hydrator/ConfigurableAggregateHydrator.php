@@ -1,4 +1,12 @@
 <?php
+/**
+ * Data Mapper for Yii2
+ *
+ * @link      https://github.com/hiqdev/yii2-data-mapper
+ * @package   yii2-data-mapper
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2017-2018, HiQDev (http://hiqdev.com/)
+ */
 
 namespace hiqdev\yii\DataMapper\hydrator;
 
@@ -9,7 +17,7 @@ use Zend\Hydrator\HydrationInterface;
 use Zend\Hydrator\HydratorInterface;
 
 /**
- * Class ConfigurableAggregateHydrator
+ * Class ConfigurableAggregateHydrator.
  *
  * @author Dmytro Naumenko <d.naumenko.a@gmail.com>
  */
@@ -32,9 +40,9 @@ class ConfigurableAggregateHydrator implements HydratorInterface
 
     /**
      * @param string $className
-     * @return HydrationInterface|ExtractionInterface
      * @throws InvalidConfigException
      * @throws \yii\di\NotInstantiableException
+     * @return HydrationInterface|ExtractionInterface
      */
     protected function getHydrator($className)
     {
@@ -68,7 +76,7 @@ class ConfigurableAggregateHydrator implements HydratorInterface
     }
 
     /**
-     * Extract values from an object
+     * Extract values from an object.
      *
      * @param  object $object
      * @return array

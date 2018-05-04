@@ -5,14 +5,13 @@
  * @link      https://github.com/hiqdev/yii2-data-mapper
  * @package   yii2-data-mapper
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2017, HiQDev (http://hiqdev.com/)
+ * @copyright Copyright (c) 2017-2018, HiQDev (http://hiqdev.com/)
  */
 
 namespace hiqdev\yii\DataMapper\query;
 
 use hiqdev\yii\DataMapper\query\attributes\AbstractAttribute;
 use hiqdev\yii\DataMapper\validators\AttributeValidationException;
-use yii\base\InvalidParamException;
 
 class Field implements FieldInterface
 {
@@ -107,8 +106,8 @@ class Field implements FieldInterface
     /**
      * @param string $operator
      * @param mixed $value
-     * @return mixed normalized $value
      * @throws AttributeValidationException when value is not valid
+     * @return mixed normalized $value
      */
     protected function ensureConditionValueIsValid($operator, $value)
     {
@@ -124,8 +123,8 @@ class Field implements FieldInterface
      * // TODO: create ConditionBuilder?
      * @param $key
      * @param $value
-     * @return array
      * @throws AttributeValidationException when value is not valid
+     * @return array
      */
     public function buildCondition($key, $value)
     {

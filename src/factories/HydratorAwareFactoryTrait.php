@@ -1,9 +1,17 @@
 <?php
+/**
+ * Data Mapper for Yii2
+ *
+ * @link      https://github.com/hiqdev/yii2-data-mapper
+ * @package   yii2-data-mapper
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2017-2018, HiQDev (http://hiqdev.com/)
+ */
 
 namespace hiqdev\yii\DataMapper\factories;
 
 /**
- * Trait HydratorAwareFactoryTrait
+ * Trait HydratorAwareFactoryTrait.
  *
  * @author Dmytro Naumenko <d.naumenko.a@gmail.com>
  */
@@ -32,15 +40,15 @@ trait HydratorAwareFactoryTrait
 
     /**
      * @param string $className
-     * @return object
      * @throws \ReflectionException
+     * @return object
      */
     private function createEmptyInstance(?string $className = null)
     {
         $className = $className ?? $this->getEntityClassName();
 
         $reflection = new \ReflectionClass($className);
+
         return $reflection->newInstanceWithoutConstructor();
     }
 }
-
