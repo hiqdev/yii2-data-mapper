@@ -18,7 +18,6 @@ use Yii;
 use yii\base\InvalidConfigException;
 use yii\base\UnknownMethodException;
 use yii\db\Connection;
-use Zend\Hydrator\HydratorInterface;
 
 abstract class BaseRepository extends \yii\base\Component implements GenericRepositoryInterface
 {
@@ -31,11 +30,6 @@ abstract class BaseRepository extends \yii\base\Component implements GenericRepo
      * @var EntityManagerInterface
      */
     protected $em;
-
-    /**
-     * @var HydratorInterface
-     */
-    protected $factory;
 
     /**
      * @var string
@@ -86,7 +80,7 @@ abstract class BaseRepository extends \yii\base\Component implements GenericRepo
     {
         $rows = $this->queryAll($specification);
 
-        return $this->hydrateMultipleNew($rows);
+        return $this->hydrateMultiple($rows);
     }
 
     public function queryAll(Specification $specification)
@@ -167,32 +161,29 @@ abstract class BaseRepository extends \yii\base\Component implements GenericRepo
         return $this->queryClass;
     }
 
-    protected function hydrateMultipleNew($rows)
+    public function hydrateMultiple($rows, $entityClass = null)
     {
         $entities = [];
         foreach ($rows as $row) {
-            $entities[] = $this->hydrateNew($row);
+            $entities[] = $this->hydrate($row, $entityClass);
         }
 
         return $entities;
     }
 
     /**
-     * @param array $row
+     * @param array $data
+     * @param object|string $object object or class name
      * @return object
      */
-    public function hydrateNew(array $row)
+    public function hydrate(array $data, $object = null)
     {
-        return $this->factory->hydrateNewObject($row);
+        return $this->em->hydrate($data, $object ?? $this->getEntityClass());
     }
 
-    protected function getEntityCreationDtoClass()
+    public function getEntityClass()
     {
-        $class = new \ReflectionClass($this->factory);
-        $method = $class->getMethod('hydrate');
-        $arg = reset($method->getParameters());
-
-        return $arg->getClass()->getName();
+        return $this->em->getEntityClass($this);
     }
 
     /**
