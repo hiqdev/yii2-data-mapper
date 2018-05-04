@@ -52,12 +52,19 @@ class ConfigurableAggregateHydrator implements HydratorInterface
      * Hydrate $object with the provided $data.
      *
      * @param  array $data
-     * @param  object $object
+     * @param  object|string $object object or class name
      * @return object
      */
     public function hydrate(array $data, $object)
     {
-        return $this->getHydrator(get_class($object))->hydrate($data, $object);
+        if (is_object($object)) {
+            $hydrator = $this->getHydrator(get_class($object));
+        } else {
+            $hydrator = $this->getHydrator($object);
+            $object = $hydrator->createEmptyInstance($object, $data);
+        }
+
+        return $hydrator->hydrate($data, $object);
     }
 
     /**
