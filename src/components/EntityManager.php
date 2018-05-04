@@ -48,17 +48,12 @@ class EntityManager extends \yii\base\Component implements EntityManagerInterfac
         parent::__construct($config);
     }
 
-    public function getHydrator()
-    {
-        return $this->hydrator;
-    }
-
     public function getEntityClass($repo)
     {
         $repoClass = is_object($repo) ? get_class($repo) : $repo;
         $entities = $this->getEntities();
         if (empty($entities[$repoClass])) {
-            throw new \Exception('no entity for ' . $repoClass);
+            throw new \Exception('no entity class for ' . $repoClass);
         }
 
         return $entities[$repoClass];
@@ -120,14 +115,13 @@ class EntityManager extends \yii\base\Component implements EntityManagerInterfac
     }
 
     /**
-     * Create entity of given class with given data.
-     * @param string $entityClass
      * @param array $data
+     * @param object|string $object entity or class name
      * @return object
      */
-    public function create($entityClass, array $data)
+    public function hydrate(array $data, $object)
     {
-        return $this->getRepository($entityClass)->hydrateNew($data);
+        return $this->hydrator->hydrate($data, $object);
     }
 
     /**
@@ -140,4 +134,5 @@ class EntityManager extends \yii\base\Component implements EntityManagerInterfac
     {
         return $this->getRepository($entity)->findId($entity);
     }
+
 }
