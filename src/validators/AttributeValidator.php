@@ -37,6 +37,9 @@ class AttributeValidator implements \hiqdev\yii\DataMapper\validators\Normalizer
      */
     public function ensureIsValid($value)
     {
+        if ($value instanceof \yii\db\ExpressionInterface) {
+            return;
+        }
         if ($this->realValidator->validate($value, $result) !== true) {
             throw \hiqdev\yii\DataMapper\validators\AttributeValidationException::forValue($value, $result);
         }
