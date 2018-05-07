@@ -47,6 +47,7 @@ return [
             },
             \hiqdev\yii\DataMapper\hydrator\ConfigurableAggregateHydrator::class => [
                 'hydrators' => [
+                    \DateTimeImmutable::class => \hiqdev\yii\DataMapper\hydrator\DateTimeImmutableHydrator::class,
                  ],
             ],
         ],
