@@ -18,13 +18,13 @@ trait GeneratedHydratorTrait
     /**
      * @var HydratorInterface
      */
-    private $generatedHydrator;
+    protected $generatedHydrator;
 
     /**
      * @param object $object
      * @return HydratorInterface
      */
-    private function getGeneratedHydrator($object): HydratorInterface
+    protected function getGeneratedHydrator($object): HydratorInterface
     {
         if (null === $this->generatedHydrator) {
             $config = new Configuration(get_class($object));

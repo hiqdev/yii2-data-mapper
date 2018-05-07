@@ -17,7 +17,7 @@ trait RootHydratorAwareTrait
     /**
      * @var HydratorInterface
      */
-    private $hydrator;
+    protected $hydrator;
 
     public function __construct(HydratorInterface $hydrator)
     {
