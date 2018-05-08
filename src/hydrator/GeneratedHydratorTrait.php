@@ -16,9 +16,9 @@ use Zend\Hydrator\HydratorInterface;
 trait GeneratedHydratorTrait
 {
     /**
-     * @var HydratorInterface
+     * @var HydratorInterface[]
      */
-    protected $generatedHydrator;
+    protected $generatedHydrators = [];
 
     /**
      * @param object $object
@@ -26,14 +26,15 @@ trait GeneratedHydratorTrait
      */
     protected function getGeneratedHydrator($object): HydratorInterface
     {
-        if (null === $this->generatedHydrator) {
-            $config = new Configuration(get_class($object));
+        $class = get_class($object);
+        if (empty($this->generatedHydrators[$class])) {
+            $config = new Configuration($class);
             $hydratorClass = $config->createFactory()->getHydratorClass();
 
-            $this->generatedHydrator = new $hydratorClass();
+            $this->generatedHydrators[$class] = new $hydratorClass();
         }
 
-        return $this->generatedHydrator;
+        return $this->generatedHydrators[$class];
     }
 
     public function hydrate(array $data, $object)
