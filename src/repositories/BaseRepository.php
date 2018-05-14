@@ -161,6 +161,11 @@ abstract class BaseRepository extends \yii\base\Component implements GenericRepo
         return $this->queryClass;
     }
 
+    /**
+     * @param array $rows
+     * @param object|string $entityClass
+     * @return object[]
+     */
     public function hydrateMultiple($rows, $entityClass = null)
     {
         $entities = [];

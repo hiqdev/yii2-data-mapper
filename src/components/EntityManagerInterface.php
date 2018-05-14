@@ -21,4 +21,11 @@ interface EntityManagerInterface
     public function getRepository($entityClass);
 
     public function save($entity);
+
+    /**
+     * @param array $data
+     * @param object|string $object entity or class name
+     * @return object
+     */
+    public function hydrate(array $data, $object);
 }

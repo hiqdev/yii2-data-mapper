@@ -44,8 +44,9 @@ trait GeneratedHydratorTrait
 
     /**
      * @param string $className
-     * @throws \ReflectionException
+     * @param array $data
      * @return object
+     * @throws \ReflectionException
      */
     public function createEmptyInstance(string $className, array $data = [])
     {
