@@ -10,6 +10,7 @@
 
 namespace hiqdev\yii\DataMapper\hydrator;
 
+use DateTime;
 use DateTimeImmutable;
 
 /**
@@ -34,6 +35,6 @@ class DateTimeImmutableHydrator extends GeneratedHydrator
      */
     public function extract($object)
     {
-        return $object->time->format(DateTimeImmutable::ATOM);
+        return $object->format(DateTime::ATOM);
     }
 }
