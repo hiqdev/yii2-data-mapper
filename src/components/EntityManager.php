@@ -123,6 +123,11 @@ class EntityManager extends \yii\base\Component implements EntityManagerInterfac
         return $this->hydrator->hydrate($data, $object);
     }
 
+    public function extract($object)
+    {
+        return $this->hydrator->extract($object);
+    }
+
     /**
      * XXX TODO think of the whole process:
      * alternative: find and populate whole entity.
