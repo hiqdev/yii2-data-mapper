@@ -85,4 +85,19 @@ class ConfigurableAggregateHydrator implements HydratorInterface
     {
         return $this->getHydrator(get_class($object))->extract($object);
     }
+
+    /**
+     * Extract multiple objects.
+     * @param  array $array
+     * @return array
+     */
+    public function extractMultiple(array $array)
+    {
+        $res = [];
+        foreach ($array as $key => $object) {
+            $res[$key] = $this->extract($object);
+        }
+
+        return $res;
+    }
 }
