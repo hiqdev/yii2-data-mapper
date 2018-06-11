@@ -65,7 +65,7 @@ class ConfigurableAggregateHydrator implements HydratorInterface
      */
     public function create($data, $class)
     {
-        return is_object($data) ? $data : $this->hydrate($data, $class);
+        return is_object($data) ? $data : $this->hydrate(is_array($data) ? $data : [$data], $class);
     }
 
     /**
