@@ -103,7 +103,7 @@ class ConfigurableAggregateHydrator implements HydratorInterface
      * @param  array $array
      * @return array
      */
-    public function extractMultiple(array $array)
+    public function extractAll(array $array)
     {
         $res = [];
         foreach ($array as $key => $object) {
