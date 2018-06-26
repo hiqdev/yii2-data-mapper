@@ -108,6 +108,9 @@ class EntityManager extends \yii\base\Component implements EntityManagerInterfac
      */
     public function saveAll(array $entities)
     {
+        /// TODO add transaction
+        /// $this->db->transaction(function() use ($entities) {
+        /// });
         foreach ($entities as $entity) {
             $this->save($entity);
         }
