@@ -51,6 +51,29 @@ abstract class BaseRepository extends \yii\base\Component implements GenericRepo
         return $query;
     }
 
+    public function findIds(array $entities): array
+    {
+        $ids = [];
+        foreach ($entities as $entity) {
+            $id = $this->findId($entity);
+            $ids[$id] = $id;
+        }
+
+        return $ids;
+    }
+
+    /**
+     * Selects entities from DB by given IDs.
+     * @param string[] $ids
+     * @return array
+     */
+    public function findByIds(array $ids): array
+    {
+        $spec = Yii::createObject(Specification::class)->where(['id' => $ids]);
+
+        return $this->findAll($spec);
+    }
+
     public function setRecordClass($value)
     {
         $this->recordClass = $value;
