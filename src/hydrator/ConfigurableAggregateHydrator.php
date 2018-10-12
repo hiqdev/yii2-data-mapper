@@ -103,11 +103,12 @@ class ConfigurableAggregateHydrator implements HydratorInterface
      * @param  array $array
      * @return array
      */
-    public function extractAll(array $array)
+    public function extractAll(array $array, int $depth = 1)
     {
+        $depth--;
         $res = [];
         foreach ($array as $key => $object) {
-            $res[$key] = $this->extract($object);
+            $res[$key] = $depth>0 ? $this->extractAll($object, $depth) : $this->extract($object);
         }
 
         return $res;
