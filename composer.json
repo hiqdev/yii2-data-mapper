@@ -56,6 +56,9 @@
         }
     },
     "extra": {
+        "branch-alias": {
+            "1.0": "1.0.x-dev"
+        },
         "config-plugin": {
             "params": "src/config/params.php",
             "common": "src/config/common.php",
