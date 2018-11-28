@@ -10,10 +10,10 @@
 
 return [
     'entityManager' => [
-        'class' => \hiqdev\yii\DataMapper\components\EntityManager::class,
+        '__class' => \hiqdev\yii\DataMapper\components\EntityManager::class,
     ],
     'db' => [
-        'class'     => \hiqdev\yii\DataMapper\components\Connection::class,
+        '__class'   => \hiqdev\yii\DataMapper\components\Connection::class,
         'charset'   => 'utf8',
         'dsn'       => 'pgsql:dbname=' . $params['db.name']
                         . (!empty($params['db.host']) ? (';host=' . $params['db.host']) : '')
@@ -38,11 +38,7 @@ return [
         ],
     ],
 
-/// Hydrator
-    /// XXX realy need container->get ???
-    \Zend\Hydrator\HydratorInterface::class => function ($container) {
-        return $container->get(\hiqdev\yii\DataMapper\hydrator\ConfigurableAggregateHydrator::class);
-    },
+    \Zend\Hydrator\HydratorInterface::class => \yii\di\Reference::to(\hiqdev\yii\DataMapper\hydrator\ConfigurableAggregateHydrator::class),
     \hiqdev\yii\DataMapper\hydrator\ConfigurableAggregateHydrator::class => [
         'hydrators' => [
             \DateTimeImmutable::class => \hiqdev\yii\DataMapper\hydrator\DateTimeImmutableHydrator::class,
