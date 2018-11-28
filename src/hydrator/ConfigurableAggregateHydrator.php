@@ -10,7 +10,7 @@
 
 namespace hiqdev\yii\DataMapper\hydrator;
 
-use yii\base\InvalidConfigException;
+use yii\exceptions\InvalidConfigException;
 use yii\di\Container;
 use Zend\Hydrator\ExtractionInterface;
 use Zend\Hydrator\HydrationInterface;
