@@ -36,12 +36,10 @@ abstract class BaseRepository extends \yii\base\Component implements GenericRepo
      */
     public $queryClass;
 
-    public function __construct(ConnectionInterface $db, EntityManagerInterface $em, array $config = [])
+    public function __construct(ConnectionInterface $db, EntityManagerInterface $em)
     {
         $this->db = $db;
         $this->em = $em;
-
-        parent::__construct($config);
     }
 
     public function find(ActiveQuery $query)
