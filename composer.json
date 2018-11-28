@@ -44,7 +44,8 @@
         }
     ],
     "require": {
-        "ocramius/generated-hydrator": "*"
+        "yiisoft/db": "^3.0@dev",
+        "ocramius/generated-hydrator": "^2.2@dev"
     },
     "require-dev": {
         "hiqdev/hidev-php": "<2.0 || dev-master",
