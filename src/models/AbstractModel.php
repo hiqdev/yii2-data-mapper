@@ -11,7 +11,7 @@
 namespace hiqdev\yii\DataMapper\models;
 
 use hiqdev\yii\DataMapper\query\attributes\AbstractAttribute;
-use Yii;
+use yii\helpers\Yii;
 use yii\base\InvalidConfigException;
 
 /**

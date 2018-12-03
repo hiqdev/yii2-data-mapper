@@ -10,7 +10,7 @@
 
 namespace hiqdev\yii\DataMapper\validators;
 
-use Yii;
+use yii\helpers\Yii;
 use yii\validators\InlineValidator;
 use yii\validators\Validator;
 

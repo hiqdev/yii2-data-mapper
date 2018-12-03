@@ -14,7 +14,7 @@ use hiqdev\yii\DataMapper\components\ConnectionInterface;
 use hiqdev\yii\DataMapper\components\EntityManagerInterface;
 use hiqdev\yii\DataMapper\query\Query;
 use hiqdev\yii\DataMapper\query\Specification;
-use Yii;
+use yii\helpers\Yii;
 use yii\base\InvalidConfigException;
 use yii\base\UnknownMethodException;
 use yii\db\Connection;

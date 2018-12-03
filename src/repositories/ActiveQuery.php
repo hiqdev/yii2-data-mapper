@@ -10,7 +10,7 @@
 
 namespace hiqdev\yii\DataMapper\repositories;
 
-use Yii;
+use yii\helpers\Yii;
 
 class ActiveQuery extends \yii\db\ActiveQuery
 {
