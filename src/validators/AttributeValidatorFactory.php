@@ -47,7 +47,7 @@ class AttributeValidatorFactory
     {
         if ($type instanceof \Closure) {
             // method-based validator
-            $params['class'] = InlineValidator::class;
+            $params['__class'] = InlineValidator::class;
             $params['method'] = $type;
         } else {
             if (isset(Validator::$builtInValidators[$type])) {
@@ -59,7 +59,7 @@ class AttributeValidatorFactory
             if (is_array($type)) {
                 $params = array_merge($type, $params);
             } else {
-                $params['class'] = $type;
+                $params['__class'] = $type;
             }
         }
 

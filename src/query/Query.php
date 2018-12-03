@@ -27,10 +27,8 @@ abstract class Query extends \yii\db\Query
      */
     protected $modelClass;
 
-    public function __construct(FieldFactoryInterface $fieldFactory, array $config = [])
+    public function __construct(FieldFactoryInterface $fieldFactory)
     {
-        parent::__construct($config);
-
         $this->fieldFactory = $fieldFactory;
 
         if (!isset($this->modelClass)) {
