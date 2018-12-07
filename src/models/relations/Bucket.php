@@ -51,6 +51,9 @@ class Bucket
         $result = [];
         foreach ($rows as $row) {
             $key = $row[$this->sourceKey];
+            if ($key === null) {
+                continue;
+            }
             $result[$key] = [];
         }
         $this->items = $result;
