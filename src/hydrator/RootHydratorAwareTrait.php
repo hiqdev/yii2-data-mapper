@@ -15,7 +15,7 @@ use Zend\Hydrator\HydratorInterface;
 trait RootHydratorAwareTrait
 {
     /**
-     * @var HydratorInterface
+     * @var HydratorInterface|ConfigurableAggregateHydrator
      */
     protected $hydrator;
 
