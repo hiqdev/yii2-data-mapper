@@ -67,7 +67,7 @@ abstract class BaseRepository extends \yii\base\Component implements GenericRepo
      */
     public function findByIds(array $ids): array
     {
-        $spec = Yii::createObject(Specification::class)->where(['id' => $ids]);
+        $spec = $this->createSpecification()->where(['id' => $ids]);
 
         return $this->findAll($spec);
     }
@@ -219,5 +219,9 @@ abstract class BaseRepository extends \yii\base\Component implements GenericRepo
     public function getRepository($entityClass)
     {
         return $this->em->getRepository($entityClass);
+    }
+    public function createSpecification()
+    {
+        return new Specification();
     }
 }
