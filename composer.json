@@ -53,7 +53,8 @@
     },
     "autoload": {
         "psr-4": {
-            "hiqdev\\yii\\DataMapper\\": "src"
+            "hiqdev\\yii\\DataMapper\\": "src",
+            "hiqdev\\yii\\DataMapper\\tests\\": "tests"
         }
     },
     "extra": {
