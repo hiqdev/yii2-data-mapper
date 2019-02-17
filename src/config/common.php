@@ -10,10 +10,10 @@
 
 $components = [
     'entityManager' => [
-        'class' => \hiqdev\yii\DataMapper\components\EntityManager::class,
+        '__class' => \hiqdev\yii\DataMapper\components\EntityManager::class,
     ],
     'db' => [
-        'class'     => \hiqdev\yii\DataMapper\components\Connection::class,
+        '__class'   => \hiqdev\yii\DataMapper\components\Connection::class,
         'charset'   => 'utf8',
         'dsn'       => 'pgsql:dbname=' . $params['db.name']
                         . (!empty($params['db.host']) ? (';host=' . $params['db.host']) : '')
