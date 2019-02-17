@@ -39,11 +39,7 @@ $singletons = [
         'repositories' => [
         ],
     ],
-/// Hydrator
-    /// XXX realy need container->get ???
-    \Zend\Hydrator\HydratorInterface::class => function ($container) {
-        return $container->get(\hiqdev\yii\DataMapper\hydrator\ConfigurableAggregateHydrator::class);
-    },
+    \Zend\Hydrator\HydratorInterface::class => \hiqdev\yii\DataMapper\hydrator\ConfigurableAggregateHydrator::class,
     \hiqdev\yii\DataMapper\hydrator\ConfigurableAggregateHydrator::class => [
         'hydrators' => [
             \DateTimeImmutable::class => \hiqdev\yii\DataMapper\hydrator\DateTimeImmutableHydrator::class,
