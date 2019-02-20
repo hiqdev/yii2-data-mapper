@@ -39,7 +39,6 @@ $singletons = [
         'repositories' => [
         ],
     ],
-
     \Zend\Hydrator\HydratorInterface::class => \hiqdev\yii\DataMapper\hydrator\ConfigurableAggregateHydrator::class,
     \hiqdev\yii\DataMapper\hydrator\ConfigurableAggregateHydrator::class => [
         'hydrators' => [
