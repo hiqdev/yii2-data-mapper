@@ -10,8 +10,6 @@
 
 namespace hiqdev\yii\DataMapper\repositories;
 
-use Yii;
-
 class ActiveQuery extends \yii\db\ActiveQuery
 {
     public $repository;
@@ -39,7 +37,7 @@ class ActiveQuery extends \yii\db\ActiveQuery
 
     public function getDb()
     {
-        return Yii::$app->getDb();
+        return $this->getApp()->getDb();
     }
 
     /*
@@ -71,4 +69,9 @@ class ActiveQuery extends \yii\db\ActiveQuery
             return $class::conversions();
         }
     */
+
+    protected function getApp()
+    {
+        return class_exists('Yii') ? \Yii::$app : \yii\helpers\Yii::getApp();
+    }
 }
