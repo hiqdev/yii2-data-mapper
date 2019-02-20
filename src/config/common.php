@@ -8,12 +8,13 @@
  * @copyright Copyright (c) 2017-2018, HiQDev (http://hiqdev.com/)
  */
 
-return [
+$components = [
     'entityManager' => [
         '__class' => \hiqdev\yii\DataMapper\components\EntityManager::class,
     ],
     'db' => [
         '__class'   => \hiqdev\yii\DataMapper\components\Connection::class,
+        'charset'   => 'utf8',
         'dsn'       => 'pgsql:dbname=' . $params['db.name']
                         . (!empty($params['db.host']) ? (';host=' . $params['db.host']) : '')
                         . (!empty($params['db.port']) ? (';port=' . $params['db.port']) : ''),
@@ -26,7 +27,9 @@ return [
             ],
         ],
     ],
+];
 
+$singletons = [
     \hiqdev\yii\DataMapper\query\FieldFactoryInterface::class => \hiqdev\yii\DataMapper\query\FieldFactory::class,
     \hiqdev\yii\DataMapper\components\ConnectionInterface::class => function ($container) {
         return $container->get('db');
@@ -37,10 +40,15 @@ return [
         ],
     ],
 
-    \Zend\Hydrator\HydratorInterface::class => \yii\di\Reference::to(\hiqdev\yii\DataMapper\hydrator\ConfigurableAggregateHydrator::class),
+    \Zend\Hydrator\HydratorInterface::class => \hiqdev\yii\DataMapper\hydrator\ConfigurableAggregateHydrator::class,
     \hiqdev\yii\DataMapper\hydrator\ConfigurableAggregateHydrator::class => [
         'hydrators' => [
             \DateTimeImmutable::class => \hiqdev\yii\DataMapper\hydrator\DateTimeImmutableHydrator::class,
          ],
     ],
 ];
+
+return class_exists('Yii')
+    ? ['components' => $components, 'container' => ['singletons' => $singletons]]
+    : array_merge($components, $singletons)
+;
