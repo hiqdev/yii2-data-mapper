@@ -14,7 +14,6 @@ use hiqdev\yii\DataMapper\components\ConnectionInterface;
 use hiqdev\yii\DataMapper\components\EntityManagerInterface;
 use hiqdev\yii\DataMapper\query\Query;
 use hiqdev\yii\DataMapper\query\Specification;
-use yii\helpers\Yii;
 use yii\base\InvalidConfigException;
 use yii\base\UnknownMethodException;
 use yii\db\Connection;
@@ -174,7 +173,12 @@ abstract class BaseRepository extends \yii\base\Component implements GenericRepo
      */
     protected function buildQuery(): Query
     {
-        return Yii::createObject($this->getQueryClass());
+        return $this->createObject($this->getQueryClass());
+    }
+
+    protected function createObject($config)
+    {
+        return class_exists('Yii') ? \Yii::createObject($config) : \yii\helpers\Yii::createObject($config);
     }
 
     protected function getQueryClass()

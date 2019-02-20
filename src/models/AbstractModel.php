@@ -11,7 +11,6 @@
 namespace hiqdev\yii\DataMapper\models;
 
 use hiqdev\yii\DataMapper\query\attributes\AbstractAttribute;
-use yii\helpers\Yii;
 use yii\base\InvalidConfigException;
 
 /**
@@ -62,6 +61,11 @@ abstract class AbstractModel implements ModelInterface
             return $className;
         }
 
-        return Yii::createObject($className);
+        return $this->createObject($className);
+    }
+
+    protected function createObject($config)
+    {
+        return class_exists('Yii') ? \Yii::createObject($config) : \yii\helpers\Yii::createObject($config);
     }
 }
