@@ -32,7 +32,7 @@ $components = [
 $singletons = [
     \hiqdev\yii\DataMapper\query\FieldFactoryInterface::class => \hiqdev\yii\DataMapper\query\FieldFactory::class,
     \hiqdev\yii\DataMapper\components\ConnectionInterface::class => function ($container) {
-        return $container->get('db');
+        return class_exists('Yii') ? \Yii::$app->get('db') : $container->get('db');
     },
     \hiqdev\yii\DataMapper\components\EntityManagerInterface::class => [
         '__class' => \hiqdev\yii\DataMapper\components\EntityManager::class,

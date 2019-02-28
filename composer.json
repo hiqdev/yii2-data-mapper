@@ -62,9 +62,9 @@
             "1.0": "1.0.x-dev"
         },
         "config-plugin": {
-            "params": "src/config/params.php",
-            "common": "src/config/common.php",
-            "tests": "src/config/common.php"
+            "params": "config/params.php",
+            "common": "config/common.php",
+            "tests": "config/common.php"
         }
     },
     "minimum-stability": "dev",
