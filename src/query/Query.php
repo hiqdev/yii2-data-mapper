@@ -39,7 +39,7 @@ abstract class Query extends \yii\db\Query
     }
 
     /**
-     * @return Field[]
+     * @return Field[]|FieldInterface[]
      */
     public function getFields()
     {
