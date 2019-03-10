@@ -16,12 +16,12 @@ use hiqdev\yii\DataMapper\validators\AttributeValidationException;
 class Field implements FieldInterface
 {
     /**
-     * @var string
+     * @var string field (attribute) name
      */
     protected $name;
 
     /**
-     * @var string
+     * @var string representing column name in SQL
      */
     protected $sql;
 
@@ -30,6 +30,13 @@ class Field implements FieldInterface
      */
     protected $attribute;
 
+    /**
+     * Field constructor.
+     *
+     * @param string $name
+     * @param string $sql
+     * @param AbstractAttribute $attribute
+     */
     public function __construct($name, $sql, AbstractAttribute $attribute)
     {
         $this->name = $name;
