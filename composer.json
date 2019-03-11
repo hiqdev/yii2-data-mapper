@@ -44,7 +44,7 @@
         }
     ],
     "require": {
-        "ocramius/generated-hydrator": "*"
+        "ocramius/generated-hydrator": "^2.2@dev"
     },
     "require-dev": {
         "hiqdev/hidev-php": "<2.0 || dev-master",
@@ -57,6 +57,9 @@
         }
     },
     "extra": {
+        "branch-alias": {
+            "1.0": "1.0.x-dev"
+        },
         "config-plugin": {
             "params": "config/params.php",
             "common": "config/common.php",
