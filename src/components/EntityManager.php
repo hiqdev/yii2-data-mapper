@@ -14,7 +14,7 @@ use hiqdev\yii\DataMapper\repositories\BaseRepository;
 use yii\di\Container;
 use Zend\Hydrator\HydratorInterface;
 
-class EntityManager extends \yii\base\Component implements EntityManagerInterface
+class EntityManager implements EntityManagerInterface
 {
     /**
      * @var BaseRepository[]
@@ -38,8 +38,7 @@ class EntityManager extends \yii\base\Component implements EntityManagerInterfac
 
     public function __construct(
         Container $di,
-        HydratorInterface $hydrator,
-        array $config = []
+        HydratorInterface $hydrator
     ) {
         $this->di = $di;
         $this->hydrator = $hydrator;
