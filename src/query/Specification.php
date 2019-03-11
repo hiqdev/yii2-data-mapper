@@ -13,7 +13,7 @@ namespace hiqdev\yii\DataMapper\query;
 class Specification
 {
     use \yii\db\QueryTrait;
-    use \yii\activerecord\ActiveQueryTrait;
+    use ActiveQueryTrait;
 
     public $requestedRelations = [];
 
