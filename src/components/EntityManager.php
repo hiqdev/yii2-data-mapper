@@ -38,7 +38,8 @@ class EntityManager extends \yii\base\Component implements EntityManagerInterfac
 
     public function __construct(
         Container $di,
-        HydratorInterface $hydrator
+        HydratorInterface $hydrator,
+        array $config = []
     ) {
         $this->di = $di;
         $this->hydrator = $hydrator;
