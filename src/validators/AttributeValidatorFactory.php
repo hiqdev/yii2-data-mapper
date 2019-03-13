@@ -10,6 +10,7 @@
 
 namespace hiqdev\yii\DataMapper\validators;
 
+use hiqdev\yii\compat\yii;
 use yii\validators\InlineValidator;
 use yii\validators\Validator;
 
@@ -62,13 +63,8 @@ class AttributeValidatorFactory
             }
         }
 
-        $validator = $this->createObject($params);
+        $validator = yii::createObject($params);
 
         return new AttributeValidator($validator);
-    }
-
-    protected function createObject($config)
-    {
-        return class_exists('Yii') ? \Yii::createObject($config) : \yii\helpers\Yii::createObject($config);
     }
 }

@@ -10,6 +10,7 @@
 
 namespace hiqdev\yii\DataMapper\repositories;
 
+use hiqdev\yii\compat\yii;
 use hiqdev\yii\DataMapper\components\ConnectionInterface;
 use hiqdev\yii\DataMapper\components\EntityManagerInterface;
 use hiqdev\yii\DataMapper\query\Query;
@@ -173,12 +174,7 @@ abstract class BaseRepository extends \yii\base\Component implements GenericRepo
      */
     protected function buildQuery(): Query
     {
-        return $this->createObject($this->getQueryClass());
-    }
-
-    protected function createObject($config)
-    {
-        return class_exists('Yii') ? \Yii::createObject($config) : \yii\helpers\Yii::createObject($config);
+        return yii::createObject($this->getQueryClass());
     }
 
     protected function getQueryClass()
