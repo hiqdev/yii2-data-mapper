@@ -104,6 +104,14 @@ abstract class BaseRepository extends \yii\base\Component implements GenericRepo
         return $this->hydrateMultiple($rows);
     }
 
+    public function count(Specification $specification)
+    {
+        $query = $specification->applyTo($this->buildQuery()->initSelect());
+        $count = $query->count('*', $this->db);
+
+        return $count;
+    }
+
     public function queryAll(Specification $specification)
     {
         $query = $this->buildSelectQuery($specification);
