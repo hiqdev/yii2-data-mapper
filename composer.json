@@ -47,8 +47,8 @@
         "ocramius/generated-hydrator": "^2.2@dev"
     },
     "require-dev": {
-        "hiqdev/hidev-php": "<2.0 || dev-master",
-        "hiqdev/hidev-hiqdev": "<2.0 || dev-master"
+        "hiqdev/hidev-php": "dev-master",
+        "hiqdev/hidev-hiqdev": "dev-master"
     },
     "autoload": {
         "psr-4": {
