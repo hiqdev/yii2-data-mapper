@@ -8,12 +8,14 @@
  * @copyright Copyright (c) 2017-2018, HiQDev (http://hiqdev.com/)
  */
 
+use hiqdev\yii\compat\yii;
+
 $components = [
     'entityManager' => [
-        '__class' => \hiqdev\yii\DataMapper\components\EntityManager::class,
+        yii::classKey() => \hiqdev\yii\DataMapper\components\EntityManager::class,
     ],
     'db' => [
-        '__class'   => \hiqdev\yii\DataMapper\components\Connection::class,
+        yii::classKey() => \hiqdev\yii\DataMapper\components\Connection::class,
         'charset'   => 'utf8',
         'dsn'       => 'pgsql:dbname=' . $params['db.name']
                         . (!empty($params['db.host']) ? (';host=' . $params['db.host']) : '')
@@ -35,7 +37,7 @@ $singletons = [
         return class_exists('Yii') ? \Yii::$app->get('db') : $container->get('db');
     },
     \hiqdev\yii\DataMapper\components\EntityManagerInterface::class => [
-        '__class' => \hiqdev\yii\DataMapper\components\EntityManager::class,
+        yii::classKey() => \hiqdev\yii\DataMapper\components\EntityManager::class,
         'repositories' => [
         ],
     ],
