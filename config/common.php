@@ -8,14 +8,12 @@
  * @copyright Copyright (c) 2017-2018, HiQDev (http://hiqdev.com/)
  */
 
-use hiqdev\yii\compat\yii;
-
 $components = [
     'entityManager' => [
-        yii::classKey() => \hiqdev\yii\DataMapper\components\EntityManager::class,
+        '__class' => \hiqdev\yii\DataMapper\components\EntityManager::class,
     ],
     'db' => [
-        yii::classKey() => \hiqdev\yii\DataMapper\components\Connection::class,
+        '__class' => \hiqdev\yii\DataMapper\components\Connection::class,
         'charset'   => 'utf8',
         'dsn'       => 'pgsql:dbname=' . $params['db.name']
                         . (!empty($params['db.host']) ? (';host=' . $params['db.host']) : '')
@@ -37,7 +35,7 @@ $singletons = [
         return class_exists('Yii') ? \Yii::$app->get('db') : $container->get('db');
     },
     \hiqdev\yii\DataMapper\components\EntityManagerInterface::class => [
-        yii::classKey() => \hiqdev\yii\DataMapper\components\EntityManager::class,
+        '__class' => \hiqdev\yii\DataMapper\components\EntityManager::class,
         'repositories' => [
         ],
     ],
@@ -49,7 +47,7 @@ $singletons = [
     ],
 ];
 
-return class_exists('Yii')
-    ? ['components' => $components, 'container' => ['singletons' => $singletons]]
-    : array_merge($components, $singletons)
+return class_exists(Yiisoft\Factory\Definitions\Reference::class)
+    ? array_merge($components, $singletons)
+    : ['components' => $components, 'container' => ['singletons' => $singletons]]
 ;
