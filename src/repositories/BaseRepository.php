@@ -228,7 +228,8 @@ abstract class BaseRepository extends \yii\base\Component implements GenericRepo
     {
         return $this->em->getRepository($entityClass);
     }
-    public function createSpecification()
+
+    public function createSpecification(): Specification
     {
         return new Specification();
     }
