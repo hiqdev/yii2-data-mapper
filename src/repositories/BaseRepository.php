@@ -36,8 +36,6 @@ abstract class BaseRepository extends \yii\base\Component implements GenericRepo
      */
     public $queryClass;
 
-    const DEFAULT_LIMIT = 25;
-
     public function __construct(ConnectionInterface $db, EntityManagerInterface $em)
     {
         $this->db = $db;
@@ -117,9 +115,6 @@ abstract class BaseRepository extends \yii\base\Component implements GenericRepo
     public function queryAll(Specification $specification)
     {
         $query = $this->buildSelectQuery($specification);
-        if ($query->limit === null) {
-            $query->limit = self::DEFAULT_LIMIT;
-        }
         $rows = $query->createCommand($this->db)->queryAll();
         $rows = array_map(function ($row) use ($query) {
             return $query->restoreHierarchy($row);
