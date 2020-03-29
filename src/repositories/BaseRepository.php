@@ -61,6 +61,18 @@ abstract class BaseRepository extends \yii\base\Component implements GenericRepo
     }
 
     /**
+     * Selects single entity from DB by given ID.
+     * @param string|int $id
+     * @return ?object
+     */
+    public function findById($id): ?object
+    {
+        $all = $this->findByIds([$id]);
+
+        return empty($all) ? null : reset($all);
+    }
+
+    /**
      * Selects entities from DB by given IDs.
      * @param string[] $ids
      * @return array
