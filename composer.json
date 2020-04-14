@@ -44,7 +44,7 @@
         }
     ],
     "require": {
-        "ocramius/generated-hydrator": "3.0"
+        "ocramius/generated-hydrator": "^3.0.0"
     },
     "require-dev": {
         "hiqdev/hidev-php": "dev-master",
