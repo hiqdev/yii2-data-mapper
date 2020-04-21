@@ -40,6 +40,7 @@ $singletons = [
         ],
     ],
     \Zend\Hydrator\HydratorInterface::class => \hiqdev\yii\DataMapper\hydrator\ConfigurableAggregateHydrator::class,
+    \Laminas\Hydrator\HydratorInterface::class => \hiqdev\yii\DataMapper\hydrator\ConfigurableAggregateHydrator::class,
     \hiqdev\yii\DataMapper\hydrator\ConfigurableAggregateHydrator::class => [
         'hydrators' => [
             \DateTimeImmutable::class => \hiqdev\yii\DataMapper\hydrator\DateTimeImmutableHydrator::class,
