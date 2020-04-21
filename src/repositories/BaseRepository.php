@@ -51,7 +51,7 @@ abstract class BaseRepository extends \yii\base\Component implements GenericRepo
 
     public function findByUniqueness(array $entities): array
     {
-        return $this->findByIds($this->findIds($bills));
+        return $this->findByIds($this->findIds($entities));
     }
 
     public function findIds(array $entities): array
