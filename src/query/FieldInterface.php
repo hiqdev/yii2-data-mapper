@@ -10,26 +10,33 @@
 
 namespace hiqdev\yii\DataMapper\query;
 
-use yii\db\conditions\ConditionInterface;
+use hiqdev\yii\DataMapper\query\attributes\AttributeInterface;
+use yii\db\ExpressionInterface;
 
 interface FieldInterface
 {
     /**
-     * @return bool
+     * Provides a field name
+     *
+     * @return string
      */
-    public function canBeSelected();
+    public function getName(): string;
 
     /**
-     * @param string $key the attribute name being checked against this filed
-     * @return bool
+     * @return AttributeInterface
      */
-    public function isApplicable($key);
+    public function getAttribute(): AttributeInterface;
 
     /**
-     * @param string $key
-     * @param mixed $value right hand of condition
-     * @return array|ConditionInterface Returns either Yii-compatible condition array, or object
-     * that implements ConditionInterface. Return empty array if you don't want to add any conditions
+     * Provides SQL statement that represents the selected field.
+     * The statement can be used for both
+     *
+     * @return string|ExpressionInterface
      */
-    public function buildCondition($key, $value);
+    public function getSql();
+
+    /**
+     * @return bool
+     */
+    public function canBeSelected(): bool;
 }

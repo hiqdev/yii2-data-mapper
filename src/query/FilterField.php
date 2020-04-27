@@ -21,7 +21,7 @@ class FilterField extends Field
     /**
      * {@inheritdoc}
      */
-    public function canBeSelected()
+    public function canBeSelected(): bool
     {
         return false;
     }

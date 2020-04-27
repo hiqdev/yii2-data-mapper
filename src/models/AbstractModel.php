@@ -12,6 +12,7 @@ namespace hiqdev\yii\DataMapper\models;
 
 use hiqdev\yii\compat\yii;
 use hiqdev\yii\DataMapper\query\attributes\AbstractAttribute;
+use hiqdev\yii\DataMapper\Schema\Relation;
 use yii\base\InvalidConfigException;
 
 /**
@@ -32,7 +33,7 @@ abstract class AbstractModel implements ModelInterface
     }
 
     /**
-     * @param $name
+     * @param string $name
      * @throws InvalidConfigException
      * @return string
      */
@@ -42,7 +43,12 @@ abstract class AbstractModel implements ModelInterface
             throw new InvalidConfigException('Relation "' . $name . '" is not available within ' . static::class);
         }
 
-        return $this->relations()[$name];
+        $relation = $this->relations()[$name];
+        if (is_string($relation)) {
+            return $relation;
+        }
+
+        return $relation[Relation::TARGET];
     }
 
     /**
@@ -62,6 +68,6 @@ abstract class AbstractModel implements ModelInterface
             return $className;
         }
 
-        return yii::createObject($className);
+        return new $className();
     }
 }

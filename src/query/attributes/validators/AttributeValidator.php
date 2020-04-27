@@ -8,9 +8,9 @@
  * @copyright Copyright (c) 2017-2018, HiQDev (http://hiqdev.com/)
  */
 
-namespace hiqdev\yii\DataMapper\validators;
+namespace hiqdev\yii\DataMapper\query\attributes\validators;
 
-class AttributeValidator implements \hiqdev\yii\DataMapper\validators\NormalizerInterface
+class AttributeValidator implements \hiqdev\yii\DataMapper\query\attributes\validators\NormalizerInterface
 {
     /**
      * @var \yii\validators\Validator
@@ -41,13 +41,13 @@ class AttributeValidator implements \hiqdev\yii\DataMapper\validators\Normalizer
             return;
         }
         if ($this->realValidator->validate($value, $result) !== true) {
-            throw \hiqdev\yii\DataMapper\validators\AttributeValidationException::forValue($value, $result);
+            throw \hiqdev\yii\DataMapper\query\attributes\validators\AttributeValidationException::forValue($value, $result);
         }
     }
 
     public function normalize($value)
     {
-        if ($this->realValidator instanceof \hiqdev\yii\DataMapper\validators\NormalizerInterface) {
+        if ($this->realValidator instanceof \hiqdev\yii\DataMapper\query\attributes\validators\NormalizerInterface) {
             $value = $this->realValidator->normalize($value);
         }
 

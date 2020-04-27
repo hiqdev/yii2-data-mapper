@@ -10,7 +10,7 @@
 
 namespace hiqdev\yii\DataMapper\query\attributes;
 
-use hiqdev\yii\DataMapper\validators\DateTimeValidator;
+use hiqdev\yii\DataMapper\query\attributes\validators\DateTimeValidator;
 
 class DateTimeAttribute extends AbstractAttribute
 {

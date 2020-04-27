@@ -123,7 +123,7 @@ abstract class BaseRepository extends \yii\base\Component implements GenericRepo
 
     public function count(Specification $specification)
     {
-        $query = $specification->applyTo($this->buildQuery()->initSelect());
+        $query = $this->buildSelectQuery($specification);
         $count = $query->count('*', $this->db);
 
         return $count;
@@ -191,7 +191,9 @@ abstract class BaseRepository extends \yii\base\Component implements GenericRepo
 
     protected function buildSelectQuery(Specification $specification)
     {
-        return $specification->applyTo($this->buildQuery()->initSelect());
+        return $this->buildQuery()
+            ->initSelect()
+            ->apply($specification);
     }
 
     /**

@@ -12,6 +12,7 @@ namespace hiqdev\yii\DataMapper\query;
 
 use hiqdev\yii\DataMapper\models\AbstractModel;
 use hiqdev\yii\DataMapper\models\ModelInterface;
+use hiqdev\yii\DataMapper\query\attributes\validators\Factory\AttributeValidatorFactoryInterface;
 use hiqdev\yii\DataMapper\query\join\Join;
 use yii\base\InvalidConfigException;
 
@@ -26,10 +27,16 @@ abstract class Query extends \yii\db\Query
      * @var string
      */
     protected $modelClass;
+    /**
+     * @var QueryBuilder
+     */
+    protected QueryBuilder $queryBuilder;
 
-    public function __construct(FieldFactoryInterface $fieldFactory)
+    public function __construct(FieldFactoryInterface $fieldFactory, QueryBuilder $queryBuilder)
     {
         $this->fieldFactory = $fieldFactory;
+        $this->queryBuilder = clone $queryBuilder;
+        $this->queryBuilder->setQuery($this);
 
         if (!isset($this->modelClass)) {
             throw new InvalidConfigException('Property "modelClass" must be set');
@@ -119,6 +126,9 @@ abstract class Query extends \yii\db\Query
         return $row;
     }
 
+    /**
+     * @return Query
+     */
     public function initSelect()
     {
         return $this
@@ -175,5 +185,16 @@ abstract class Query extends \yii\db\Query
     public function joins()
     {
         return [];
+    }
+
+    /**
+     * @param Specification $specification
+     * @return self
+     */
+    public function apply(Specification $specification): self
+    {
+        $this->queryBuilder->apply($specification);
+
+        return $this;
     }
 }

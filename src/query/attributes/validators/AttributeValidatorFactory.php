@@ -8,19 +8,20 @@
  * @copyright Copyright (c) 2017-2018, HiQDev (http://hiqdev.com/)
  */
 
-namespace hiqdev\yii\DataMapper\validators;
+namespace hiqdev\yii\DataMapper\query\attributes\validators;
 
+use Closure;
 use hiqdev\yii\compat\yii;
+use hiqdev\yii\DataMapper\query\attributes\validators\Factory\AttributeValidatorFactoryInterface;
 use yii\validators\InlineValidator;
 use yii\validators\Validator;
 
-class AttributeValidatorFactory
+class AttributeValidatorFactory implements AttributeValidatorFactoryInterface
 {
     /**
      * @var array
      */
-    protected $aliases = [
-    ];
+    protected $aliases = [];
 
     public function __construct($aliases = null)
     {
@@ -29,7 +30,7 @@ class AttributeValidatorFactory
         }
     }
 
-    public function createByDefinition($definition)
+    public function createByDefinition($definition): AttributeValidator
     {
         if (is_string($definition)) {
             return $this->createByType($definition);
@@ -39,13 +40,13 @@ class AttributeValidatorFactory
     }
 
     /**
-     * @param string $type
+     * @param string|Closure $type
      * @param array $params
      * @return AttributeValidator
      */
-    public function createByType($type, $params = [])
+    private function createByType($type, $params = [])
     {
-        if ($type instanceof \Closure) {
+        if ($type instanceof Closure) {
             // method-based validator
             $params['__class'] = InlineValidator::class;
             $params['method'] = $type;

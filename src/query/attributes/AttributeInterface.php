@@ -12,7 +12,12 @@ namespace hiqdev\yii\DataMapper\query\attributes;
 
 interface AttributeInterface
 {
-    public function getRuleForOperator($operator);
+    /**
+     * @param string $operator
+     * @return array
+     * @throws UnsupportedOperatorException when operator is not supported
+     */
+    public function getRuleForOperator(string $operator): array;
 
     /**
      * @return string[]

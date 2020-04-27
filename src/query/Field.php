@@ -11,7 +11,9 @@
 namespace hiqdev\yii\DataMapper\query;
 
 use hiqdev\yii\DataMapper\query\attributes\AbstractAttribute;
-use hiqdev\yii\DataMapper\validators\AttributeValidationException;
+use hiqdev\yii\DataMapper\query\attributes\AttributeInterface;
+use hiqdev\yii\DataMapper\query\attributes\validators\AttributeValidationException;
+use yii\db\ExpressionInterface;
 
 class Field implements FieldInterface
 {
@@ -21,7 +23,7 @@ class Field implements FieldInterface
     protected $name;
 
     /**
-     * @var string representing column name in SQL
+     * @var string|ExpressionInterface representing column name in SQL
      */
     protected $sql;
 
@@ -44,59 +46,19 @@ class Field implements FieldInterface
         $this->attribute = $attribute;
     }
 
-    public function canBeSelected()
+    public function canBeSelected(): bool
     {
         return true;
     }
 
-    public function isApplicable($key)
-    {
-        [, $attribute] = $this->parseFilterKey($key);
-
-        return $attribute === $this->name;
-    }
-
-    /**
-     * @param string $key the search key for operator and attribute name extraction
-     * @return array of two items: the comparison operator and the attribute name
-     */
-    private function parseFilterKey($key)
-    {
-        if ($this->name === $key) {
-            return ['eq', $key];
-        }
-
-        /*
-         * Extracts underscore suffix from the key.
-         *
-         * Examples:
-         * client_id -> 0 - client_id, 1 - client, 2 - _id, 3 - id
-         * server_owner_like -> 0 - server_owner_like, 1 - server_owner, 2 - _like, 3 - like
-         */
-        preg_match('/^(.*?)(_((?:.(?!_))+))?$/', $key, $matches);
-
-        $operator = 'eq';
-
-        // If the suffix is in the list of acceptable suffix filer conditions
-        if (isset($matches[3]) && in_array($matches[3], $this->attribute->getSupportedOperators(), true)) {
-            $operator = $matches[3];
-            $key = $matches[1];
-        }
-
-        return [$operator, $key];
-    }
-
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return string
-     */
     public function getSql()
     {
         return $this->sql;
@@ -105,7 +67,7 @@ class Field implements FieldInterface
     /**
      * @return AbstractAttribute
      */
-    public function getAttribute()
+    public function getAttribute(): AttributeInterface
     {
         return $this->attribute;
     }

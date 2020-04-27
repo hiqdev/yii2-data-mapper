@@ -1,8 +1,7 @@
 <?php
 
-namespace hiqdev\yii\DataMapper\validators;
+namespace hiqdev\yii\DataMapper\query\attributes\validators;
 
-use hiqdev\yii\DataMapper\models\ModelInterface;
 use hiqdev\yii\DataMapper\query\attributes\AttributeInterface;
 use yii\base\DynamicModel;
 use yii\validators\Validator;

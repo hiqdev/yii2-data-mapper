@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2017-2018, HiQDev (http://hiqdev.com/)
  */
 
-namespace hiqdev\yii\DataMapper\validators;
+namespace hiqdev\yii\DataMapper\query\attributes\validators;
 
 use yii\base\InvalidConfigException;
 use yii\base\InvalidParamException;

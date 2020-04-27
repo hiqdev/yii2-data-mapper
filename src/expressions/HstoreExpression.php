@@ -22,10 +22,12 @@ class HstoreExpression implements ExpressionInterface
     /**
      * @var array hash
      */
-    private $hash = [];
+    private $hash;
 
     /**
      * CallExpression constructor.
+     *
+     * @param array $hash
      */
     public function __construct($hash)
     {
@@ -35,7 +37,7 @@ class HstoreExpression implements ExpressionInterface
     /**
      * @return array
      */
-    public function getHash()
+    public function getHash(): array
     {
         return $this->hash;
     }
