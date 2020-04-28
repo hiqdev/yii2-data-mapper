@@ -22,12 +22,12 @@ use yii\base\InvalidConfigException;
  */
 abstract class AbstractModel implements ModelInterface
 {
-    public function hasAttribute($name)
+    public function hasAttribute(string $name): bool
     {
         return isset($this->attributes()[$name]);
     }
 
-    public function hasRelation($name)
+    public function hasRelation(string $name): bool
     {
         return isset($this->relations()[$name]);
     }
@@ -56,7 +56,7 @@ abstract class AbstractModel implements ModelInterface
      * @throws InvalidConfigException
      * @return AbstractAttribute
      */
-    public function getAttribute($name): AbstractAttribute
+    public function getAttribute(string $name): AbstractAttribute
     {
         if (!$this->hasAttribute($name)) {
             throw new InvalidConfigException('Attribute "' . $name . '" is not available within ' . static::class);

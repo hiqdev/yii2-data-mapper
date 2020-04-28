@@ -16,8 +16,12 @@ abstract class AbstractAttribute implements AttributeInterface
 
     public function getRuleForOperator(string $operator): array
     {
-        $rules = $this->getOperatorRules();
+        $aliases = [
+            '' => 'eq',
+        ];
 
+        $operator = $aliases[$operator] ?? $operator;
+        $rules = $this->getOperatorRules();
         if (isset($rules[$operator])) {
             return $rules[$operator];
         }

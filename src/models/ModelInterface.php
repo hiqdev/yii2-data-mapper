@@ -10,17 +10,31 @@
 
 namespace hiqdev\yii\DataMapper\models;
 
+use hiqdev\yii\DataMapper\query\attributes\AbstractAttribute;
+use hiqdev\yii\DataMapper\query\attributes\AttributeInterface;
+
 interface ModelInterface
 {
-    public function attributes();
-
-    public function hasRelation($name);
-
-    public function getRelation($name);
-
+    /**
+     * @psalm-return array<string, class-string<self>>
+     */
     public function relations();
+    /**
+     * @param string $name
+     * @psalm-return class-string<self>
+     * // TODO: handle one-to-many relations
+     */
+    public function getRelation(string $name);
+    public function hasRelation(string $name): bool;
 
-    public function hasAttribute($name);
-
-    public function getAttribute($name);
+    /**
+     * @return array<string, class-string<AttributeInterface>>
+     */
+    public function attributes();
+    /**
+     * @param string $name
+     * @psalm-return AttributeInterface
+     */
+    public function getAttribute(string $name): AbstractAttribute;
+    public function hasAttribute(string $name): bool;
 }

@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace hiqdev\yii\DataMapper\query;
 
+use RecursiveArrayIterator;
+use RecursiveIteratorIterator;
+
 /**
  * Class QueryBuilder should be normally pre-configured with dependencies
  * and cloned for each new Query it processes.
@@ -53,7 +56,7 @@ final class QueryBuilder
     {
         $fields = $this->query->getFields();
 
-        foreach ($specification->where as $key => $value) {
+        foreach ($this->flattenArray($specification->where) as $key => $value) {
             foreach ($fields as $field) {
                 if ($this->queryConditionBuilder->canApply($field, $key)) {
                     $where = $this->queryConditionBuilder->build($field, $key, $value);
@@ -61,6 +64,26 @@ final class QueryBuilder
                 }
             }
         }
+    }
+
+    private function flattenArray(array $array, string $concat = '-'): array
+    {
+        $iterator = new RecursiveIteratorIterator(new RecursiveArrayIterator($array));
+        $result = [];
+        foreach ($iterator as $leaf) {
+            $keys = [];
+            foreach (range(0, $iterator->getDepth()) as $depth) {
+                $k = $iterator->getSubIterator($depth)->key();
+                if (is_numeric($k)) {
+                    $result[implode($concat, $keys)][] = $leaf;
+                    continue 2;
+                }
+                $keys[] = $k;
+            }
+            $result[implode($concat, $keys)] = $leaf;
+        }
+
+        return $result;
     }
 
     public function __clone()

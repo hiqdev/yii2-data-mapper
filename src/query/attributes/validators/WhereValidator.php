@@ -2,84 +2,117 @@
 
 namespace hiqdev\yii\DataMapper\query\attributes\validators;
 
+use hiapi\commands\SearchCommand;
+use hiqdev\yii\DataMapper\components\EntityManagerInterface;
+use hiqdev\yii\DataMapper\models\ModelInterface;
 use hiqdev\yii\DataMapper\query\attributes\AttributeInterface;
-use yii\base\DynamicModel;
 use yii\validators\Validator;
 
 class WhereValidator extends Validator
 {
     /**
-     * @var array<string, class-string<AttributeInterface>>
-     * @psalm-readonly
+     * @var string
      */
-    public $filters = [];
+    public $targetEntityClass;
 
     /**
-     * @var array<string, class-string<ModelInterface>>
-     * @psalm-readonly
+     * @var EntityManagerInterface
      */
-    public $relations = [];
+    private EntityManagerInterface $em;
 
-    /**
-     * @var AttributeValidatorFactory
-     */
-    private $attributeValidatorFactory;
-
-    public function __construct(AttributeValidatorFactory $attributeValidatorFactory, array $config = [])
+    public function __construct(EntityManagerInterface $em, array $config = [])
     {
-        parent::__construct($config);
+        $this->em = $em;
 
-        $this->attributeValidatorFactory = $attributeValidatorFactory;
+        parent::__construct($config);
     }
 
+    /**
+     * @param SearchCommand $model
+     * @param string $attribute
+     * @return bool
+     */
     public function validateAttribute($model, $attribute): bool
     {
         $where = $model->$attribute;
-        
-        $dynamicModel = $this->buildDynamicModel();
+
+        $dataModel = $this->getDataModel();
+        $dynamicModel = $this->buildDynamicModel($dataModel);
         $dynamicModel->load($where, '');
         if (!$dynamicModel->validate()) {
             $model->addErrors($dynamicModel->getErrors());
 
             return false;
         }
+        // TODO: put back to $model->$attribute only validated data
+        // $model->$attribute = $dynamicModel->toArray(); // except nulls
 
         return true;
     }
 
-    /**
-     * @return DynamicModel
-     */
-    private function buildDynamicModel(): DynamicModel
+    private function getDataModel(): ModelInterface
     {
-        $attributeRules = $this->unwrapAttributes();
+        return $this->em->getRepository($this->targetEntityClass)
+            ->buildQuery()
+            ->getModel();
+    }
 
-        $dynamicModel = new DynamicModel(array_keys($attributeRules));
-        foreach ($attributeRules as $attribute => $rule) {
-            $validatorName = array_shift($rule);
-            $dynamicModel->addRule($attribute, $validatorName, $rule);
+    private function buildDynamicModel(ModelInterface $dataModel): DynamicValidationModel
+    {
+        return $this->unwrapAttributes($dataModel);
+    }
+
+    private function unwrapAttributes(ModelInterface $dataModel, array $parents = []): ?DynamicValidationModel
+    {
+        if ($this->circularReferenceDetected($parents)) {
+            return null;
+        }
+
+        $dynamicModel = new DynamicValidationModel();
+        foreach ($dataModel->attributes() as $baseAttributeName => $attributeClassName) {
+            /** @var AttributeInterface $attribute */
+            $attribute = new $attributeClassName();
+            foreach ($attribute->getSupportedOperators() as $operator) {
+                $attributeName = $baseAttributeName . ($operator === '' ? '' : "_$operator");
+                $dynamicModel->defineAttribute($attributeName);
+
+                $rule = $attribute->getRuleForOperator($operator);
+                $validatorName = array_shift($rule);
+                $dynamicModel->addRule($attributeName, $validatorName, $rule);
+            }
+        }
+
+        foreach ($dataModel->relations() as $relationName => $relationClassName) {
+            $parents[] = [$relationName, $relationClassName];
+            $relation = $this->unwrapAttributes(new $relationClassName(), $parents);
+            if ($relation === null) {
+                continue;
+            }
+            $dynamicModel->defineAttribute($relationName, $relation);
         }
 
         return $dynamicModel;
     }
 
-    private function unwrapAttributes(): array
+    private int $relationNestingLimit = 3;
+    /**
+     * @psalm-param list<array{0: string, 1: class-name<ModelInterface>}> $parents
+     * @param array $parents
+     */
+    private function circularReferenceDetected(array $parents): bool
     {
-        $result = [];
+        $count = 0;
+        $lastRelation = array_pop($parents);
+        foreach ($parents as $parent) {
+            if ($parent === $lastRelation) {
+                $count++;
+            }
 
-        foreach ($this->filters as $baseAttributeName => $attributeClassName) {
-            /** @var AttributeInterface $attribute */
-            $attribute = new $attributeClassName($this->attributeValidatorFactory);
-            foreach ($attribute->getSupportedOperators() as $operator) {
-                $attributeName = $baseAttributeName . ($operator === '' ? '' : "_$operator");
-                $result[$attributeName] = $attribute->getRuleForOperator($operator);
+            if ($count === $this->relationNestingLimit) {
+                return true;
             }
         }
 
-        foreach ($this->relations as $relationName => $relationClassName) {
-            /** @var AttributeInterface $attribute */
-        }
-
-        return $result;
+        return false;
     }
 }

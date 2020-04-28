@@ -15,12 +15,12 @@ class IntegerAttribute extends AbstractAttribute
     public function getOperatorRules()
     {
         return [
-            'eq' => ['integer'],
-            'ne' => ['integer'],
-            'gt' => ['integer'],
-            'lt' => ['integer'],
-            'in' => ['each', 'rule' => ['integer']],
-            'ni' => ['each', 'rule' => ['integer']],
+            'eq' => ['number', 'integerOnly' => true],
+            'ne' => ['number', 'integerOnly' => true],
+            'gt' => ['number', 'integerOnly' => true],
+            'lt' => ['number', 'integerOnly' => true],
+            'in' => ['each', 'rule' => ['number', 'integerOnly' => true]],
+            'ni' => ['each', 'rule' => ['number', 'integerOnly' => true]],
         ];
     }
 }

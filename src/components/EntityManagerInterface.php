@@ -10,6 +10,7 @@
 
 namespace hiqdev\yii\DataMapper\components;
 
+use Exception;
 use hiqdev\yii\DataMapper\repositories\BaseRepository;
 
 interface EntityManagerInterface
@@ -17,6 +18,7 @@ interface EntityManagerInterface
     /**
      * @param string $entityClass
      * @return BaseRepository
+     * @throws Exception when repository is not defined for the $entityClass
      */
     public function getRepository($entityClass);
 

@@ -37,6 +37,9 @@ class AttributeValidator implements \hiqdev\yii\DataMapper\query\attributes\vali
      */
     public function ensureIsValid($value)
     {
+        if ($value === null) {
+            return;
+        }
         if ($value instanceof \yii\db\ExpressionInterface) {
             return;
         }

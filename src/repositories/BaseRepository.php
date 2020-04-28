@@ -199,12 +199,15 @@ abstract class BaseRepository extends \yii\base\Component implements GenericRepo
     /**
      * @return Query
      */
-    protected function buildQuery(): Query
+    public function buildQuery(): Query
     {
         return yii::createObject($this->getQueryClass());
     }
 
-    protected function getQueryClass()
+    /**
+     * @psalm-return class-string<Query>
+     */
+    public function getQueryClass(): string
     {
         return $this->queryClass;
     }

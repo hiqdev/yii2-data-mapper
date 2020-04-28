@@ -20,12 +20,12 @@ class FloatAttribute extends AbstractAttribute
     public function getOperatorRules()
     {
         return [
-            'eq' => ['float'],
-            'ne' => ['float'],
-            'gt' => ['float'],
-            'lt' => ['float'],
-            'in' => ['each', 'rule' => ['float']],
-            'ni' => ['each', 'rule' => ['float']],
+            'eq' => ['number'],
+            'ne' => ['number'],
+            'gt' => ['number'],
+            'lt' => ['number'],
+            'in' => ['each', 'rule' => ['number']],
+            'ni' => ['each', 'rule' => ['number']],
         ];
     }
 }
