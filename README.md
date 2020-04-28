@@ -13,6 +13,15 @@
 
 Deliberately simple (no implicit behavior) library aimed to separate data persistence logics from data own logics.
 
+## Idea
+
+ Abstraction | Implementation              | Examples
+-------------|-----------------------------|--------------------------------------
+Domain Layer | Entity, RepositoryInterface | Customer, CustomerRepositoryInterface
+Data Mapper  | Repository, Specification   | CustomerRepostory
+Data Access  | Query, QueryBuilder         | PDO, ActiveRecord, HiArt
+DATA         | Storage                     | DB, API, Queue, File System
+
 [Data Mapper]: https://en.wikipedia.org/wiki/Data_mapper_pattern
 
 ## Installation
