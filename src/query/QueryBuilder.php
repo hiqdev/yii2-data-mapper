@@ -5,6 +5,7 @@ namespace hiqdev\yii\DataMapper\query;
 
 use RecursiveArrayIterator;
 use RecursiveIteratorIterator;
+use yii\helpers\ArrayHelper;
 
 /**
  * Class QueryBuilder should be normally pre-configured with dependencies
@@ -19,11 +20,11 @@ final class QueryBuilder
      */
     private ?Query $query;
     /**
-     * @var QueryConditionBuilder
+     * @var QueryConditionBuilderInterface
      */
-    private QueryConditionBuilder $queryConditionBuilder;
+    private QueryConditionBuilderInterface $queryConditionBuilder;
 
-    public function __construct(QueryConditionBuilder $queryConditionBuilder)
+    public function __construct(QueryConditionBuilderInterface $queryConditionBuilder)
     {
         $this->queryConditionBuilder = $queryConditionBuilder;
     }
@@ -76,21 +77,54 @@ final class QueryBuilder
         }
     }
 
-    private function flattenArray(array $array, string $concat = '-'): array
+    /**
+     * Takes a tree structure of filters e.g.
+     *
+     * ```
+     * [
+     *    'id' => 42,
+     *    'type' => [
+     *       'id' => 13
+     *    ]
+     * ]
+     * ```
+     *
+     * and flattens it to
+     *
+     * ```
+     * [
+     *   'id' => 42,
+     *   'type-id' => 13,
+     * ]
+     * ```
+     *
+     * @param array $array
+     * @param array $parents
+     * @param string $concat
+     * @return array
+     */
+    private function flattenArray(array $array, array $parents = [], string $concat = '-'): array
     {
-        $iterator = new RecursiveIteratorIterator(new RecursiveArrayIterator($array));
         $result = [];
-        foreach ($iterator as $leaf) {
-            $keys = [];
-            foreach (range(0, $iterator->getDepth()) as $depth) {
-                $k = $iterator->getSubIterator($depth)->key();
-                if (is_numeric($k)) {
-                    $result[implode($concat, $keys)][] = $leaf;
-                    continue 2;
+
+        foreach ($array as $key => $value) {
+            $tree = array_merge($parents, [$key]);
+            $flatKey = implode($concat, $tree);
+            if (is_array($value)) {
+                if (empty($value)) {
+                    // Empty array condition must be kept and be transformed to `false` for DBMS.
+                    $result[$flatKey] = $value;
+                    continue;
                 }
-                $keys[] = $k;
+
+                if (ArrayHelper::isAssociative($value)) {
+                    /** @noinspection SlowArrayOperationsInLoopInspection */
+                    $result = array_merge($result, $this->flattenArray($value, $tree));
+                    continue;
+                }
             }
-            $result[implode($concat, $keys)] = $leaf;
+
+            $result[$flatKey] = $value;
         }
 
         return $result;
