@@ -102,7 +102,11 @@ class Bucket
         foreach ($rows as &$row) {
             $keyName = $this->sourceKey;
             $key = $row[$keyName];
-            $row[$relationName] = $this->items[$key];
+            if (!isset($this->items[$key])) {
+                $row[$relationName] = null;
+            } else {
+                $row[$relationName] = $this->items[$key];
+            }
         }
 
         return $this;
@@ -113,7 +117,11 @@ class Bucket
         foreach ($rows as &$row) {
             $keyName = $this->sourceKey;
             $key = $row[$keyName];
-            $row[$relationName] = reset($this->items[$key]);
+            if (!isset($this->items[$key])) {
+                $row[$relationName] = null;
+            } else {
+                $row[$relationName] = reset($this->items[$key]);
+            }
         }
 
         return $this;
