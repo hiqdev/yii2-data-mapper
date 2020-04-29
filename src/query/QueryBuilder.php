@@ -41,6 +41,10 @@ final class QueryBuilder
             $this->applyWhereFrom($specification);
         }
 
+        if ($specification->orderBy) {
+            $this->applyOrderBy($specification);
+        }
+
         if ($specification->limit) {
             $this->query->limit($specification->limit);
         }
@@ -50,6 +54,12 @@ final class QueryBuilder
         }
 
         return $this;
+    }
+
+    private function applyOrderBy(Specification $specification): void
+    {
+        // TODO convert field names appropriately
+        $this->query->orderBy($specification->orderBy);
     }
 
     private function applyWhereFrom(Specification $specification): void
