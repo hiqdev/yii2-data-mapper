@@ -1,11 +1,15 @@
 <?php
 
-namespace hiqdev\yii\DataMapper\query;
+namespace hiqdev\yii\DataMapper\query\Builder;
 
+use hiqdev\yii\DataMapper\query\AttributedFieldInterface;
 use hiqdev\yii\DataMapper\query\attributes\AttributeInterface;
 use hiqdev\yii\DataMapper\query\attributes\validators\AttributeValidationException;
 use hiqdev\yii\DataMapper\query\attributes\validators\AttributeValidator;
 use hiqdev\yii\DataMapper\query\attributes\validators\Factory\AttributeValidatorFactoryInterface;
+use hiqdev\yii\DataMapper\query\FieldConditionBuilderInterface;
+use hiqdev\yii\DataMapper\query\FieldInterface;
+use hiqdev\yii\DataMapper\query\SQLFieldInterface;
 
 final class QueryConditionBuilder implements QueryConditionBuilderInterface
 {
@@ -23,20 +27,28 @@ final class QueryConditionBuilder implements QueryConditionBuilderInterface
     {
         [$operator, $attribute] = $this->parseFieldFilterKey($field, $key);
 
-        if (is_iterable($value)) {
-            return [$field->getSql() => $this->ensureConditionValueIsValid($field, 'in', $value)];
+        if ($field instanceof FieldConditionBuilderInterface) {
+            return $field->buildCondition($operator, $attribute, $value);
         }
 
-        $operatorMap = [
-            'eq' => '=',
-            'ne' => '!=',
-        ];
+        if ($field instanceof SQLFieldInterface) {
+            if (is_iterable($value)) {
+                return [$field->getSql() => $this->ensureConditionValueIsValid($field, 'in', $value)];
+            }
 
-        return [
-            $operatorMap[$operator] ?? $operator,
-            $field->getSql(),
-            $this->ensureConditionValueIsValid($field, $operator, $value)
-        ];
+            $operatorMap = [
+                'eq' => '=',
+                'ne' => '!=',
+            ];
+
+            return [
+                $operatorMap[$operator] ?? $operator,
+                $field->getSql(),
+                $this->ensureConditionValueIsValid($field, $operator, $value)
+            ];
+        }
+
+        throw new \BadMethodCallException(sprintf('The passed field %s can not be built', $field->getName()));
     }
 
     public function canApply(FieldInterface $field, string $key): bool
@@ -55,8 +67,11 @@ final class QueryConditionBuilder implements QueryConditionBuilderInterface
      */
     private function ensureConditionValueIsValid(FieldInterface $field, string $operator, $value)
     {
-        $validator = $this->getAttributeOperatorValidator($field->getAttribute(), $operator);
+        if (!$field instanceof AttributedFieldInterface) {
+            return $value;
+        }
 
+        $validator = $this->getAttributeOperatorValidator($field->getAttribute(), $operator);
         $value = $validator->normalize($value);
         $validator->ensureIsValid($value);
 
@@ -71,7 +86,9 @@ final class QueryConditionBuilder implements QueryConditionBuilderInterface
      */
     private function parseFieldFilterKey(FieldInterface $field, string $key)
     {
-        if ($field->getName() === $key) {
+        if (!$field instanceof AttributedFieldInterface
+            || $field->getName() === $key
+        ) {
             return ['eq', $key];
         }
 

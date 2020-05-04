@@ -10,12 +10,7 @@
 
 namespace hiqdev\yii\DataMapper\query;
 
-interface FieldInterface
+interface JoinedFieldInterface
 {
-    /**
-     * Provides a field name
-     *
-     * @return string
-     */
-    public function getName(): string;
+    public function getJoinName(): string;
 }

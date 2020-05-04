@@ -3,8 +3,7 @@ declare(strict_types=1);
 
 namespace hiqdev\yii\DataMapper\query;
 
-use RecursiveArrayIterator;
-use RecursiveIteratorIterator;
+use hiqdev\yii\DataMapper\query\Builder\QueryConditionBuilderInterface;
 use yii\helpers\ArrayHelper;
 
 /**

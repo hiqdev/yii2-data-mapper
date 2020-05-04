@@ -12,10 +12,9 @@ namespace hiqdev\yii\DataMapper\query;
 
 use hiqdev\yii\DataMapper\query\attributes\AbstractAttribute;
 use hiqdev\yii\DataMapper\query\attributes\AttributeInterface;
-use hiqdev\yii\DataMapper\query\attributes\validators\AttributeValidationException;
 use yii\db\ExpressionInterface;
 
-class Field implements FieldInterface
+class Field implements FieldInterface, SQLFieldInterface, AttributedFieldInterface
 {
     /**
      * @var string field (attribute) name
@@ -70,44 +69,5 @@ class Field implements FieldInterface
     public function getAttribute(): AttributeInterface
     {
         return $this->attribute;
-    }
-
-    /**
-     * @param string $operator
-     * @param mixed $value
-     * @throws AttributeValidationException when value is not valid
-     * @return mixed normalized $value
-     */
-    protected function ensureConditionValueIsValid($operator, $value)
-    {
-        $validator = $this->getAttribute()->getValidatorFor($operator);
-
-        $value = $validator->normalize($value);
-        $validator->ensureIsValid($value);
-
-        return $value;
-    }
-
-    /**
-     * // TODO: create ConditionBuilder?
-     * @param $key
-     * @param $value
-     * @throws AttributeValidationException when value is not valid
-     * @return array
-     */
-    public function buildCondition($key, $value)
-    {
-        [$operator, $attribute] = $this->parseFilterKey($key);
-
-        if (is_array($value)) {
-            return [$this->getSql() => $this->ensureConditionValueIsValid('in', $value)];
-        }
-
-        $operatorMap = [
-            'eq' => '=',
-            'ne' => '!=',
-        ];
-
-        return [$operatorMap[$operator] ?? $operator, $this->getSql(), $this->ensureConditionValueIsValid($operator, $value)];
     }
 }

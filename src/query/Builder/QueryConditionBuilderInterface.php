@@ -1,8 +1,9 @@
 <?php
 
-namespace hiqdev\yii\DataMapper\query;
+namespace hiqdev\yii\DataMapper\query\Builder;
 
 use hiqdev\yii\DataMapper\query\attributes\validators\AttributeValidationException;
+use hiqdev\yii\DataMapper\query\FieldInterface;
 
 /**
  * Interface QueryConditionBuilderInterface described a class

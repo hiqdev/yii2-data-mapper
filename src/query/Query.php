@@ -57,7 +57,7 @@ abstract class Query extends \yii\db\Query
     protected function selectByFields($fields)
     {
         foreach ($fields as $field) {
-            if (!$field->canBeSelected()) {
+            if (!$field instanceof SQLFieldInterface || !$field->canBeSelected()) {
                 continue;
             }
 
@@ -68,8 +68,8 @@ abstract class Query extends \yii\db\Query
                 $this->addSelect($statement . ' as ' . $field->getName());
             }
 
-            if ($field instanceof JoinedField) { // TODO: Join only if selected or filtered
-                $this->registerJoin($field->getJoin());
+            if ($field instanceof JoinedFieldInterface) { // TODO: Join only if selected or filtered
+                $this->registerJoin($field->getJoinName());
             }
         }
 

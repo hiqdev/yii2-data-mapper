@@ -10,26 +10,37 @@
 
 namespace hiqdev\yii\DataMapper\query;
 
-use hiqdev\yii\DataMapper\query\attributes\AbstractAttribute;
-
-class JoinedField extends Field
+final class JoinedField implements FieldInterface, JoinedFieldInterface
 {
     /**
-     * @var string
+     * @var FieldInterface
      */
-    protected $join;
+    private FieldInterface $field;
+    private string         $joinName;
 
-    public function __construct($name, $sql, AbstractAttribute $attribute, $join)
+    public function __construct(FieldInterface $field, string $joinName)
     {
-        parent::__construct($name, $sql, $attribute);
-        $this->join = $join;
+        $this->field = $field;
+        $this->joinName = $joinName;
     }
 
-    /**
-     * @return string
-     */
-    public function getJoin()
+    public function getJoinName(): string
     {
-        return $this->join;
+        return $this->joinName;
+    }
+
+    public function getName(): string
+    {
+        return $this->field->getName();
+    }
+
+    public function getSql()
+    {
+        return $this->field->getSql();
+    }
+
+    public function canBeSelected(): bool
+    {
+        return $this->field->canBeSelected();
     }
 }
