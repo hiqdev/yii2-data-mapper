@@ -10,15 +10,15 @@
 
 namespace hiqdev\yii\DataMapper\query;
 
-final class JoinedField implements FieldInterface, JoinedFieldInterface
+final class JoinedField implements FieldInterface, JoinedFieldInterface, SQLFieldInterface
 {
     /**
-     * @var FieldInterface
+     * @var SQLFieldInterface
      */
-    private FieldInterface $field;
+    private SQLFieldInterface $field;
     private string         $joinName;
 
-    public function __construct(FieldInterface $field, string $joinName)
+    public function __construct(SQLFieldInterface $field, string $joinName)
     {
         $this->field = $field;
         $this->joinName = $joinName;
