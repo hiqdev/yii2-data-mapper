@@ -66,9 +66,9 @@ final class QueryBuilder
     {
         $fields = $this->query->getFields();
 
-        foreach ($this->flattenArray($specification->where) as $key => $value) {
+        foreach ($flat = $this->flattenArray($specification->where) as $key => $value) {
             foreach ($fields as $field) {
-                if ($this->queryConditionBuilder->canApply($field, $key)) {
+                if ($this->queryConditionBuilder->canApply($field, (string)$key)) {
                     $where = $this->queryConditionBuilder->build($field, $key, $value);
                     $this->query->andWhere($where);
                 }
@@ -117,7 +117,6 @@ final class QueryBuilder
                 }
 
                 if (ArrayHelper::isAssociative($value)) {
-                    /** @noinspection SlowArrayOperationsInLoopInspection */
                     $result = array_merge($result, $this->flattenArray($value, $tree));
                     continue;
                 }

@@ -48,6 +48,7 @@ $singletons = [
     ],
     \hiqdev\yii\DataMapper\query\attributes\validators\Factory\AttributeValidatorFactoryInterface::class => \hiqdev\yii\DataMapper\query\attributes\validators\AttributeValidatorFactory::class,
     \hiqdev\yii\DataMapper\query\Builder\QueryConditionBuilderInterface::class => \hiqdev\yii\DataMapper\query\Builder\QueryConditionBuilder::class,
+    \hiqdev\yii\DataMapper\query\Builder\QueryConditionBuilderFactoryInterface::class => \hiqdev\yii\DataMapper\query\Builder\QueryConditionBuilderFactory::class,
 ];
 
 return class_exists(Yiisoft\Factory\Definitions\Reference::class)

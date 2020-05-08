@@ -10,23 +10,32 @@ use hiqdev\yii\DataMapper\query\attributes\validators\Factory\AttributeValidator
 use hiqdev\yii\DataMapper\query\FieldConditionBuilderInterface;
 use hiqdev\yii\DataMapper\query\FieldInterface;
 use hiqdev\yii\DataMapper\query\SQLFieldInterface;
+use Psr\Container\ContainerIterface;
 
 final class QueryConditionBuilder implements QueryConditionBuilderInterface
 {
-    /**
-     * @var AttributeValidatorFactoryInterface
-     */
     private AttributeValidatorFactoryInterface $attributeValidatorFactory;
+    private QueryConditionBuilderFactoryInterface $conditionBuilderFactory;
 
-    public function __construct(AttributeValidatorFactoryInterface $attributeValidatorFactory)
+    private array $builderMap;
+
+    public function __construct(array $builderMap, QueryConditionBuilderFactoryInterface $conditionBuilderFactory, AttributeValidatorFactoryInterface $attributeValidatorFactory)
     {
         $this->attributeValidatorFactory = $attributeValidatorFactory;
+        $this->conditionBuilderFactory = $conditionBuilderFactory;
+        $this->builderMap = $builderMap;
     }
 
+    /** {@inheritDoc} */
     public function build(FieldInterface $field, string $key, $value)
     {
-        [$operator, $attribute] = $this->parseFieldFilterKey($field, $key);
+        if (isset($this->builderMap[get_class($field)])) {
+            $builderClassName = $this->builderMap[get_class($field)];
+            $builder = $this->conditionBuilderFactory->build($builderClassName);
+            return $builder->build($field, $key, $value);
+        }
 
+        [$operator, $attribute] = $this->parseFieldFilterKey($field, $key);
         if ($field instanceof FieldConditionBuilderInterface) {
             return $field->buildCondition($operator, $attribute, $value);
         }
