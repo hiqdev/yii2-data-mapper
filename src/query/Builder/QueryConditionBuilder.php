@@ -10,7 +10,6 @@ use hiqdev\yii\DataMapper\query\attributes\validators\Factory\AttributeValidator
 use hiqdev\yii\DataMapper\query\FieldConditionBuilderInterface;
 use hiqdev\yii\DataMapper\query\FieldInterface;
 use hiqdev\yii\DataMapper\query\SQLFieldInterface;
-use Psr\Container\ContainerIterface;
 
 final class QueryConditionBuilder implements QueryConditionBuilderInterface
 {

@@ -14,11 +14,4 @@ class Specification
 {
     use \yii\db\QueryTrait;
     use ActiveQueryTrait;
-
-    public $requestedRelations = [];
-
-    public function requestRelation($name)
-    {
-        $this->requestedRelations[$name] = true; // todo: specification for relation
-    }
 }
