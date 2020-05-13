@@ -5,7 +5,7 @@
  * @link      https://github.com/hiqdev/yii2-data-mapper
  * @package   yii2-data-mapper
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2017-2018, HiQDev (http://hiqdev.com/)
+ * @copyright Copyright (c) 2017-2020, HiQDev (http://hiqdev.com/)
  */
 
 namespace hiqdev\yii\DataMapper\repositories;
@@ -82,7 +82,6 @@ abstract class BaseRepository extends \yii\base\Component implements GenericRepo
     /**
      * Selects entities from DB by given IDs.
      * @param string[] $ids
-     * @return array
      */
     public function findByIds(array $ids): array
     {
@@ -117,7 +116,6 @@ abstract class BaseRepository extends \yii\base\Component implements GenericRepo
     }
 
     /**
-     * @param Specification $specification
      * @return object[]
      */
     public function findAll(Specification $specification)
@@ -147,7 +145,6 @@ abstract class BaseRepository extends \yii\base\Component implements GenericRepo
     }
 
     /**
-     * @param Specification $specification
      * @return object|false
      */
     public function findOne(Specification $specification)
@@ -158,7 +155,6 @@ abstract class BaseRepository extends \yii\base\Component implements GenericRepo
     }
 
     /**
-     * @param Specification $specification
      * @throws EntityNotFoundException when entity was not found
      * @return false|object
      */
@@ -202,9 +198,6 @@ abstract class BaseRepository extends \yii\base\Component implements GenericRepo
             ->apply($specification);
     }
 
-    /**
-     * @return Query
-     */
     public function buildQuery(): Query
     {
         return yii::createObject($this->getQueryClass());
@@ -234,7 +227,6 @@ abstract class BaseRepository extends \yii\base\Component implements GenericRepo
     }
 
     /**
-     * @param array $data
      * @param object|string $object object or class name
      * @return object
      */

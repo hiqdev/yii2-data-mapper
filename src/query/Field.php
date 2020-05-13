@@ -5,7 +5,7 @@
  * @link      https://github.com/hiqdev/yii2-data-mapper
  * @package   yii2-data-mapper
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2017-2018, HiQDev (http://hiqdev.com/)
+ * @copyright Copyright (c) 2017-2020, HiQDev (http://hiqdev.com/)
  */
 
 namespace hiqdev\yii\DataMapper\query;
@@ -36,7 +36,6 @@ class Field implements FieldInterface, SQLFieldInterface, AttributedFieldInterfa
      *
      * @param string $name
      * @param string $sql
-     * @param AbstractAttribute $attribute
      */
     public function __construct($name, $sql, AbstractAttribute $attribute)
     {
@@ -50,9 +49,6 @@ class Field implements FieldInterface, SQLFieldInterface, AttributedFieldInterfa
         return true;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;

@@ -1,4 +1,12 @@
 <?php
+/**
+ * Data Mapper for Yii2
+ *
+ * @link      https://github.com/hiqdev/yii2-data-mapper
+ * @package   yii2-data-mapper
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2017-2020, HiQDev (http://hiqdev.com/)
+ */
 
 namespace hiqdev\yii\DataMapper\query\Builder;
 
@@ -25,12 +33,13 @@ final class QueryConditionBuilder implements QueryConditionBuilderInterface
         $this->builderMap = $builderMap;
     }
 
-    /** {@inheritDoc} */
+    /** {@inheritdoc} */
     public function build(FieldInterface $field, string $key, $value)
     {
         if (isset($this->builderMap[get_class($field)])) {
             $builderClassName = $this->builderMap[get_class($field)];
             $builder = $this->conditionBuilderFactory->build($builderClassName);
+
             return $builder->build($field, $key, $value);
         }
 
@@ -52,7 +61,7 @@ final class QueryConditionBuilder implements QueryConditionBuilderInterface
             return [
                 $operatorMap[$operator] ?? $operator,
                 $field->getSql(),
-                $this->ensureConditionValueIsValid($field, $operator, $value)
+                $this->ensureConditionValueIsValid($field, $operator, $value),
             ];
         }
 
@@ -67,11 +76,9 @@ final class QueryConditionBuilder implements QueryConditionBuilderInterface
     }
 
     /**
-     * @param FieldInterface $field
-     * @param string $operator
      * @param mixed $value
-     * @return mixed normalized $value
      * @throws AttributeValidationException
+     * @return mixed normalized $value
      */
     private function ensureConditionValueIsValid(FieldInterface $field, string $operator, $value)
     {
@@ -87,7 +94,6 @@ final class QueryConditionBuilder implements QueryConditionBuilderInterface
     }
 
     /**
-     * @param FieldInterface $field
      * @param string $key the search key for operator and attribute name extraction
      * @return array an array of two items: the comparison operator and the attribute name
      * @psalm-return array{0: string, 1: string} an array of two items: the comparison operator and the attribute name

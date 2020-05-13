@@ -5,7 +5,7 @@
  * @link      https://github.com/hiqdev/yii2-data-mapper
  * @package   yii2-data-mapper
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2017-2018, HiQDev (http://hiqdev.com/)
+ * @copyright Copyright (c) 2017-2020, HiQDev (http://hiqdev.com/)
  */
 
 namespace hiqdev\yii\DataMapper\query;
@@ -21,8 +21,6 @@ use yii\db\ExpressionInterface;
 interface FieldConditionBuilderInterface
 {
     /**
-     * @param string $operator
-     * @param string $attributeName
      * @param mixed $value a value for the filter
      * @return array|string|ExpressionInterface a filter-string in Yii-suitable format
      */

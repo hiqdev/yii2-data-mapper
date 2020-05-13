@@ -1,4 +1,12 @@
 <?php
+/**
+ * Data Mapper for Yii2
+ *
+ * @link      https://github.com/hiqdev/yii2-data-mapper
+ * @package   yii2-data-mapper
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2017-2020, HiQDev (http://hiqdev.com/)
+ */
 
 namespace hiqdev\yii\DataMapper\query\attributes\validators;
 
@@ -15,9 +23,6 @@ class WhereValidator extends Validator
      */
     public $targetEntityClass;
 
-    /**
-     * @var EntityManagerInterface
-     */
     private EntityManagerInterface $em;
 
     public function __construct(EntityManagerInterface $em, array $config = [])
@@ -30,7 +35,6 @@ class WhereValidator extends Validator
     /**
      * @param SearchCommand $model
      * @param string $attribute
-     * @return bool
      */
     public function validateAttribute($model, $attribute): bool
     {
@@ -95,9 +99,9 @@ class WhereValidator extends Validator
     }
 
     private int $relationNestingLimit = 3;
+
     /**
      * @psalm-param list<array{0: string, 1: class-name<ModelInterface>}> $parents
-     * @param array $parents
      */
     private function circularReferenceDetected(array $parents): bool
     {
@@ -105,7 +109,7 @@ class WhereValidator extends Validator
         $lastRelation = array_pop($parents);
         foreach ($parents as $parent) {
             if ($parent === $lastRelation) {
-                $count++;
+                ++$count;
             }
 
             if ($count === $this->relationNestingLimit) {

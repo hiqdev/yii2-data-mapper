@@ -5,7 +5,7 @@
  * @link      https://github.com/hiqdev/yii2-data-mapper
  * @package   yii2-data-mapper
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2017-2018, HiQDev (http://hiqdev.com/)
+ * @copyright Copyright (c) 2017-2020, HiQDev (http://hiqdev.com/)
  */
 
 namespace hiqdev\yii\DataMapper\query;
@@ -26,9 +26,7 @@ abstract class Query extends \yii\db\Query
      * @var string
      */
     protected $modelClass;
-    /**
-     * @var QueryBuilder
-     */
+
     protected QueryBuilder $queryBuilder;
 
     public function __construct(FieldFactoryInterface $fieldFactory, QueryBuilder $queryBuilder)
@@ -139,6 +137,7 @@ abstract class Query extends \yii\db\Query
      * @var ModelInterface|AbstractModel
      */
     private $model;
+
     /**
      * @return ModelInterface|AbstractModel
      */
@@ -154,7 +153,6 @@ abstract class Query extends \yii\db\Query
     /**
      * // TODO: move up in hierarchy.
      * @param string $name
-     * @return Join
      */
     protected function getJoinByName($name): Join
     {
@@ -185,10 +183,6 @@ abstract class Query extends \yii\db\Query
         return [];
     }
 
-    /**
-     * @param Specification $specification
-     * @return self
-     */
     public function apply(Specification $specification): self
     {
         $this->queryBuilder->apply($specification);

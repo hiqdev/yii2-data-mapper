@@ -5,7 +5,7 @@
  * @link      https://github.com/hiqdev/yii2-data-mapper
  * @package   yii2-data-mapper
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2017-2018, HiQDev (http://hiqdev.com/)
+ * @copyright Copyright (c) 2017-2020, HiQDev (http://hiqdev.com/)
  */
 
 namespace hiqdev\yii\DataMapper\hydrator;
@@ -70,7 +70,6 @@ class ConfigurableAggregateHydrator implements HydratorInterface
     /**
      * Hydrate $object with the provided $data.
      *
-     * @param  array $data
      * @param  object|string $object object or class name
      * @return object
      */
@@ -99,12 +98,11 @@ class ConfigurableAggregateHydrator implements HydratorInterface
 
     /**
      * Extract multiple objects.
-     * @param  array $array
      * @return array
      */
     public function extractAll(array $array, int $depth = 1)
     {
-        $depth--;
+        --$depth;
         $res = [];
         foreach ($array as $key => $object) {
             $res[$key] = $depth>0 ? $this->extractAll($object, $depth) : $this->extract($object);

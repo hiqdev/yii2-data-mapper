@@ -1,5 +1,14 @@
 <?php
+
 declare(strict_types=1);
+/**
+ * Data Mapper for Yii2
+ *
+ * @link      https://github.com/hiqdev/yii2-data-mapper
+ * @package   yii2-data-mapper
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2017-2020, HiQDev (http://hiqdev.com/)
+ */
 
 namespace hiqdev\yii\DataMapper\query;
 
@@ -14,13 +23,8 @@ use yii\helpers\ArrayHelper;
  */
 final class QueryBuilder
 {
-    /**
-     * @var Query|null
-     */
     private ?Query $query;
-    /**
-     * @var QueryConditionBuilderInterface
-     */
+
     private QueryConditionBuilderInterface $queryConditionBuilder;
 
     public function __construct(QueryConditionBuilderInterface $queryConditionBuilder)
@@ -68,7 +72,7 @@ final class QueryBuilder
 
         foreach ($flat = $this->flattenArray($specification->where) as $key => $value) {
             foreach ($fields as $field) {
-                if ($this->queryConditionBuilder->canApply($field, (string)$key)) {
+                if ($this->queryConditionBuilder->canApply($field, (string) $key)) {
                     $where = $this->queryConditionBuilder->build($field, $key, $value);
                     $this->query->andWhere($where);
                 }
@@ -96,11 +100,6 @@ final class QueryBuilder
      *   'type-id' => 13,
      * ]
      * ```
-     *
-     * @param array $array
-     * @param array $parents
-     * @param string $concat
-     * @return array
      */
     private function flattenArray(array $array, array $parents = [], string $concat = '-'): array
     {

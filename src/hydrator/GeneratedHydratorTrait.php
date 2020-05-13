@@ -5,7 +5,7 @@
  * @link      https://github.com/hiqdev/yii2-data-mapper
  * @package   yii2-data-mapper
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2017-2018, HiQDev (http://hiqdev.com/)
+ * @copyright Copyright (c) 2017-2020, HiQDev (http://hiqdev.com/)
  */
 
 namespace hiqdev\yii\DataMapper\hydrator;
@@ -22,7 +22,6 @@ trait GeneratedHydratorTrait
 
     /**
      * @param object $object
-     * @return HydratorInterface
      */
     protected function getGeneratedHydrator($object): HydratorInterface
     {
@@ -43,10 +42,8 @@ trait GeneratedHydratorTrait
     }
 
     /**
-     * @param string $className
-     * @param array $data
-     * @return object
      * @throws \ReflectionException
+     * @return object
      */
     public function createEmptyInstance(string $className, array $data = [])
     {

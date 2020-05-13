@@ -1,8 +1,11 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
- * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * Data Mapper for Yii2
+ *
+ * @link      https://github.com/hiqdev/yii2-data-mapper
+ * @package   yii2-data-mapper
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2017-2020, HiQDev (http://hiqdev.com/)
  */
 
 namespace hiqdev\yii\DataMapper\query;
@@ -17,7 +20,7 @@ namespace hiqdev\yii\DataMapper\query;
 trait ActiveQueryTrait
 {
     /**
-     * @var string the name of the ActiveRecord class.
+     * @var string the name of the ActiveRecord class
      */
     public $modelClass;
     /**
@@ -30,15 +33,15 @@ trait ActiveQueryTrait
      */
     public $asArray;
 
-
     /**
      * Sets the [[asArray]] property.
-     * @param bool $value whether to return the query results in terms of arrays instead of Active Records.
+     * @param bool $value whether to return the query results in terms of arrays instead of Active Records
      * @return $this the query object itself
      */
     public function asArray($value = true)
     {
         $this->asArray = $value;
+
         return $this;
     }
 
@@ -123,6 +126,7 @@ trait ActiveQueryTrait
                 $modelClass::populateRecord($model, $row);
                 $models[] = $model;
             }
+
             return $models;
         }
     }

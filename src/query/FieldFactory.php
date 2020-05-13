@@ -5,7 +5,7 @@
  * @link      https://github.com/hiqdev/yii2-data-mapper
  * @package   yii2-data-mapper
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2017-2018, HiQDev (http://hiqdev.com/)
+ * @copyright Copyright (c) 2017-2020, HiQDev (http://hiqdev.com/)
  */
 
 namespace hiqdev\yii\DataMapper\query;
@@ -49,7 +49,6 @@ class FieldFactory implements FieldFactoryInterface
      * @param ModelInterface $model
      * @param string $attributeName
      * @param string $sql
-     * @param array $parents
      * @return Field
      */
     protected function buildField($model, $attributeName, $sql, array $parents)

@@ -5,12 +5,11 @@
  * @link      https://github.com/hiqdev/yii2-data-mapper
  * @package   yii2-data-mapper
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2017-2018, HiQDev (http://hiqdev.com/)
+ * @copyright Copyright (c) 2017-2020, HiQDev (http://hiqdev.com/)
  */
 
 namespace hiqdev\yii\DataMapper\models;
 
-use hiqdev\yii\compat\yii;
 use hiqdev\yii\DataMapper\query\attributes\AbstractAttribute;
 use hiqdev\yii\DataMapper\Schema\Relation;
 use yii\base\InvalidConfigException;
@@ -54,7 +53,6 @@ abstract class AbstractModel implements ModelInterface
     /**
      * @param $name
      * @throws InvalidConfigException
-     * @return AbstractAttribute
      */
     public function getAttribute(string $name): AbstractAttribute
     {
