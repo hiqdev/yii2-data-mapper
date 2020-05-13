@@ -42,13 +42,6 @@ abstract class BaseRepository extends \yii\base\Component implements GenericRepo
         $this->em = $em;
     }
 
-    public function find(ActiveQuery $query)
-    {
-        $query->setRepository($this);
-
-        return $query;
-    }
-
     public function findByUniqueness(array $entities): array
     {
         return $this->findByIds($this->findIds($entities));
