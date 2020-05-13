@@ -59,7 +59,9 @@ abstract class BaseRepository extends \yii\base\Component implements GenericRepo
         $ids = [];
         foreach ($entities as $entity) {
             $id = $this->findId($entity);
-            $ids[$id] = $id;
+            if ($id) {
+                $ids[$id] = $id;
+            }
         }
 
         return $ids;
@@ -84,6 +86,10 @@ abstract class BaseRepository extends \yii\base\Component implements GenericRepo
      */
     public function findByIds(array $ids): array
     {
+        if (empty($ids)) {
+            return [];
+        }
+
         $spec = $this->createSpecification()->where(['id' => $ids]);
 
         return $this->findAll($spec);
