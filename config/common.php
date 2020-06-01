@@ -9,11 +9,8 @@
  */
 
 $components = [
-    'entityManager' => [
-        '__class' => \hiqdev\yii\DataMapper\components\EntityManager::class,
-    ],
     'db' => [
-        '__class' => \hiqdev\yii\DataMapper\components\Connection::class,
+        '__class' => \hiqdev\yii\DataMapper\Repository\Connection::class,
         'charset'   => 'utf8',
         'dsn'       => 'pgsql:dbname=' . $params['db.name']
                         . (!empty($params['db.host']) ? (';host=' . $params['db.host']) : '')
@@ -22,33 +19,17 @@ $components = [
         'password'  => $params['db.password'],
         'queryBuilder' => [
             'expressionBuilders' => [
-                \hiqdev\yii\DataMapper\expressions\CallExpression::class => \hiqdev\yii\DataMapper\expressions\CallExpressionBuilder::class,
-                \hiqdev\yii\DataMapper\expressions\HstoreExpression::class => \hiqdev\yii\DataMapper\expressions\HstoreExpressionBuilder::class,
+                \hiqdev\yii\DataMapper\Expression\CallExpression::class => \hiqdev\yii\DataMapper\Expression\CallExpressionBuilder::class,
+                \hiqdev\yii\DataMapper\Expression\HstoreExpression::class => \hiqdev\yii\DataMapper\Expression\HstoreExpressionBuilder::class,
             ],
         ],
     ],
 ];
 
 $singletons = [
-    \hiqdev\yii\DataMapper\query\FieldFactoryInterface::class => \hiqdev\yii\DataMapper\query\FieldFactory::class,
     \hiqdev\yii\DataMapper\components\ConnectionInterface::class => function ($container) {
         return class_exists('Yii') ? \Yii::$app->get('db') : $container->get('db');
     },
-    \hiqdev\yii\DataMapper\components\EntityManagerInterface::class => [
-        '__class' => \hiqdev\yii\DataMapper\components\EntityManager::class,
-        'repositories' => [
-        ],
-    ],
-    \Zend\Hydrator\HydratorInterface::class => \hiqdev\yii\DataMapper\hydrator\ConfigurableAggregateHydrator::class,
-    \Laminas\Hydrator\HydratorInterface::class => \hiqdev\yii\DataMapper\hydrator\ConfigurableAggregateHydrator::class,
-    \hiqdev\yii\DataMapper\hydrator\ConfigurableAggregateHydrator::class => [
-        'hydrators' => [
-            \DateTimeImmutable::class => \hiqdev\yii\DataMapper\hydrator\DateTimeImmutableHydrator::class,
-         ],
-    ],
-    \hiqdev\yii\DataMapper\query\attributes\validators\Factory\AttributeValidatorFactoryInterface::class => \hiqdev\yii\DataMapper\query\attributes\validators\AttributeValidatorFactory::class,
-    \hiqdev\yii\DataMapper\query\Builder\QueryConditionBuilderInterface::class => \hiqdev\yii\DataMapper\query\Builder\QueryConditionBuilder::class,
-    \hiqdev\yii\DataMapper\query\Builder\QueryConditionBuilderFactoryInterface::class => \hiqdev\yii\DataMapper\query\Builder\QueryConditionBuilderFactory::class,
 ];
 
 return class_exists(Yiisoft\Factory\Definitions\Reference::class)
