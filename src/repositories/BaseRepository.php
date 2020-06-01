@@ -138,9 +138,10 @@ abstract class BaseRepository extends \yii\base\Component implements GenericRepo
     }
 
     /**
+     * @param Specification
      * @return object|false
      */
-    public function findOne(Specification $specification)
+    public function findOne($specification)
     {
         $rows = $this->findAll($specification->limit(1));
 
