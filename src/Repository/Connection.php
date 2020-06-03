@@ -8,7 +8,9 @@
  * @copyright Copyright (c) 2017-2020, HiQDev (http://hiqdev.com/)
  */
 
-namespace hiqdev\yii\DataMapper\components;
+namespace hiqdev\yii\DataMapper\Repository;
+
+use hiqdev\DataMapper\Repository\ConnectionInterface;
 
 /**
  * Class Connection.

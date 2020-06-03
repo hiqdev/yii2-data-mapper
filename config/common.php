@@ -27,7 +27,7 @@ $components = [
 ];
 
 $singletons = [
-    \hiqdev\yii\DataMapper\components\ConnectionInterface::class => function ($container) {
+    \hiqdev\DataMapper\Repository\ConnectionInterface::class => function ($container) {
         return class_exists('Yii') ? \Yii::$app->get('db') : $container->get('db');
     },
 ];

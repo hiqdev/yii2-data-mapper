@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2017-2020, HiQDev (http://hiqdev.com/)
  */
 
-namespace hiqdev\yii\DataMapper\expressions;
+namespace hiqdev\yii\DataMapper\Expression;
 
 use yii\db\ExpressionInterface;
 
