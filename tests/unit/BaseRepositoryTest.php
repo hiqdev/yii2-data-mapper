@@ -10,7 +10,7 @@
 
 namespace hiqdev\yii\DataMapper\tests\unit;
 
-use hiqdev\yii\DataMapper\Repository\EntityManagerInterface;
+use hiqdev\DataMapper\Repository\EntityManagerInterface;
 
 abstract class BaseRepositoryTest extends \PHPUnit\Framework\TestCase
 {
