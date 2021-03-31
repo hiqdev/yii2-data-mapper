@@ -8,6 +8,8 @@
  * @copyright Copyright (c) 2017-2020, HiQDev (http://hiqdev.com/)
  */
 
+/** @var $params array */
+
 $components = [
     'db' => [
         '__class' => \hiqdev\yii\DataMapper\Repository\Connection::class,
@@ -17,19 +19,22 @@ $components = [
                         . (!empty($params['db.port']) ? (';port=' . $params['db.port']) : ''),
         'username'  => $params['db.user'],
         'password'  => $params['db.password'],
-        'queryBuilder' => [
-            'expressionBuilders' => [
-                \hiqdev\yii\DataMapper\Expression\CallExpression::class => \hiqdev\yii\DataMapper\Expression\CallExpressionBuilder::class,
-                \hiqdev\yii\DataMapper\Expression\HstoreExpression::class => \hiqdev\yii\DataMapper\Expression\HstoreExpressionBuilder::class,
-            ],
-        ],
     ],
 ];
 
 $singletons = [
-    \hiqdev\DataMapper\Repository\ConnectionInterface::class => function ($container) {
+    \hiqdev\DataMapper\Repository\ConnectionInterface::class => static function ($container) {
         return class_exists('Yii') ? \Yii::$app->get('db') : $container->get('db');
     },
+    yii\db\pgsql\Schema::class => static function ($_container, array $params, array $config) {
+        $schema = new yii\db\pgsql\Schema($config);
+        $schema->getQueryBuilder()->setExpressionBuilders([
+            \hiqdev\yii\DataMapper\Expression\CallExpression::class => \hiqdev\yii\DataMapper\Expression\CallExpressionBuilder::class,
+            \hiqdev\yii\DataMapper\Expression\HstoreExpression::class => \hiqdev\yii\DataMapper\Expression\HstoreExpressionBuilder::class,
+        ]);
+
+        return $schema;
+    }
 ];
 
 return class_exists(Yiisoft\Factory\Definitions\Reference::class)
