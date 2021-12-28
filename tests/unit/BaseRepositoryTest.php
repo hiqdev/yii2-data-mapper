@@ -14,6 +14,12 @@ use hiqdev\DataMapper\Repository\EntityManagerInterface;
 
 abstract class BaseRepositoryTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @template T of \hiqdev\DataMapper\Repository\BaseRepository
+     * @psalm-param class-string<T> $entityClass
+     * @return T
+     * @throws \Exception
+     */
     protected function getRepository(string $entityClass)
     {
         return $this->getEntityManager()->getRepository($entityClass);
