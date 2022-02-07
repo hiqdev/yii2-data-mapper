@@ -44,8 +44,8 @@
         }
     ],
     "require": {
-        "hiqdev/php-data-mapper": "dev-master",
-        "ocramius/generated-hydrator": "^3.0.0"
+        "hiqdev/php-data-mapper": "dev-php8",
+        "ocramius/generated-hydrator": "^4.3.0"
     },
     "require-dev": {
         "hiqdev/hidev": "dev-master",
