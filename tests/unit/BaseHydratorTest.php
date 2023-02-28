@@ -10,7 +10,7 @@
 
 namespace hiqdev\yii\DataMapper\tests\unit;
 
-use Zend\Hydrator\HydratorInterface;
+use Laminas\Hydrator\HydratorInterface;
 
 abstract class BaseHydratorTest extends \PHPUnit\Framework\TestCase
 {
