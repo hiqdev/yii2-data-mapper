@@ -11,8 +11,10 @@
 namespace hiqdev\yii\DataMapper\tests\unit;
 
 use Laminas\Hydrator\HydratorInterface;
+use PHPUnit\Framework\TestCase;
+use yii\helpers\Yii;
 
-abstract class BaseHydratorTest extends \PHPUnit\Framework\TestCase
+abstract class BaseHydratorTestCase extends TestCase
 {
     protected function getHydrator(): HydratorInterface
     {
@@ -21,6 +23,6 @@ abstract class BaseHydratorTest extends \PHPUnit\Framework\TestCase
 
     protected function getContainer()
     {
-        return class_exists('Yii') ? \Yii::$container : \yii\helpers\Yii::getContainer();
+        return class_exists('Yii') ? \Yii::$container : Yii::getContainer();
     }
 }

@@ -10,15 +10,19 @@
 
 namespace hiqdev\yii\DataMapper\tests\unit;
 
+use Exception;
+use hiqdev\DataMapper\Repository\BaseRepository;
 use hiqdev\DataMapper\Repository\EntityManagerInterface;
+use PHPUnit\Framework\TestCase;
+use yii\helpers\Yii;
 
-abstract class BaseRepositoryTest extends \PHPUnit\Framework\TestCase
+abstract class BaseRepositoryTestCase extends TestCase
 {
     /**
-     * @template T of \hiqdev\DataMapper\Repository\BaseRepository
+     * @template T of BaseRepository
      * @psalm-param class-string<T> $entityClass
      * @return T
-     * @throws \Exception
+     * @throws Exception
      */
     protected function getRepository(string $entityClass)
     {
@@ -32,6 +36,6 @@ abstract class BaseRepositoryTest extends \PHPUnit\Framework\TestCase
 
     protected function getContainer()
     {
-        return class_exists('Yii') ? \Yii::$container : \yii\helpers\Yii::getContainer();
+        return class_exists('Yii') ? \Yii::$container : Yii::getContainer();
     }
 }
