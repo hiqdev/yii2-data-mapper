@@ -12,7 +12,7 @@ namespace hiqdev\yii\DataMapper\tests\unit;
 
 use Laminas\Hydrator\HydratorInterface;
 
-abstract class BaseHydratorTest extends \PHPUnit\Framework\TestCase
+abstract class BaseHydratorTestCase extends \PHPUnit\Framework\TestCase
 {
     protected function getHydrator(): HydratorInterface
     {
