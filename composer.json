@@ -45,7 +45,7 @@
     ],
     "require": {
         "hiqdev/php-data-mapper": "dev-master",
-        "ocramius/generated-hydrator": "^4.6.0"
+        "hiqdev/generated-hydrator": "dev-master"
     },
     "require-dev": {
         "hiqdev/hidev": "dev-master",
@@ -73,6 +73,10 @@
         {
             "type": "composer",
             "url": "https://asset-packagist.org"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/hiqdev/GeneratedHydrator"
         }
     ]
 }
