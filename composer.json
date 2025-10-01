@@ -45,7 +45,7 @@
     ],
     "require": {
         "hiqdev/php-data-mapper": "dev-master",
-        "hiqdev/generated-hydrator": "dev-master"
+        "hiqdev/generated-hydrator": "^4.7.0"
     },
     "require-dev": {
         "hiqdev/hidev": "dev-master",
