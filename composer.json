@@ -73,10 +73,6 @@
         {
             "type": "composer",
             "url": "https://asset-packagist.org"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/hiqdev/GeneratedHydrator"
         }
     ]
 }
