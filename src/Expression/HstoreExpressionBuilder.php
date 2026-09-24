@@ -10,6 +10,7 @@
 
 namespace hiqdev\yii\DataMapper\Expression;
 
+use yii\base\InvalidArgumentException;
 use yii\db\ArrayExpression;
 use yii\db\ExpressionBuilderInterface;
 use yii\db\ExpressionBuilderTrait;
@@ -28,8 +29,13 @@ class HstoreExpressionBuilder implements ExpressionBuilderInterface
      * {@inheritdoc}
      * @param HstoreExpression|ExpressionInterface $expression the expression to be built
      */
+    #[\Override]
     public function build(ExpressionInterface $expression, array &$params = [])
     {
+        if (!$expression instanceof HstoreExpression) {
+            throw new InvalidArgumentException('Expected ' . HstoreExpression::class . ', got ' . get_class($expression));
+        }
+
         $array = [];
         foreach ($expression->getHash() as $key => $value) {
             $array[] = $key;

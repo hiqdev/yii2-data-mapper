@@ -21,7 +21,7 @@ use yii\db\ExpressionInterface;
 class CallExpression implements ExpressionInterface
 {
     /**
-     * @var array|string
+     * @var string
      */
     private $procedureName;
     /**
@@ -29,9 +29,6 @@ class CallExpression implements ExpressionInterface
      */
     private $arguments;
 
-    /**
-     * @return array|string
-     */
     public function getProcedureName(): string
     {
         return $this->procedureName;
@@ -46,13 +43,15 @@ class CallExpression implements ExpressionInterface
      * CallExpression constructor.
      *
      * @param string $procedureName
-     * @param array $arguments
+     * @param mixed $arguments array or Traversable of function arguments, or a single argument
      */
     public function __construct($procedureName, $arguments = [])
     {
         $this->procedureName = $procedureName;
 
-        if (!is_array($arguments) && !$arguments instanceof \Traversable) {
+        if ($arguments instanceof \Traversable) {
+            $arguments = iterator_to_array($arguments, false);
+        } elseif (!is_array($arguments)) {
             $arguments = [$arguments];
         }
         $this->arguments = $arguments;

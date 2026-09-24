@@ -50,12 +50,23 @@
     "require-dev": {
         "hiqdev/hidev": "dev-master",
         "hiqdev/hidev-php": "dev-master",
-        "hiqdev/hidev-hiqdev": "dev-master"
+        "hiqdev/hidev-hiqdev": "dev-master",
+        "vimeo/psalm": "^6.0",
+        "opis/closure": "3.x-dev as 3.6.x-dev"
     },
     "autoload": {
         "psr-4": {
             "hiqdev\\yii\\DataMapper\\": "src",
             "hiqdev\\yii\\DataMapper\\tests\\": "tests"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "yiisoft/yii2-composer": true,
+            "hiqdev/composer-config-plugin": true,
+            "yiisoft/composer-config-plugin": true,
+            "php-http/discovery": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
         }
     },
     "extra": {
