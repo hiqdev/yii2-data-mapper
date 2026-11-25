@@ -8,6 +8,8 @@ on:
 
 jobs:
   psalm:
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -16,6 +18,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Install PHP
         uses: shivammathur/setup-php@v2
@@ -23,15 +27,18 @@ jobs:
           php-version: ${{ matrix.php }}
           tools: composer:v2
 
-      - name: Cache Composer packages
+      - name: Get Composer cache dir
         id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache Composer downloads
         uses: actions/cache@v4
         with:
-          path: vendor
+          path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
+          restore-keys: ${{ matrix.php }}-composer-
 
       - name: Composer install
-        if: steps.composer-cache.outputs.cache-hit != 'true'
         run: composer install -n
 
       - name: Run Psalm
