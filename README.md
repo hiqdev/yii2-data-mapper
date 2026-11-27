@@ -4,7 +4,6 @@
 
 [![Latest Stable Version](https://poser.pugx.org/hiqdev/yii2-data-mapper/v/stable)](https://packagist.org/packages/hiqdev/yii2-data-mapper)
 [![Total Downloads](https://poser.pugx.org/hiqdev/yii2-data-mapper/downloads)](https://packagist.org/packages/hiqdev/yii2-data-mapper)
-[![Build Status](https://img.shields.io/travis/hiqdev/yii2-data-mapper.svg)](https://travis-ci.org/hiqdev/yii2-data-mapper)
 [![Scrutinizer Code Coverage](https://img.shields.io/scrutinizer/coverage/g/hiqdev/yii2-data-mapper.svg)](https://scrutinizer-ci.com/g/hiqdev/yii2-data-mapper/)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/hiqdev/yii2-data-mapper.svg)](https://scrutinizer-ci.com/g/hiqdev/yii2-data-mapper/)
 [![Dependency Status](https://www.versioneye.com/php/hiqdev:yii2-data-mapper/dev-master/badge.svg)](https://www.versioneye.com/php/hiqdev:yii2-data-mapper/dev-master)
