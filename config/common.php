@@ -8,6 +8,8 @@
  * @copyright Copyright (c) 2017-2020, HiQDev (http://hiqdev.com/)
  */
 
+/** @var array{'db.name': string, 'db.host': string, 'db.port': string, 'db.user': string, 'db.password': string, ...} $params */
+
 $components = [
     'db' => [
         '__class' => \hiqdev\yii\DataMapper\Repository\Connection::class,

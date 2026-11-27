@@ -10,6 +10,7 @@
 
 namespace hiqdev\yii\DataMapper\Expression;
 
+use yii\base\InvalidArgumentException;
 use yii\db\ExpressionBuilderInterface;
 use yii\db\ExpressionBuilderTrait;
 use yii\db\ExpressionInterface;
@@ -27,8 +28,13 @@ class CallExpressionBuilder implements ExpressionBuilderInterface
      * {@inheritdoc}
      * @param CallExpression|ExpressionInterface $expression the expression to be built
      */
+    #[\Override]
     public function build(ExpressionInterface $expression, array &$params = [])
     {
+        if (!$expression instanceof CallExpression) {
+            throw new InvalidArgumentException('Expected ' . CallExpression::class . ', got ' . get_class($expression));
+        }
+
         $args = $expression->getArguments();
 
         $placeholders = [];

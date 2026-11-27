@@ -16,6 +16,8 @@ use hiqdev\DataMapper\Repository\ConnectionInterface;
  * Class Connection.
  *
  * @author Andrii Vasyliev <sol@hiqdev.com>
+ *
+ * @extends \yii\db\Connection<\yii\db\Schema, \yii\db\QueryBuilder>
  */
 class Connection extends \yii\db\Connection implements ConnectionInterface
 {
