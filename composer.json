@@ -51,7 +51,7 @@
         "hiqdev/hidev": "dev-master",
         "hiqdev/hidev-php": "dev-master",
         "hiqdev/hidev-hiqdev": "dev-master",
-        "vimeo/psalm": "^6.0",
+        "vimeo/psalm": "^6.14",
         "opis/closure": "3.x-dev as 3.6.x-dev"
     },
     "autoload": {
